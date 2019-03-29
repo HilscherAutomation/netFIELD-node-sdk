@@ -1,1 +1,1 @@
-# netFIELD-sdk-node
+# netFIELD-node-SDK
