@@ -29,9 +29,9 @@ edgePortal.setConfiguration({
  ```js
 edgePortal.setConfiguration({
     version: '1.0.0',
-    schema: 'http', // http or https
-    host: 'edge-portal-api-dev.azurewebsites.net',
-    post: 80,
+    schema: 'https', // http or https
+    host: 'api.netfield.io',
+    post: 443,
     headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
