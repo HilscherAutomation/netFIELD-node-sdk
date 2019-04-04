@@ -1,5 +1,7 @@
 # netFIELD-node-SDK
 
+[![license][license-shields]][LICENSE]
+
 *netFIELD Node SDK (node.js version >=0.6.x) and Node samples for REST API.*
 
 ## Installation
@@ -1657,3 +1659,6 @@ let error = {
 
 ## License
 > See LICENSE file in project.
+
+[LICENSE]: ./LICENSE
+[license-shields]: https://img.shields.io/github/license/HilscherAutomation/netFIELD-node-SDK.svg
