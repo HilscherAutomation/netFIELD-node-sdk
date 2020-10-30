@@ -3,9 +3,9 @@
  * See LICENSE file
 **********************************************************************/
 
-const edgeSDK = require('..');
+const edgeSDK = require('../src/index');
 const _get = require('lodash').get;
-jest.mock('../lib/client.js');
+jest.mock('../src/client.js');
 
 const suggestValid = {
     organisationId: 1,
@@ -17,19 +17,14 @@ const suggestValidTwo = {
 };
 
 const calls = [
-    ["devices.snapshots.delete", ["valid", "valid"]],
-    ["devices.snapshots.get", ["valid", "valid"]],
     ["devices.customFields.delete", ["valid", "valid"]],
     ["devices.notifications.delete", ["valid", "valid"]],
-    ["devices.deleteTopologyLayout", ["valid", "valid"]],
     ["devices.customFields.get", ["valid", "valid"]],
-    ["devices.topologyLayout", ["valid", "valid"]],
     ["devices.create", [{}]],
     ["devices.onBoard", [{}]],
     ["devices.notifications.deleteAll", ["valid"]],
     ["devices.delete", ["valid"]],
     ["devices.get", ["valid"]],
-    ["devices.network", ["valid"]],
     ["devices.offBoard", ["valid"]],
     ["devices.create", [{}]],
     ["devices.getAll", [1]],
@@ -43,23 +38,6 @@ const calls = [
     ["devices.onBoard", [{}]],
     ["devices.customFields.create", ["w", {}]],
     ["devices.customFields.update", ["v", "v", {}]],
-    ["devices.snapshots.getAll", ["w"]],
-    ["devices.snapshots.getAll", ["w", 1]],
-    ["devices.snapshots.getAll", ["w", 1, 1]],
-    ["devices.snapshots.getAll", ["w", 1, 1, "w"]],
-    ["devices.snapshots.getAll", ["w", 1, 1, "w", "w"]],
-    ["devices.snapshots.upload", ["v", {}]],
-    ["devices.telemetry.get", ["v", 1]],
-    ["devices.telemetry.get", ["v", undefined]],
-    ["devices.topology", ["v", 1]],
-    ["devices.topology", ["v", undefined]],
-    ["devices.createTopologyLayout", ["w", {}]],
-    ["devices.topologyLayouts", ["w"]],
-    ["devices.topologyLayouts", ["w", 1]],
-    ["devices.topologyLayouts", ["w", 1, 1]],
-    ["devices.topologyLayouts", ["w", 1, 1, "w"]],
-    ["devices.topologyLayouts", ["w", 1, 1, "w", "w"]],
-    ["devices.updateTopologyLayout", ["v", "v", {}]],
     ["devices.notifications.create", ["v", {}]],
     ["devices.notifications.getAll", ["w"]],
     ["devices.notifications.getAll", ["w", 1,]],
@@ -71,25 +49,42 @@ const calls = [
     ["devices.customFields.getAll", ["w", 1, 1]],
     ["devices.customFields.getAll", ["w", 1, 1, "w"]],
     ["devices.customFields.getAll", ["w", 1, 1, "w", "w"]],
-    ["devices.getOpcUa", ["v"]],
-    ["devices.getOpcUa", ["v", "v"]],
-    ["devices.getOpcUa", ["v", "v", 1]],
-    ["devices.getOpcUa", ["v", "v", 1, 1]],
+    ["devices.containers.routes.create", ["v", {}]],
+    ["devices.containers.routes.update", ["v", "v", {}]],
+    ["devices.containers.routes.getAll", ["valid"]],
+    ["devices.containers.routes.delete", ["valid", "valid"]],
+    ["devices.containers.getAll", ["valid"]],
+    ["devices.containers.getAll", ["w", 1]],
+    ["devices.containers.getAll", ["w", 1, 1]],
+    ["devices.containers.getAll", ["w", 1, 1, "w"]],
+    ["devices.containers.getAll", ["w", 1, 1, "w", "w"]],
+    ["devices.containers.get", ["valid", "valid"]],
+    ["devices.containers.getInstalled", ["valid"]],
+    ["devices.containers.getInstalled", ["w", 1]],
+    ["devices.containers.getInstalled", ["w", 1, 1]],
+    ["devices.containers.getInstalled", ["w", 1, 1, "w"]],
+    ["devices.containers.getInstalled", ["w", 1, 1, "w", "w"]],
+    ["devices.containers.getDeployable", ["valid"]],
+    ["devices.containers.getDeployable", ["w", 1]],
+    ["devices.containers.getDeployable", ["w", 1, 1]],
+    ["devices.containers.getDeployable", ["w", 1, 1, "w"]],
+    ["devices.containers.getDeployable", ["w", 1, 1, "w", "w"]],
+    ["devices.containers.delete", ["valid", "valid"]],
+    ["devices.containers.create", ["valid", "valid", {}]],
+    ["devices.containers.update", ["valid", "valid", {}]],
+    ["devices.containers.properties", ["valid", "valid"]],
+    ["devices.remote.create", ["valid", {}]],
+    ["devices.remote.status", ["valid"]],
+    ["devices.remote.credentials", ["valid"]],
 
-    ["modules.deleteDeviceModule", ["valid", "valid"]],
-    ["modules.routes.delete", ["valid", "valid"]],
-    ["modules.properties", ["valid", "valid"]],
-    ["modules.create", [{}]],
-    ["modules.delete", ["valid"]],
-    ["modules.deviceModules", ["valid"]],
-    ["modules.get", ["valid"]],
-    ["modules.routes.get", ["valid"]],
-    ["modules.createDeviceModule", ["v", "v", {}]],
-    ["modules.update", ["v", "v", {}]],
-    ["modules.update", ["v", undefined, {}]],
-    ["modules.routes.create", ["v", {}]],
-    ["modules.routes.update", ["v", "v", {}]],
-
+    ["containers.create", [{}]],
+    ["containers.delete", ["valid"]],
+    ["containers.get", ["valid"]],
+    ["containers.update", ["v", {}]],
+    ["containers.update", ["v", {}]],
+    ["containers.getAll", []],
+    ["containers.share", ["v", [1]]],
+    ["containers.unshare", ["v", 1]],
 
     ["users.createself", [{}]],
     ["users.create", [{}]],
@@ -133,6 +128,17 @@ const calls = [
     ["organisation.create", [1, {}]],
     ["organisation.delete", [1]],
 
+    ["organisation.manifest.createContainer", [1, "v", {}]],
+    ["organisation.manifest.createRoute", [1, {}]],
+    ["organisation.manifest.getContainers", [1]],
+    ["organisation.manifest.getRoutes", [1]],
+    ["organisation.manifest.deleteContainer", [1, "name"]],
+    ["organisation.manifest.deleteRoute", [1, "name"]],
+    ["organisation.manifest.updateContainer", [1, "w", {}]],
+    ["organisation.manifest.updateRoute", [1, "w", {}]],
+    ["organisation.manifest.getContainer", [1, "w"]],
+    ["organisation.manifest.getRoute", [1, "name"]],
+
     ["roles.create", [1, {}]],
     ["roles.get", [1, "v"]],
     ["roles.update", [1, "v", {}]],
@@ -143,14 +149,42 @@ const calls = [
     ["roles.getAll", [1, 1, 1, "name", "asc"]],
     ["roles.delete", [1, "v"]],
 
+    ["search.devices", ["v"]],
+    ["search.devices", ["v", "v"]],
+    ["search.devices", ["v", ["v"]]],
+    ["search.devices", ["v", "v", "fuzzy"]],
+    ["search.devices", ["v", "v", "fuzzy", 1]],
+    ["search.devices", ["v", "v", "fuzzy", 1, 1]],
+    ["search.containers", ["v"]],
+    ["search.containers", ["v", "v"]],
+    ["search.containers", ["v", ["v"]]],
+    ["search.containers", ["v", "v", "fuzzy"]],
+    ["search.containers", ["v", "v", "fuzzy", 1]],
+    ["search.containers", ["v", "v", "fuzzy", 1, 1]],
+    ["search.users", ["v"]],
+    ["search.users", ["v", "v"]],
+    ["search.users", ["v", ["v"]]],
+    ["search.users", ["v", "v", "fuzzy"]],
+    ["search.users", ["v", "v", "fuzzy", 1]],
+    ["search.users", ["v", "v", "fuzzy", 1, 1]],
+    ["search.organisations", ["v"]],
+    ["search.organisations", ["v", "v"]],
+    ["search.organisations", ["v", ["v"]]],
+    ["search.organisations", ["v", "v", "fuzzy"]],
+    ["search.organisations", ["v", "v", "fuzzy", 1]],
+    ["search.organisations", ["v", "v", "fuzzy", 1, 1]],
+
     ["permissions.devices", [["v", "v"]]],
-    ["permissions.modules", [["v", "v"]]],
+    ["permissions.containers", [["v", "v"]]],
     ["permissions.organisations", [[1, 1, 1]]],
     ["permissions.users", [[1, 1, 1]]],
     ["permissions.roles", [{}]],
     ["permissions.tenants", [[1, 1, 1]]],
     ["permissions.keys", [["v", "v"]]],
     ["permissions.edgeos", [["v", "v"]]],
+    ["permissions.permissions", ["v"]],
+    ["permissions.webhooks", [["v", "v"]]],
+    ["permissions.groups", [[1, 1, 1]]],
 
     ["edgeos.getAll", [1]],
     ["edgeos.getAll", [1, 1]],
@@ -171,13 +205,28 @@ const calls = [
     ["tenants.getAll", [1, 1, "v"]],
     ["tenants.getAll", [1, 1, "v", "v"]],
     ["tenants.delete", [1]],
+
+    ["webhooks.create", [{}]],
+    ["webhooks.delete", ["valid"]],
+    ["webhooks.get", ["valid"]],
+    ["webhooks.update", ["v", {}]],
+    ["webhooks.update", ["v", {}]],
+    ["webhooks.getAll", [1]],
+
+    ["groups.get", [1, 1]],
+    ["groups.get", [1]],
+    ["groups.update", [1, {}]],
+    ["groups.create", [1, {}]],
+    ["groups.delete", [1]],
+    ["groups.addDevice", [1, "v"]],
+    ["groups.removeDevice", [1, "v"]],
 ];
 
 describe("Correct Input Suite", function () {
     test.each(calls)(
         'sdk.%s with input %s works with promises',
         async (functionPath, validSignature) => {
-            expect.assertions(1)
+            expect.assertions(1);
             const sdkFunction = _get(edgeSDK, functionPath);
             const result = await sdkFunction(...validSignature);
             expect(typeof result).toBe('object');
@@ -187,7 +236,7 @@ describe("Correct Input Suite", function () {
     test.each(calls)(
         'sdk.%s with input %s works with callbacks',
         async (functionPath, validSignature) => {
-            const callback = jest.fn()
+            const callback = jest.fn();
             const sdkFunction = _get(edgeSDK, functionPath);
             sdkFunction(...validSignature, callback);
             expect(callback).toBeCalled();

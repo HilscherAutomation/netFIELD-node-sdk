@@ -4,18 +4,18 @@
 **********************************************************************/
 "use strict";
 
-let api = require('../lib/api');
+let edgeSDK = require('../src/index');
 
 describe('Configuration Test Suite: SDK...', function () {
     it('throws an error when configured with incorrect parameter types', function (done) {
-        function fn() { api.setConfiguration("We usally need an object here"); }
+        function fn() { edgeSDK.setConfiguration("We usually need an object here"); }
         expect
         expect(fn).toThrow();
         done();
     });
 
     it('throws an error when configured with missing parameters', function (done) {
-        function fn() { api.setConfiguration(); }
+        function fn() { edgeSDK.setConfiguration(); }
         expect(fn).toThrow();
         done();
     });
@@ -29,9 +29,9 @@ describe('Configuration Test Suite: SDK...', function () {
             clientPassword: password,
             custom: customParameter,
         }
-        api.setConfiguration(options);
+        edgeSDK.setConfiguration(options);
 
-        var configured = api.getConfiguration();
+        var configured = edgeSDK.getConfiguration();
         expect(configured.clientId).toEqual(id);
         expect(configured.clientPassword).toEqual(password);
         expect(configured.custom).toEqual(customParameter);
@@ -39,9 +39,9 @@ describe('Configuration Test Suite: SDK...', function () {
     });
 
     it('returns configuration object', function (done) {
-        api.setConfiguration({ clientId: 'test', clientPassword: 'test' });
+        edgeSDK.setConfiguration({ clientId: 'test', clientPassword: 'test' });
 
-        var config = api.getConfiguration();
+        var config = edgeSDK.getConfiguration();
         expect(typeof config).toBe('object');
         expect(config).toHaveProperty('clientId');
         expect(config).toHaveProperty('clientPassword');
@@ -52,10 +52,10 @@ describe('Configuration Test Suite: SDK...', function () {
 
     it('does not throw an "unconfigured" error after adding attributes after initial configuration', function(done) {
         var customValue = "custom attribute";
-        function fn() { api.setConfiguration({ my: customValue }); }
+        function fn() { edgeSDK.setConfiguration({ my: customValue }); }
         expect(fn).not.toThrow();
 
-        var newConfig = api.getConfiguration();
+        var newConfig = edgeSDK.getConfiguration();
         expect(newConfig.my).not.toBe('undefined');
         expect(newConfig.my).toEqual(customValue)
         done();
