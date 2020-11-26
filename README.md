@@ -83,34 +83,34 @@ netField.auth.auth(params)
 
 ## Resources
 
-1. [Auth](./docs/auth)
+1. [Auth](./docs/auth.md)
 
 2. Device
-    * [Main](./docs/devices/devices)
-    * [Containers](./docs/devices/containers)
-    * [Containers Routes](./docs/devices/routes)
-    * [Notifications](./docs/devices/notifications)
-    * [Remote](./docs/devices/remote)
+    * [Main](./docs/devices/devices.md)
+    * [Containers](./docs/devices/containers.md)
+    * [Containers Routes](./docs/devices/routes.md)
+    * [Notifications](./docs/devices/notifications.md)
+    * [Remote](./docs/devices/remote.md)
 
-3. [Containers](./docs/containers)
+3. [Containers](./docs/containers.md)
 
 4. Organisation
-    * [Main](./docs/organisations/organisations)
-    * [Manifest](./docs/organisations/manifests)
+    * [Main](./docs/organisations/organisations.md)
+    * [Manifest](./docs/organisations/manifests.md)
 
-5. [Tenants](./docs/tenants)
+5. [Tenants](./docs/tenants.md)
 
-6. [Users](./docs/users)
+6. [Users](./docs/users.md)
 
-7. [Permissions](./docs/permissions)
+7. [Permissions](./docs/permissions.md)
 
-8. [Roles](./docs/roles)
+8. [Roles](./docs/roles.md)
 
-9. [EdgeOs](./docs/edgeos)
+9. [EdgeOs](./docs/edgeos.md)
 
-10. [Keys](./docs/keys)
+10. [Keys](./docs/keys.md)
 
-11. [Webhooks](./docs/webhooks)
+11. [Webhooks](./docs/webhooks.md)
 
 
 ## Tests
