@@ -13,9 +13,16 @@
 
 4. [netField.groups.delete(groupId, [callback])](#deletegroup)
 
-3. [netField.groups.addDevice(groupId, deviceId, [callback])](#adddevicetogroup)
+5. [netField.groups.getGroupItems(groupId, page, limit, sortBy, sortOrded, [callback])](#getgroupitems)
 
-4. [netField.groups.removeDevice(groupId, deviceId, [callback])](#removedevicefromgroup)
+6. [netField.groups.addDevice(groupId, deviceId, [callback])](#adddevicetogroup)
+
+7. [netField.groups.removeDevice(groupId, deviceId, [callback])](#removedevicefromgroup)
+
+8. [netField.groups.addContainer(groupId, containerId, [callback])](#addcontainertogroup)
+
+9. [netField.groups.removeContainer(groupId, containerId, [callback])](#removecontainerfromgroup)
+
 
 ## Resource Usage
 
@@ -70,6 +77,22 @@ netField.groups.create(groupId, params, [callback])
 netField.groups.delete(groupId, [callback])
 ```
 
+### getgroupitems
+
+    Get group items by groupId
+
+```javascript
+/**
+ * @param {number} groupId
+ * @param {number} page
+ * @param {number} limit
+ * @param {String} sortBy attribute from user object
+ * @param {String} sortOrder asc, desc
+ * @param {function} callback optional
+ */
+netfield.groups.getGroupItems(groupId, page, limit, sortBy, sortOrder, callback)
+```
+
 ### adddevicetogroup
 
     Add a device to a group
@@ -94,4 +117,30 @@ netField.groups.addDevice(groupId, deviceId, [callback])
  * @param {function} callback optional
 */
 netField.groups.removeDevice(groupId, deviceId, [callback])
+```
+
+### addcontainertogroup
+
+    Add a container to a group
+
+```javascript
+/**
+ * @param {number} groupId
+ * @param {string} containerId
+ * @param {function} callback optional
+*/
+netField.groups.addContainer(groupId, containerId, [callback])
+```
+
+### removecontainerfromgroup
+
+    Remove a container from group
+
+```javascript
+/**
+ * @param {number} groupId
+ * @param {string} containerId
+ * @param {function} callback optional
+*/
+netField.groups.removeContainer(groupId, containerId, [callback])
 ```

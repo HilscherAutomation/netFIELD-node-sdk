@@ -16,13 +16,17 @@ var checkers = require('../../../utils/checkers');
  * @param {object} options
  * @param {function} callback optional
  */
-module.exports = function (organisationId, containerId, params, callback) {
+module.exports = function (organisationId, containerId, params, options, callback) {
   try {
-    validate.validateObject(params);
+    if (checkers.isFunction(options)) {
+      callback = options;
+      options = {};
+    }
     validate.validateNumber(organisationId);
     validate.validateString(containerId);
+    validate.validateFormData(params);
     let path = `/organisations/${organisationId}/deployment-manifests/containers/${containerId}`;
-    return client.put('auth', path, params, callback);
+    return client.sendForm('auth', path, params, 'PUT', options, callback);
   } catch (e) {
     if (callback) {
       return callback(e, null);

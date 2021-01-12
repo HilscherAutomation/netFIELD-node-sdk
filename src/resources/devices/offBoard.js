@@ -17,7 +17,7 @@ module.exports = function (deviceId, callback) {
   try {
     validate.validateString(deviceId);
     var path = '/devices/offboard';
-    return client.put('key', path, { deviceId }, callback);
+    return client.put('auth', path, { deviceId }, callback);
   } catch (e) {
     if (callback) {
       return callback(e, null);

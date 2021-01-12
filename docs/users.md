@@ -27,6 +27,14 @@
 
 11. [netField.users.profile.update(params, [callback])](#updateprofile)
 
+12. [netField.users.sensoredge.create(params, [callback])](#createtempuser)
+
+13. [netField.users.sensoredge.completeRegistration(params, [callback])](#completeregistration)
+
+14. [netField.users.sensoredge.verify(params, [callback])](#verifytempuser)
+
+15. [netField.users.sensoredge.getverifytempuser(email, [callback])](#getverifytempuser)
+
 ## Resource Usage
 
 ### createuser
@@ -160,4 +168,52 @@ netField.users.profile.get([callback])
  * @param {function} callback optional
 */
 netField.users.profile.update(params, [callback])
+```
+
+### createtempuser
+
+    Create new tempUser
+
+```javascript
+/**
+ * @param {object} params
+ * @param {function} callback optional
+*/
+netField.users.sensoredge.create(params, [callback])
+```
+
+### completeregistration
+
+    Generate sensor edge registration access token
+
+```javascript
+/**
+ * @param {object} params
+ * @param {function} callback optional
+*/
+netField.users.sensoredge.completeRegistration(params, [callback])
+```
+
+### verifytempuser
+
+    Verify a user by the code sent through email
+
+```javascript
+/**
+ * @param {object} params
+ * @param {function} callback optional
+*/
+netField.users.sensoredge.verify(params, [callback])
+```
+
+### getverifytempuser
+
+    Resend tempUser verification code to email
+
+```javascript
+/**
+ * @param {string} email
+ * @param {function} callback optional
+*/
+netField.users.sensoredge.getverifytempuser(email, [callback])
 ```

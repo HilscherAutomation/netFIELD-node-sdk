@@ -17,6 +17,8 @@
 
 6. [netField.keys.getkeypermissions([callback])](#getkeypermissions)
 
+7. [netField.keys.createsensoredgekey([callback])](#createsensoredgekey)
+
 ## Resource Usage
 
 ### createkey
@@ -93,4 +95,16 @@ netField.keys.updatekey(keyId, params, [callback])
  * @param {function} callback optional
 */
 netField.keys.getkeypermissions([callback])
+```
+
+### createsensoredgekey
+
+    Create a key for SensorEdge tenant
+
+```javascript
+/**
+ * @param {object} params
+ * @param {function} callback optional
+*/
+netField.keys.createsensoredgekey(params, [callback])
 ```

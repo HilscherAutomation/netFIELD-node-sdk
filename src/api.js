@@ -16,27 +16,6 @@ var validate = require('./utils/validate');
  ************************/
 
 /**
-* Creates an access token for use in the 'Authorization' header for public resources.
-* clientId and clientPassword are taken from the configuration. This means this function
-* can only be called after the initial setConfiguration call.
-*/
-var createAccessToken = exports.createAccessToken = function createAccessToken() {
-    var clientId = configuration.default_options.clientId;
-    var clientPassword = configuration.default_options.clientPassword;
-    if (!clientId || !clientPassword) {
-        throw new Error(errors.mustSetConfiguration());
-    }
-    return utils.createBasicToken(clientId, clientPassword);
-}
-
-/**
- * Sets the access token which is sent in the 'Authorization' header for public resources
- */
-var setAccessToken = exports.setAccessToken = function setAccessToken(token) {
-    configuration.default_options.accessToken = token;
-};
-
-/**
  * Sets the user token which is sent in the 'Authorization' header for public resources.
  * Also decodes the token and sets the tokenExpiresAt value accordingly
  */
@@ -47,7 +26,7 @@ var setUserToken = exports.setUserToken = function setUserToken(token) {
     configuration.default_options.userToken = token;
 }
 
-var setKeyToken = exports.setKeyToken = function setKeyToken(token){
+var setKeyToken = exports.setKeyToken = function setKeyToken(token) {
     configuration.default_options.keyToken = token;
 }
 
@@ -88,9 +67,8 @@ var removeTokenExpiresAt = exports.removeTokenExpiresAt = function removeTokenEx
 }
 
 /**
- * Merges the provided configuration with the default configuration
- * For the initial call to this method, the clientId and clientPassword attributes have to provided,
- * otherwise an error will be thrown. After the initial configuration, these attributes do not have to be
+ * Merges the provided configuration with the default configuration.
+ * After the initial configuration, these attributes do not have to be
  * passed again.
  */
 var setConfiguration = exports.setConfiguration = function setConfiguration(config) {
@@ -101,7 +79,6 @@ var setConfiguration = exports.setConfiguration = function setConfiguration(conf
 
     configuration.default_options = utils.merge(configuration.default_options, config);
     isAuthenticated();
-    setAccessToken(createAccessToken());
 }
 
 /**

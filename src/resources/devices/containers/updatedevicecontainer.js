@@ -23,7 +23,7 @@ module.exports = function (containerId, deviceId, params, options, callback) {
         }
         validate.validateString(containerId);
         validate.validateString(deviceId);
-        validate.validateObject(params);
+        validate.validateFormData(params);
         var path = '/devices/' + deviceId + '/containers/' + containerId;
         return client.sendForm('auth', path, params, 'PUT', options, callback);
     } catch (e) {

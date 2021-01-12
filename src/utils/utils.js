@@ -81,15 +81,6 @@ var merge = exports.merge = function merge(obj1, obj2, appendOnly) {
 };
 
 /**
- * Creates a basic authorization token. Format: "basic btoa(clientId:clientPassword)"
- * @param {String} clientId
- * @param {String} clientPassword
- */
-var createBasicToken = exports.createBasicToken = function createBasicToken(clientId, clientPassword) {
-  return btoa(unescape(encodeURIComponent(clientId + ':' + clientPassword))).replace(new RegExp('=', 'g'),'');
-}
-
-/**
  * Checkes whether a given token is expired or not.
  * @param {String} token The jwt to check
  * @returns {boolean} indicating whether the token is expired or not
