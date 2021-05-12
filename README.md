@@ -17,21 +17,13 @@ var netField = require('netfield-sdk-node');
 
 ## Configuration
 
-> Basic configuration options
-```js
-netField.setConfiguration({
-    clientId: 'your-client-id',
-    clientPassword: 'your-client-password'
-});
-```
-
 > Advanced configuration options.
  ```js
 netField.setConfiguration({
     version: '1.0.0',
-    schema: 'http', // http or https
+    schema: 'https', // http or https
     host: 'api.netfield.io',
-    post: 80,
+    post: 443,
     headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
@@ -83,7 +75,7 @@ netField.auth.auth(params)
 
 ## Resources
 
-1. [Auth](./docs/auth.md)
+1. [Auth](./docs/auth)
 
 2. Device
     * [Main](./docs/devices/devices.md)
@@ -92,7 +84,9 @@ netField.auth.auth(params)
     * [Notifications](./docs/devices/notifications.md)
     * [Remote](./docs/devices/remote.md)
 
-3. [Containers](./docs/containers.md)
+3. Containers
+    * [Main](./docs/containers/containers.md)
+    * [Versions](./docs/containers/versions.md)
 
 4. Organisation
     * [Main](./docs/organisations/organisations.md)
@@ -111,6 +105,11 @@ netField.auth.auth(params)
 10. [Keys](./docs/keys.md)
 
 11. [Webhooks](./docs/webhooks.md)
+
+12. Deployments
+    * [Filters](./docs/deployments/filters.md)
+    * [Jobs](./docs/deployments/jobs.md)
+    * [Rollout](./docs/deployments/rollouts.md)
 
 
 ## Tests

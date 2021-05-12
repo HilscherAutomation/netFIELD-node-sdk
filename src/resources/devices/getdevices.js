@@ -19,22 +19,26 @@ var checkers = require('../../utils/checkers');
  * @param {string} sortOrder asc, desc
  * @param {function} callback optional
  */
-module.exports = function (organisationId, page, limit, sortBy, sortOrder, callback) {
-    if(checkers.isFunction(page)){
+module.exports = function (organisationId, page, limit, sortBy, sortOrder, deviceType, callback) {
+    if (checkers.isFunction(page)) {
         callback = page;
         page = null;
     }
-    if(checkers.isFunction(limit)){
+    if (checkers.isFunction(limit)) {
         callback = limit;
         limit = null;
     }
-    if(checkers.isFunction(sortBy)){
+    if (checkers.isFunction(sortBy)) {
         callback = sortBy;
         sortBy = null;
     }
-    if(checkers.isFunction(sortOrder)){
+    if (checkers.isFunction(sortOrder)) {
         callback = sortOrder;
         sortOrder = null;
+    }
+    if (checkers.isFunction(deviceType)) {
+        callback = deviceType;
+        deviceType = null;
     }
     try {
         const query = {};
@@ -53,6 +57,10 @@ module.exports = function (organisationId, page, limit, sortBy, sortOrder, callb
         if (sortOrder) {
             query.sortOrder = sortOrder;
             validate.validateString(sortOrder);
+        }
+        if (deviceType) {
+            query.deviceType = deviceType;
+            validate.validateString(deviceType)
         }
         validate.validateNumber(organisationId);
         query.organisationId = organisationId;

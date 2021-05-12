@@ -9,17 +9,21 @@ var api = require('./api');
 /* Users */
 var createuser = require('./resources/users/createuser');
 var createselfuser = require('./resources/users/createselfuser');
+var createsensoredgeuser = require('./resources/users/createsensoredgeuser');
 var getusers = require('./resources/users/getusers');
 var getuser = require('./resources/users/getuser');
 var getverifyuser = require('./resources/users/getverifyuser')
 var getprofile = require('./resources/users/getprofile');
 var updateuser = require('./resources/users/updateuser');
+var completesensoredgeregistration = require('./resources/users/completesensoredgeregistration');
 var updateprofile = require('./resources/users/updateprofile');
 var verifyusers = require('./resources/users/verifyuser');
+var verifysensoredgeuser = require('./resources/users/verifysensoredgeuser');
 var deleteuser = require('./resources/users/deleteuser');
 var passwordreset = require('./resources/users/passwordreset');
 var reset = require('./resources/users/reset');
 var getSuggestions = require('./resources/users/getsuggestions')
+var getVerifySensorEdgeUser = require('./resources/users/getverifysensoredgeuser');
 /* Organisations */
 var getorganisation = require('./resources/organisations/getorganisation');
 var updateorganisation = require('./resources/organisations/updateogranisation');
@@ -51,22 +55,24 @@ var getdevices = require('./resources/devices/getdevices');
 var getstatuslist = require('./resources/devices/getstatuslist');
 var onBoard = require('./resources/devices/onBoard');
 var offBoard = require('./resources/devices/offBoard');
+var onBoardSensorEdge = require('./resources/devices/onBoardSensorEdge');
 var methods = require('./resources/devices/methods');
 var createDeviceNotification = require('./resources/devices/createdevicenotification');
 var deleteAllNotifications = require('./resources/devices/deletealldevicenotifications');
 var deleteNotification = require('./resources/devices/deletedevicenotification');
 var getNotifications = require('./resources/devices/getNotifications');
+var enableDisableDevice = require('./resources/devices/enable');
+var getDeviceHardwareInfo = require('./resources/devices/getdevicehardwareinfo');
 /* Devices Remote */
 var createremotedevice = require('./resources/devices/remote/createremote');
 var getremotedevicestatus = require('./resources/devices/remote/getstatus');
-var getremotedevicecredentials = require ('./resources/devices/remote/getcredentials');
+var getremotedevicecredentials = require('./resources/devices/remote/getcredentials');
 /* Device Container routes */
 var getcontainerroutes = require('./resources/devices/containers/getcontainerroutes');
 var createcontainerroute = require('./resources/devices/containers/createcontainerroute');
 var updatecontainerroute = require('./resources/devices/containers/updatecontainerroute');
 var deletecontainerroute = require('./resources/devices/containers/deletecontainerroute');
 /* Device Containers */
-var getdevicecontainers = require('./resources/devices/containers/getdevicecontainers');
 var deletedevicecontainer = require('./resources/devices/containers/deletedevicecontainer');
 var createdevicecontainer = require('./resources/devices/containers/createdevicecontainer');
 var updatedevicecontainer = require('./resources/devices/containers/updatedevicecontainer');
@@ -74,6 +80,10 @@ var getcontainerproperties = require('./resources/devices/containers/getcontaine
 var getinstalledcontainers = require('./resources/devices/containers/getinstalledcontainers');
 var getdevicecontainer = require('./resources/devices/containers/getdevicecontainer');
 var getdeployablecontainers = require('./resources/devices/containers/getdeployablecontainers');
+/* Device Deployment manifests */
+var checkdevicedeploymentmanifest = require('./resources/devices/deploymentManifests/check');
+var deploydevicedeploymentmanifest = require('./resources/devices/deploymentManifests/deploy');
+
 /* Roles */
 var createrole = require('./resources/roles/createrole');
 var getrole = require('./resources/roles/getrole');
@@ -96,6 +106,12 @@ var updatecontainer = require('./resources/containers/updatecontainer');
 var getcontainer = require('./resources/containers/getcontainer');
 var sharecontainer = require('./resources/containers/sharecontainer');
 var unsharecontainer = require('./resources/containers/unsharecontainer');
+/* Container Versions */
+var createcontainerversion = require('./resources/containers/versions/createversion');
+var deletecontainerversion = require('./resources/containers/versions/deleteversion');
+var getcontainerversion = require('./resources/containers/versions/getversion');
+var getallcontainerversion = require('./resources/containers/versions/getversions');
+var updatecontainerversion = require('./resources/containers/versions/updateversion');
 /* Permissions */
 var checkDevices = require('./resources/permissions/checkDevices');
 var checkContainers = require('./resources/permissions/checkContainers');
@@ -115,6 +131,7 @@ var getkey = require('./resources/keys/getkey');
 var getkeys = require('./resources/keys/getkeys');
 var deletekey = require('./resources/keys/deletekey');
 var getkeypermissions = require('./resources/keys/getkeypermissions');
+var createsensoredgekey = require('./resources/keys/createsensoredgekey');
 /* Tenants */
 var createTenant = require('./resources/tenants/createtenant');
 var deleteTenant = require('./resources/tenants/deletetenant');
@@ -126,9 +143,11 @@ var createEdgeos = require('./resources/edgeos/createEdgeos');
 var updateEdgeos = require('./resources/edgeos/updateEdgeos');
 var getEdgeos = require('./resources/edgeos/getEdgeos');
 var getSingleEdgeos = require('./resources/edgeos/getSingleEdgeos');
+var getEdgeosPlatforms = require('./resources/edgeos/getEdgeosPlatforms');
 var deleteEdgeos = require('./resources/edgeos/deleteEdgeos');
 /* Webhooks */
 var createwebhook = require('./resources/webhooks/createwebhook');
+var testwebhook = require('./resources/webhooks/testwebhook');
 var deletewebhook = require('./resources/webhooks/deletewebhook');
 var getwebhook = require('./resources/webhooks/getwebhook');
 var getwebhooks = require('./resources/webhooks/getwebhooks');
@@ -138,8 +157,35 @@ var creategroup = require('./resources/groups/creategroup');
 var getgroup = require('./resources/groups/getgroup');
 var updategroup = require('./resources/groups/updategroup');
 var deletegroup = require('./resources/groups/deletegroup');
+var getgroupitemsforgroup = require('./resources/groups/getgroupitemsforgroup');
 var adddevicetogroup = require('./resources/groups/adddevicetogroup');
 var removedevicefromgroup = require('./resources/groups/removedevicefromgroup');
+var addcontainertogroup = require('./resources/groups/addcontainertogroup');
+var removecontainerfromgroup = require('./resources/groups/removecontainerfromgroup');
+/* Dashboards */
+var createdashboard = require('./resources/dashboards/createdashboard');
+var createdashboardpanel = require('./resources/dashboards/createdashboardpanel');
+var createdashboardseries = require('./resources/dashboards/createdashboardseries');
+var deletedashboard = require('./resources/dashboards/deletedashboard');
+var deletedashboardpanel = require('./resources/dashboards/deletedashboardpanel');
+var deletedashboardseries = require('./resources/dashboards/deletedashboardseries');
+var updatedashboard = require('./resources/dashboards/updatedashboard');
+var updatedashboardpanel = require('./resources/dashboards/updatedashboardpanel');
+var updatedashboardseries = require('./resources/dashboards/updatedashboardpanelseries');
+var getdashboards = require('./resources/dashboards/getdashboards');
+var getdashboard = require('./resources/dashboards/getdashboard');
+var getdashboardpanels = require('./resources/dashboards/getdashboardpanels');
+var getdashboardpanel = require('./resources/dashboards/getdashboardpanel');
+var getallpanelseries = require('./resources/dashboards/getallpanelseries');
+var getpanelseries = require('./resources/dashboards/getpanelseries');
+var getsinglecontainerroute = require('./resources/devices/containers/getsinglecontainerroute');
+/* Sensor Edge Manifest */
+var createsensoredgecontainer = require('./resources/sensorEdgeManifeset/createsensoredgecontainer');
+var updatesensoredgecontainer = require('./resources/sensorEdgeManifeset/updatesensoredgecontainer');
+var deletesensoredgecontainer = require('./resources/sensorEdgeManifeset/deletesensoredgecontainer');
+var getallsensoredgecontainers = require('./resources/sensorEdgeManifeset/getallsensoredgecontainers');
+var getsensoredgecontainer = require('./resources/sensorEdgeManifeset/getsensoredgecontainer');
+var offBoardConfirm = require('./resources/devices/offBoardConfirm');
 
 module.exports = function () {
     return {
@@ -152,6 +198,7 @@ module.exports = function () {
         setKeyToken: api.setKeyToken,
         setUserRefreshToken: api.setUserRefreshToken,
         isAuthenticated: api.isAuthenticated,
+        refreshToken: api.refreshToken,
         auth: {
             resetPassword: passwordreset,
             setPassword: reset
@@ -174,6 +221,12 @@ module.exports = function () {
                 add: addRoleToUser, //PUT /users/{userId}/roles/{roleName}
                 delete: deleteRoleFromUser, //DELETE /users/{userId}/roles/{roleName}
                 getAll: getallrolesbyuser //GET /users/{userId}/roles
+            },
+            sensoredge: {
+                create: createsensoredgeuser, //POST /users/sensoredge/register
+                completeRegistration: completesensoredgeregistration, //PUT /users/sensoredge/register/complete
+                verify: verifysensoredgeuser, //PUT /users/sensoredge/verify
+                getverify: getVerifySensorEdgeUser, //GET /users/sensoredge/verify/resend
             }
         },
         organisation: {
@@ -217,7 +270,11 @@ module.exports = function () {
             update: updatedevice, //PUT /devices/{deviceId
             delete: deletedevice, //DELETE /devices/{deviceId}
             onBoard: onBoard, //POST /devices/sas/onboard
+            onboardSesnorEdge: onBoardSensorEdge, //POST /devices/onboard
             offBoard: offBoard, //PUT /devices/offboard
+            enableDisable: enableDisableDevice, //PUT /devices/{deviceId}/state
+            offBoardConfirm: offBoardConfirm, // PUT /devices/offboard/confirm
+            getHardwareInfo: getDeviceHardwareInfo, // GET /devices/{deviceId}/hardware-info
             customFields: {
                 create: createdevicecustomfields, //POST /devices/{deviceId}/custom-fields
                 getAll: getdevicecustomfields, //GET /devices/{deviceId}/custom-fields
@@ -235,13 +292,13 @@ module.exports = function () {
                 getInstalled: getinstalledcontainers, //GET /devices/{deviceId}/containers/installed
                 get: getdevicecontainer, // GET /devices/{deviceId}/containers/{containerId}
                 getDeployable: getdeployablecontainers, //GET /devices/{deviceId}/containers/deployable
-                getAll: getdevicecontainers, //GET /devices/{deviceId}/containers
                 delete: deletedevicecontainer, //DELETE /devices/{deviceId}/containers/{containerId}
                 create: createdevicecontainer, //POST /devices/{deviceId}/containers/{containerId}
                 update: updatedevicecontainer, //PUT /devices/{deviceId}/containers/{containerId}
                 properties: getcontainerproperties, //GET /devices/{deviceId}/containers/{containerId}/properties
                 routes: {
                     getAll: getcontainerroutes, //GET /devices/{deviceId}/containers/routes
+                    get: getsinglecontainerroute, //GET /devices/{deviceId}/containers/routes/{routeId}
                     create: createcontainerroute, //POST /devices/{deviceId}/containers/routes
                     update: updatecontainerroute, //PUT /devices/{deviceId}/containers/routes/{routeId}
                     delete: deletecontainerroute, //DELETE /devices/{deviceId}/containers/routes/{routeId}
@@ -251,6 +308,10 @@ module.exports = function () {
                 create: createremotedevice, //POST /devices/{deviceId}/remote
                 status: getremotedevicestatus, //GET /devices/{deviceId}/remote
                 credentials: getremotedevicecredentials //GET /devices/{deviceId}/remote/credentials
+            },
+            deploymentManifests: {
+                check: checkdevicedeploymentmanifest, //GET /devices/{deviceId}/deploymentManifests/check
+                deploy: deploydevicedeploymentmanifest, //PUT /devices/{deviceId}/deploymentManifests/deploy         
             }
         },
         containers: {
@@ -261,6 +322,13 @@ module.exports = function () {
             update: updatecontainer, //PUT /containers/{containerId}
             share: sharecontainer, //PUT /containers/{containerId}/share
             unshare: unsharecontainer, //DELETE /containers/{containerId}/share/{organisationId}
+            versions: {
+                createversion: createcontainerversion, //POST /containers/{containerId}/versions
+                deleteversion: deletecontainerversion, //DELETE /containers/{containerId}/versions/{versionId}
+                getversion: getcontainerversion, //GET /containers/{containerId}/versions/{versionId}
+                getallversions: getallcontainerversion, //GET /containers/{containerId}/versions
+                updateversion: updatecontainerversion //PUT /containers/{containerId}/versions/{versionId}
+            }
         },
         permissions: {
             permissions: checkPermissions, // GET /permissions/
@@ -282,10 +350,12 @@ module.exports = function () {
             getAll: getkeys, //GET /keys
             delete: deletekey, //DELETE /keys/{keyId}
             getpermissions: getkeypermissions, //GET /keys/permissions
+            createSensorEdgeKey: createsensoredgekey, //POST /keys/sensoredge
         },
         edgeos: {
             get: getSingleEdgeos, //GET /edgeos/{edgeosId}
             getAll: getEdgeos, //GET /edgeos
+            getPlatforms: getEdgeosPlatforms, //GET /edgeos/platforms
             delete: deleteEdgeos, //DELETE /edgeos/{edgeosId}
             create: createEdgeos, //POST /edgeos/{edgeosId}
             update: updateEdgeos //PUT /edgeos/{edgeosId}
@@ -299,6 +369,7 @@ module.exports = function () {
         },
         webhooks: {
             create: createwebhook, //POST /webhooks
+            test: testwebhook, //POST /webhooks/test
             update: updatewebhook, //PUT /webhooks/{webhookId}
             get: getwebhook, //GET /webhooks/{webhookId}
             getAll: getwebhooks, //GET /webhooks/
@@ -309,8 +380,39 @@ module.exports = function () {
             update: updategroup, // PUT /groups/{groupId}
             get: getgroup, // GET /groups/{groupId}
             delete: deletegroup, // DELETE /groups/{groupId}
+            getGroupItems: getgroupitemsforgroup, // GET /groups/{groupId}/items
             addDevice: adddevicetogroup, // PUT /groups/{groupId}/devices/{deviceId}
-            removeDevice: removedevicefromgroup // DELETE /groups/{groupId}/devices/{deviceId}
-        }
+            removeDevice: removedevicefromgroup, // DELETE /groups/{groupId}/devices/{deviceId}
+            addContainer: addcontainertogroup, // PUT /groups/{groupId}/containers/{containerId}
+            removeContainer: removecontainerfromgroup // DELETE /groups/{groupId}/containers/{containerId}
+        },
+        dashboards: {
+            create: createdashboard, // POST /dashboards
+            update: updatedashboard, // PUT /dashboards/{dashboardId}
+            get: getdashboard, // GET /dashboards
+            getAll: getdashboards, // GET /dashboards/{dashboardId}
+            delete: deletedashboard, // DELETE /dashboards/{dashboardId}
+            panels: {
+                create: createdashboardpanel, // POST /dashboards/{dashboardId}/panels
+                update: updatedashboardpanel, // PUT /dashboards/{dashboardId}/panels/{panelId}
+                get: getdashboardpanel, // GET /dashboards/{dashboardId}/panels/{panelId}
+                getAll: getdashboardpanels, // GET /dashboards/{dashboardId}/panels
+                delete: deletedashboardpanel, // DELETE /dashboards/{dashboardId}/panels/{panelId}
+            },
+            series: {
+                create: createdashboardseries, // POST /dashboards/{dashboardId}/panels/{panelId}/series
+                update: updatedashboardseries, // PUT /dashboards/{dashboardId}/panels/{panelId}/series/{seriesId}
+                get: getpanelseries, // GET /dashboards/{dashboardId}/panels/{panelId}/series/{seriesId}
+                getAll: getallpanelseries, // GET /dashboards/{dashboardId}/panels/{panelId}/series
+                delete: deletedashboardseries // DELETE /dashboards/{dashboardId}/panels/{panelId}/series/{seriesId}
+            }
+        },
+        sensoredgemanifest: {
+            create: createsensoredgecontainer, // POST /sensoredge/deployment-manifest/containers
+            update: updatesensoredgecontainer, // PUT /sensoredge/deployment-manifest/containers/{containerId}
+            delete: deletesensoredgecontainer, // DELETE /sensoredge/deployment-manifest/containers/{containerId}
+            get: getsensoredgecontainer, // GET /sensoredge/deployment-manifest/containers/{containerId}
+            getAll: getallsensoredgecontainers, // GET /sensoredge/deployment-manifest/containers
+        },
     };
 };

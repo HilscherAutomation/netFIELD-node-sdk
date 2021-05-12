@@ -29,6 +29,11 @@
 
 12. [netField.devices.customFields.delete(deviceId, fieldId, [callback])](#deletedevicecustomfields)
 
+13. [netField.devices.enableDisable(deviceId, enabled, params, [callback])](#enabledisabledevice)
+
+14. [netField.devices.offBoardConfirm(params, [callback])](#offboardConfirm)
+
+15. [netField.devices.getHardwareInfo(deviceId, [callback])](#gethardwareinfo)
 
 
 ## Resource Usage
@@ -185,4 +190,42 @@ netField.devices.customFields.update(deviceId, fieldId, params, [callback])
  * @param {function} callback optional
 */
 netField.devices.customFields.delete(deviceId, fieldId, [callback])
+```
+
+### enabledisabledevice
+
+    Switch device state between enabled and disabled
+
+```javascript
+/**
+ * @param {string} deviceId
+ * @param {boolean} enabled
+ * @param {object} params
+ * @param {function} callback optional
+*/
+netField.devices.enableDisable(deviceId, enabled, params, [callback])
+```
+
+### offBoardConfirm
+
+    Confirm offboarding of your sensorEDGE device with equipmentId and offboardConfirmationCode in params 
+
+```javascript
+/**
+ * @param {object} params containing equipmentId and offboardConfirmationCode properties
+ * @param {function} callback optional
+*/
+netField.devices.customFields.offBoardConfirm(params, [callback])
+```
+
+### gethardwareinfo
+
+    Get device hardware info
+
+```javascript
+/**
+ * @param {string} deviceId
+ * @param {function} callback optional
+*/
+netField.devices.getHardwareInfo(deviceId, [callback])
 ```

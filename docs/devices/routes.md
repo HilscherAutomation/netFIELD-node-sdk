@@ -15,6 +15,19 @@
 
 ## Resource Usage
 
+### get
+
+    Get information about specific device container route
+
+```javascript
+/**
+ * @param {string} deviceId
+ * @param {string} routeId
+ * @param {function} callback optional
+*/
+netField.devices.containers.routes.get(deviceId, routeId, [callback])
+```
+
 ### getAll
 
     Gets all device container routes

@@ -16,7 +16,7 @@ module.exports = function (params, callback) {
     try {
         validate.validateObject(params);
         var path = '/devices/onboard/sas';
-        return client.post('key', path, params, callback);
+        return client.post('auth', path, params, callback);
     } catch (e) {
         if (callback) {
             return callback(e, null);
