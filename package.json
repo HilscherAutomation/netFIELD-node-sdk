@@ -1,5 +1,5 @@
 {
-  "name": "edgeportal-sdk",
+  "name": "netfield-node-sdk",
   "version": "2.2.0",
   "description": "SDK for Edge Portal REST APIs",
   "main": "build/index.js",

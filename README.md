@@ -122,7 +122,7 @@ netField.setConfiguration({
 });
 ```
 
-> Edit setings in configure file and chaneg enviorment.js to be development
+> Edit setings in configure file and change enviorment.js to be development
 ```js
 const enviorment = exports.enviorment = {
     enviorment: 'development'
