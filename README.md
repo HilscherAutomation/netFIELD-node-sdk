@@ -106,11 +106,6 @@ netField.auth.auth(params)
 
 11. [Webhooks](./docs/webhooks.md)
 
-12. Deployments
-    * [Filters](./docs/deployments/filters.md)
-    * [Jobs](./docs/deployments/jobs.md)
-    * [Rollout](./docs/deployments/rollouts.md)
-
 
 ## Tests
 > Setup your testing environment to localmachine and change configuration through method
