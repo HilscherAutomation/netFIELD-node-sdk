@@ -5,13 +5,13 @@
 
 ## Available Resources
 
-1. [netField.search.devices([searchText], [filter], [searchType], [page], [limit], [callback])](#searchdevices)
+1. [netField.search.devices([searchText], [filter], [searchType], [page], [limit], [sortBy], [sortOrder], [callback])](#searchdevices)
 
-2. [netField.search.containers([searchText], [filter], [searchType], [page], [limit], [callback])](#searchcontainers)
+2. [netField.search.containers([searchText], [filter], [searchType], [page], [limit], [sortBy], [sortOrder], [callback])](#searchcontainers)
 
-3. [netField.search.organisations([searchText], [filter], [searchType], [page], [limit], [callback])](#searchorganisations)
+3. [netField.search.organisations([searchText], [filter], [searchType], [page], [limit], [sortBy], [sortOrder], [callback])](#searchorganisations)
 
-4. [netField.search.users([searchText], [filter], [searchType], [page], [limit], [callback])](#searchusers)
+4. [netField.search.users([searchText], [filter], [searchType], [page], [limit], [sortBy], [sortOrder], [callback])](#searchusers)
 
 ## Resource Usage
 
@@ -26,9 +26,11 @@
  * @param {string} searchType optional
  * @param {integer} page optional
  * @param {integer} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
  * @param {function} callback optional
  */
-netField.search.devices([searchText], [filter], [searchType], [page], [limit], [callback])
+netField.search.devices([searchText], [filter], [searchType], [page], [limit], [sortBy], [sortOrder], [callback])
 ```
 
 ### searchcontainers
@@ -42,9 +44,11 @@ netField.search.devices([searchText], [filter], [searchType], [page], [limit], [
  * @param {string} searchType optional
  * @param {integer} page optional
  * @param {integer} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional 
  * @param {function} callback optional
  */
-netField.search.containers([searchText], [filter], [searchType], [page], [limit], [callback])
+netField.search.containers([searchText], [filter], [searchType], [page], [limit], [sortBy], [sortOrder], [callback])
 ```
 
 ### searchorganisations
@@ -58,9 +62,11 @@ netField.search.containers([searchText], [filter], [searchType], [page], [limit]
  * @param {string} searchType optional
  * @param {integer} page optional
  * @param {integer} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
  * @param {function} callback optional
  */
-netField.search.organisations([searchText], [filter], [searchType], [page], [limit], [callback])
+netField.search.organisations([searchText], [filter], [searchType], [page], [limit], [sortBy], [sortOrder], [callback])
 ```
 
 ### searchusers
@@ -74,7 +80,9 @@ netField.search.organisations([searchText], [filter], [searchType], [page], [lim
  * @param {string} searchType optional
  * @param {integer} page optional
  * @param {integer} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
  * @param {function} callback optional
  */
-netField.search.users([searchText], [filter], [searchType], [page], [limit], [callback])
+netField.search.users([searchText], [filter], [searchType], [page], [limit], [sortBy], [sortOrder], [callback])
 ```

@@ -15,6 +15,8 @@
 
 5. [netField.webhooks.delete(webhookId, [callback])](#delete)
 
+6. [netField.webhooks.test(params, [callback])](#test)
+
 ## Resource Usage
 
 ### getAll
@@ -78,4 +80,16 @@ netField.webhooks.update(webhookId, params, [callback])
  * @param {function} callback optional
 */
 netField.webhooks.delete(webhookId, [callback])
+```
+
+### test
+
+    Trigger a single webhook for testing purposes 
+
+```javascript
+/**
+ * @param {any} params
+ * @param {function} callback optional
+*/
+netField.webhooks.test(params, [callback])
 ```

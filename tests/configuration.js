@@ -20,36 +20,6 @@ describe('Configuration Test Suite: SDK...', function () {
         done();
     });
 
-    it('merges parameter object with configuration', function (done) {
-        var id = 'testClientId';
-        var password = 'testClientPassword';
-        var customParameter = 'testCustomParameter';
-        var options = {
-            clientId: id,
-            clientPassword: password,
-            custom: customParameter,
-        }
-        edgeSDK.setConfiguration(options);
-
-        var configured = edgeSDK.getConfiguration();
-        expect(configured.clientId).toEqual(id);
-        expect(configured.clientPassword).toEqual(password);
-        expect(configured.custom).toEqual(customParameter);
-        done();
-    });
-
-    it('returns configuration object', function (done) {
-        edgeSDK.setConfiguration({ clientId: 'test', clientPassword: 'test' });
-
-        var config = edgeSDK.getConfiguration();
-        expect(typeof config).toBe('object');
-        expect(config).toHaveProperty('clientId');
-        expect(config).toHaveProperty('clientPassword');
-        expect(config).toHaveProperty('schema');
-        expect(config).toHaveProperty('host');
-        done();
-    });
-
     it('does not throw an "unconfigured" error after adding attributes after initial configuration', function(done) {
         var customValue = "custom attribute";
         function fn() { edgeSDK.setConfiguration({ my: customValue }); }
