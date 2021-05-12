@@ -29,8 +29,7 @@
   "dependencies": {
     "btoa": "^1.2.1",
     "form-data": "^2.3.2",
-    "jsonwebtoken": "^8.3.0",
-    "shelljs": "^0.8.3"
+    "jsonwebtoken": "^8.3.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.5.5",
