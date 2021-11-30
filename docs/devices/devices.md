@@ -33,7 +33,6 @@
 
 14. [netField.devices.offBoardConfirm(params, [callback])](#offboardConfirm)
 
-15. [netField.devices.getHardwareInfo(deviceId, [callback])](#gethardwareinfo)
 
 
 ## Resource Usage
@@ -216,16 +215,4 @@ netField.devices.enableDisable(deviceId, enabled, params, [callback])
  * @param {function} callback optional
 */
 netField.devices.customFields.offBoardConfirm(params, [callback])
-```
-
-### gethardwareinfo
-
-    Get device hardware info
-
-```javascript
-/**
- * @param {string} deviceId
- * @param {function} callback optional
-*/
-netField.devices.getHardwareInfo(deviceId, [callback])
 ```

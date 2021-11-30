@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2019 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 "use strict";
@@ -23,5 +23,6 @@ var default_options = exports.default_options = {
     userRefreshToken: String // the refresh token of a user
     tokenExpiresAt: Date // to determine whether a token is expired without decoding the userToken every time
     onTokenRefresh // This method can be set via setConfiguration and will be called everytime the token refresh.
+    onSetUserTokenError // This method can be set via setConfiguration and will be called if an error occurs in setUserToken.
     */
 };

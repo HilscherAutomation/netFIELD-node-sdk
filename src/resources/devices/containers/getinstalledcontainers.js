@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2019 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
  **********************************************************************/
 "use strict";
@@ -18,7 +18,7 @@ var checkers = require("../../../utils/checkers");
  * @param {string} sortOrder
  * @param {function} callback optional
  */
-module.exports = function(deviceId, page, limit, sortBy, sortOrder, callback) {
+module.exports = function(deviceId, page, limit, sortBy, sortOrder, settingsPageId, callback) {
   for (let i = 0; i < arguments.length; i++) {
     if (checkers.isFunction(arguments[i])) {
       callback = arguments[i];
@@ -44,6 +44,10 @@ module.exports = function(deviceId, page, limit, sortBy, sortOrder, callback) {
     if (sortOrder && !checkers.isFunction(sortOrder)) {
       query.sortOrder = sortOrder;
       validate.validateString(sortOrder);
+    }
+    if (settingsPageId && !checkers.isFunction(settingsPageId)) {
+      query.settingsPageId = settingsPageId;
+      validate.validateString(settingsPageId);
     }
 
     validate.validateString(deviceId);

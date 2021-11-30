@@ -1,18 +1,18 @@
 # netFIELD SDK Node
 
-*netFIELD-SDK-Node (node.js version >=0.6.x) and Node samples for REST API.*
+*netFIELD-SDK-Node (node.js version >=10.x.x) and Node samples for REST API.*
 
 ## Installation
 
 > Install sdk through 'npm' or download folder in your project
 
 ```js
-npm install netfield-sdk-node --save
+npm install netfield-node-sdk --save
 ```
 
 > Require 'netfield-sdk-node' in your file
 ```js
-var netField = require('netfield-sdk-node');
+var netField = require('netfield-node-sdk');
 ```
 
 ## Configuration
@@ -21,9 +21,9 @@ var netField = require('netfield-sdk-node');
  ```js
 netField.setConfiguration({
     version: '1.0.0',
-    schema: 'https', // http or https
-    host: 'api.netfield.io',
-    post: 443,
+    schema: 'http', // http or https
+    host: 'edge-portal-api-dev.azurewebsites.net',
+    post: 80,
     headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
@@ -51,12 +51,10 @@ const options = netField.getConfiguration();
 ```js
 const params = { email: 'my@email.de', password: 'my-password' };
 
-netField.auth.auth(params, function (error, data) {
+netField.generateUserToken(params, function (error, data) {
     if(error){
         throw new Error(error.message);
     }
-
-    netField.setToken(data.token);
 });
 ```
 
@@ -64,9 +62,9 @@ netField.auth.auth(params, function (error, data) {
 ```js
 const params = { email: 'my@email.de', password: 'my-password' };
 
-netField.auth.auth(params)
+netField.generateUserToken(params)
     .then(data => {
-        netField.setToken(data.token);
+        // do something
     })
     .catch(error => {
         throw new Error(error.message);
@@ -75,7 +73,7 @@ netField.auth.auth(params)
 
 ## Resources
 
-1. [Auth](./docs/auth)
+1. [Auth](./docs/auth.md)
 
 2. Device
     * [Main](./docs/devices/devices.md)
@@ -106,6 +104,11 @@ netField.auth.auth(params)
 
 11. [Webhooks](./docs/webhooks.md)
 
+12. Deployments
+    * [Filters](./docs/deployments/filters.md)
+    * [Jobs](./docs/deployments/jobs.md)
+    * [Rollouts](./docs/deployments/rollouts.md)
+
 
 ## Tests
 > Setup your testing environment to localmachine and change configuration through method
@@ -122,7 +125,7 @@ netField.setConfiguration({
 });
 ```
 
-> Edit setings in configure file and change enviorment.js to be development
+> Edit setings in configure file and chaneg enviorment.js to be development
 ```js
 const enviorment = exports.enviorment = {
     enviorment: 'development'

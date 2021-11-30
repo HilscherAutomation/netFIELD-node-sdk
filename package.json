@@ -1,6 +1,6 @@
 {
-  "name": "netfield-node-sdk",
-  "version": "2.2.0",
+  "name": "edgeportal-sdk",
+  "version": "3.0.0",
   "description": "SDK for Edge Portal REST APIs",
   "main": "build/index.js",
   "library": "netField",
@@ -24,26 +24,27 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/HilscherAutomation/netFIELD-node-sdk"
+    "url": ""
   },
   "dependencies": {
     "btoa": "^1.2.1",
     "form-data": "^2.3.2",
-    "jsonwebtoken": "^8.3.0"
+    "jsonwebtoken": "^8.3.0",
+    "shelljs": "^0.8.3"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.5.5",
     "babel-loader": "^8.0.6",
     "chalk": "^2.4.2",
-    "jest": "^26.1.0",
-    "lodash": "^4.17.11",
+    "jest": "^24.5.0",
+    "lodash": "^4.17.21",
     "npm-run-all": "^4.1.5",
     "rimraf": "^2.6.3",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5"
   },
   "engines": {
-    "node": ">= v0.6.0"
+    "node": ">= v10.x.x"
   },
   "author": "netCLOUD - Hilscher Gesellschaft für Systemautomation mbH",
   "license": "MIT"

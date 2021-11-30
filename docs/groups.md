@@ -18,9 +18,7 @@
 6. [netField.groups.addDevice(groupId, deviceId, [callback])](#adddevicetogroup)
 
 7. [netField.groups.removeDevice(groupId, deviceId, [callback])](#removedevicefromgroup)
-
 8. [netField.groups.addContainer(groupId, containerId, [callback])](#addcontainertogroup)
-
 9. [netField.groups.removeContainer(groupId, containerId, [callback])](#removecontainerfromgroup)
 
 

@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2019 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,9 +9,9 @@ var validate = require('../../utils/validate');
 
 /**
  * Update user by userId
- * @param {number} userId 
- * @param {object} params 
- * @param {function} callback optional 
+ * @param {number} userId
+ * @param {object} params
+ * @param {function} callback optional
  */
 module.exports = function (userId, params, callback) {
     try {

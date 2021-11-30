@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2019 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -20,7 +20,7 @@ var checkers = require('../../utils/checkers');
  * @param {string} sortOrder One of two values: "asc" or "desc". (optional)
  * @param {function} callback (optional)
  */
-module.exports = function (searchText, filter, searchType, page, limit, sortBy, sortOrder, callback) {
+module.exports = function (searchText, filter, searchType, page, limit, sortBy, sortOrder, includeDisabled, callback) {
   if (checkers.isFunction(searchText)) {
     callback = searchText;
     searchText = null;
@@ -48,6 +48,10 @@ module.exports = function (searchText, filter, searchType, page, limit, sortBy, 
   if (checkers.isFunction(sortOrder)) {
     callback = sortOrder;
     sortOrder = null;
+  }
+  if (checkers.isFunction(includeDisabled)) {
+    callback = includeDisabled;
+    includeDisabled = null;
   }
 
   try {
@@ -85,6 +89,9 @@ module.exports = function (searchText, filter, searchType, page, limit, sortBy, 
     if (sortOrder !== undefined && sortOrder !== null) {
       query.sortOrder = sortOrder;
       validate.validateString(sortOrder);
+    }
+    if (includeDisabled) {
+      query.includeDisabled = includeDisabled;
     }
     const path = '/search/containers?' + querystring.stringify(query);
     return client.get('auth', path, callback);

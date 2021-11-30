@@ -35,6 +35,12 @@
 
 15. [netField.users.sensoredge.getverifytempuser(email, [callback])](#getverifytempuser)
 
+16. [netField.users.profile.notificationEmails.add(params, [callback])](#addnotificationemail)
+
+17. [netField.users.profile.notificationEmails.getAll(page, limit, sortBy, sortOrder, [callback])](#getnotificationemails)
+
+17. [netField.users.profile.notificationEmails.delete(notificationEmailId, [callback])](#deletenotificationemail)
+
 ## Resource Usage
 
 ### createuser
@@ -216,4 +222,43 @@ netField.users.sensoredge.verify(params, [callback])
  * @param {function} callback optional
 */
 netField.users.sensoredge.getverifytempuser(email, [callback])
+```
+
+### addnotificationemail
+
+    Add notification email to current user profile
+
+```javascript
+/**
+ * @param {object} params 
+ * @param {function} callback optional
+*/
+netField.users.profile.notificationEmails.add(params, [callback])
+```
+
+### getnotificationemails
+
+    Get user profile notification emails
+
+```javascript
+/** 
+ * @param {number} page
+ * @param {number} limit
+ * @param {String} sortBy
+ * @param {String} sortOrder asc, desc
+ * @param {function} callback optional
+ */
+netField.users.profile.notificationEmails.getAll(page, limit, sortBy, sortOrder, callback)
+```
+
+### deletenotificationemail
+
+    Delete notification email
+
+```javascript
+/**
+ * @param {number} notificationEmailId
+ * @param {function} callback optional
+*/
+netField.users.profile.notificationEmails.delete(notificationEmailId, [callback])
 ```

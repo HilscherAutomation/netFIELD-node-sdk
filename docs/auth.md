@@ -5,11 +5,11 @@
 
 ## Available Resources
 
-1. [netField.auth.auth(params, [callback])](#auth)
+1. [netField.generateUserToken(params, [callback])](#generateUserToken)
 
-2. [netField.auth.verify([callback])](#verify)
+2. [netField.verifyUserToken([callback])](#verifyUserToken)
 
-3. [netField.auth.revoke([callback])](#revoke)
+3. [netField.revokeUserToken([callback])](#revokeUserToken)
 
 4. [netField.auth.resetPassword(email, [callback])](#resetPassword)
 
@@ -18,27 +18,19 @@
 
 ## Resource Usage
 
-### auth
+### generateUserToken
 
-    Gets user authentication token
+    Calls the API to get a user token which is then saved in the config
 
 ```javascript
 /**
  * @param {object} params
  * @param {function} callback optional
 */
-netField.auth.auth(params, [callback])
-
-//Or refresh token
-
-/**
- * @param {object} params
- * @param {function} callback optional
-*/
-netField.auth.auth(params, [callback])
+netField.generateUserToken(params, [callback])
 ```
 
-### verify
+### verifyUserToken
 
     Verify token if it's valid
 
@@ -46,10 +38,10 @@ netField.auth.auth(params, [callback])
 /**
 * @param {function} callback optional
 */
-netField.auth.verify([callback])
+netField.verifyUserToken([callback])
 ```
 
-### revoke
+### revokeUserToken
 
     Revoke token (logout)
 
@@ -57,7 +49,7 @@ netField.auth.verify([callback])
 /**
  * @param {function} callback optional
 */
-netField.auth.revoke([callback])
+netField.revokeUserToken([callback])
 ```
 
 ### resetPassword

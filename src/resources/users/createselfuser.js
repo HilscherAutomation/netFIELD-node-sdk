@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2019 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,7 +9,7 @@ var validate = require('../../utils/validate');
 
 /**
  * Self Registrate User
- * @param {object} params 
+ * @param {object} params
  * @param {function} callback optional
  */
 module.exports = function (params, callback) {

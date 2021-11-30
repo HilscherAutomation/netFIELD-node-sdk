@@ -25,6 +25,12 @@
 
 10. [netField.organisations.manifests.getRoute(organisationId, routeId, [options, callback])](#getRoute)
 
+<<<<<<< HEAD
+11. [netField.organisations.manifests.copyManifest(organisationId, [callback])](#copyManifest)
+=======
+11. [netField.organisations.manifests.applyManifest(organisationId, deviceId, [callback])](#applyManifest)
+>>>>>>> develop
+
 ## Resource Usage
 
 ### getContainers
@@ -156,4 +162,28 @@ netField.organisations.manifests.getContainer(organisationId, containerId, [call
  * @param {function} callback optional
 */
 netField.organisations.manifests.getRoute(organisationId, routeId, [callback])
+```
+
+### copyManifest
+
+    Copy parent organisation deployment manifest to the current selected organisation
+
+```javascript
+/**
+ * @param {number} organisationId
+ * @param {function} callback optional
+*/
+netField.organisations.manifests.copyManifest(organisationId, [callback])
+```
+### applyManifest
+
+    Apply manifest to onboarded device
+
+```javascript
+/** 
+ * @param {number} organisationId
+ * @param {string} deviceId
+ * @param {function} callback optional
+*/
+netField.organisations.manifests.applyManifest(organisationId, deviceId, [callback])
 ```

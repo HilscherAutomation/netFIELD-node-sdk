@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2020 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -8,7 +8,7 @@ var client = require('../../../client');
 var validate = require('../../../utils/validate');
 
 /**
- * Checks the actuality of sensor edge device containers
+ * Checks the actuality of sensorEDGE OS and containers
  * @param {string} deviceId
  * @param {function} callback optional
  */
