@@ -73,41 +73,41 @@ netField.generateUserToken(params)
 
 ## Resources
 
-1. [Auth](./docs/auth.md)
+1. [Auth](./docs/auth)
 
 2. Device
-    * [Main](./docs/devices/devices.md)
-    * [Containers](./docs/devices/containers.md)
-    * [Containers Routes](./docs/devices/routes.md)
-    * [Notifications](./docs/devices/notifications.md)
-    * [Remote](./docs/devices/remote.md)
+    * [Main](./docs/devices/devices)
+    * [Containers](./docs/devices/containers)
+    * [Containers Routes](./docs/devices/routes)
+    * [Notifications](./docs/devices/notifications)
+    * [Remote](./docs/devices/remote)
 
 3. Containers
-    * [Main](./docs/containers/containers.md)
-    * [Versions](./docs/containers/versions.md)
+    * [Main](./docs/containers/containers)
+    * [Versions](./docs/containers/versions)
 
 4. Organisation
-    * [Main](./docs/organisations/organisations.md)
-    * [Manifest](./docs/organisations/manifests.md)
+    * [Main](./docs/organisations/organisations)
+    * [Manifest](./docs/organisations/manifests)
 
-5. [Tenants](./docs/tenants.md)
+5. [Tenants](./docs/tenants)
 
-6. [Users](./docs/users.md)
+6. [Users](./docs/users)
 
-7. [Permissions](./docs/permissions.md)
+7. [Permissions](./docs/permissions)
 
-8. [Roles](./docs/roles.md)
+8. [Roles](./docs/roles)
 
-9. [EdgeOs](./docs/edgeos.md)
+9. [EdgeOs](./docs/edgeos)
 
-10. [Keys](./docs/keys.md)
+10. [Keys](./docs/keys)
 
-11. [Webhooks](./docs/webhooks.md)
+11. [Webhooks](./docs/webhooks)
 
 12. Deployments
-    * [Filters](./docs/deployments/filters.md)
-    * [Jobs](./docs/deployments/jobs.md)
-    * [Rollouts](./docs/deployments/rollouts.md)
+    * [Filters](./docs/deployments/filters)
+    * [Jobs](./docs/deployments/jobs)
+    * [Rollouts](./docs/deployments/rollouts)
 
 
 ## Tests
@@ -115,17 +115,18 @@ netField.generateUserToken(params)
 ```js
 netField.setConfiguration({
     version: '1.0.0',
-    schema: 'http', // http or https
-    host: '127.0.0.1',
-    post: 5000,
+    schema: 'https', // http or https
+    host: 'api.netfield.io',
+    post: 443,
     headers: {
         'Content-type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Authorization': 'your-token'
     }
 });
 ```
 
-> Edit setings in configure file and chaneg enviorment.js to be development
+> Edit setings in configure file and change  enviorment.js to be development
 ```js
 const enviorment = exports.enviorment = {
     enviorment: 'development'

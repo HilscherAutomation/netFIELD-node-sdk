@@ -25,11 +25,9 @@
 
 10. [netField.organisations.manifests.getRoute(organisationId, routeId, [options, callback])](#getRoute)
 
-<<<<<<< HEAD
 11. [netField.organisations.manifests.copyManifest(organisationId, [callback])](#copyManifest)
-=======
-11. [netField.organisations.manifests.applyManifest(organisationId, deviceId, [callback])](#applyManifest)
->>>>>>> develop
+
+12. [netField.organisations.manifests.applyManifest(organisationId, deviceId, [callback])](#applyManifest)
 
 ## Resource Usage
 
@@ -180,7 +178,7 @@ netField.organisations.manifests.copyManifest(organisationId, [callback])
     Apply manifest to onboarded device
 
 ```javascript
-/** 
+/**
  * @param {number} organisationId
  * @param {string} deviceId
  * @param {function} callback optional
