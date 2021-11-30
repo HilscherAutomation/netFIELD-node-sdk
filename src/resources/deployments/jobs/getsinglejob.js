@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2020 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -7,13 +7,13 @@
 var client = require('../../../client');
 var validate = require('../../../utils/validate');
 
-/** 
+/**
  * Get single deployment job by id
  * @param {string} jobId
  * @param {function} callback optional
  */
 module.exports = function (jobId, callback) {
-  try {   
+  try {
     validate.validateString(jobId);
     var path = `/deployments/jobs/${jobId}`;
     return client.get('auth', path, callback);

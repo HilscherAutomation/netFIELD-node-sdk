@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2020 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -10,7 +10,7 @@ var querystring = require('querystring');
 
 /**
  * Resend tempUser verification code to email
- * @param {string} email 
+ * @param {string} email
  * @param {function} callback optional
  */
 module.exports = function (email, callback) {

@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2020 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -16,7 +16,7 @@ var validate = require('../../../../utils/validate');
 module.exports = function (jobId, routeId, callback) {
     try {
         validate.validateString(jobId);
-        validate.validateString(routeId);        
+        validate.validateString(routeId);
         var path = `/deployments/jobs/${jobId}/routes/${routeId}`;
         return client.delete('auth', path, {}, callback);
     } catch (e) {
