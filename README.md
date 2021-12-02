@@ -73,7 +73,7 @@ netField.generateUserToken(params)
 
 ## Resources
 
-1. [Auth](./docs/auth)
+1. [Auth](./docs/auth.md)
 
 2. Device
     * [Main](./docs/devices/devices.md)
