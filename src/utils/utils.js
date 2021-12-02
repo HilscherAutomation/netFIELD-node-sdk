@@ -4,7 +4,6 @@
 **********************************************************************/
 "use strict";
 
-var btoa = require('btoa');
 var isArray = Array.isArray;
 var hasOwn = Object.prototype.hasOwnProperty;
 
