@@ -21,6 +21,8 @@
 
 8. [netField.devices.containers.getDeployable(deviceId, [options], [callback])](#getDeployable)
 
+9. [netField.devices.containers.deleteAll(deviceId, [callback])](#deleteAll)
+
 
 ## Resource Usage
 
@@ -129,4 +131,16 @@ netField.devices.containers.get(deviceId, containerId, [callback])
  * @param {function} callback optional
 */
 netField.devices.containers.getDeployable(deviceId, [options], [callback])
+```
+
+### deleteAll
+
+    Delete all device containers
+
+```javascript
+/**
+ * @param {string} deviceId
+ * @param {function} callback optional
+*/
+netField.devices.containers.delete(deviceId, [callback])
 ```

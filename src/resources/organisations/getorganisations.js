@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2019 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -15,9 +15,10 @@ const checkers = require('../../utils/checkers');
  * @param {number} limit (optional)
  * @param {string} sortBy (optional)
  * @param {string} sortOrder asc, desc (optional)
+ * @param {string} type tenants, organisations (optional)
  * @param {function} callback (optional)
  */
-module.exports = function (page, limit, sortBy, sortOrder, callback) {
+module.exports = function (page, limit, sortBy, sortOrder, type, callback) {
     if (checkers.isFunction(page)) {
         callback = page;
         page = null;
@@ -33,6 +34,10 @@ module.exports = function (page, limit, sortBy, sortOrder, callback) {
     if (checkers.isFunction(sortOrder)) {
         callback = sortOrder;
         sortOrder = null;
+    }
+    if (checkers.isFunction(type)) {
+        callback = type;
+        type = null;
     }
     try {
         const query = {};
@@ -51,6 +56,10 @@ module.exports = function (page, limit, sortBy, sortOrder, callback) {
         if (sortOrder) {
             query.sortOrder = sortOrder;
             validate.validateString(sortOrder);
+        }
+        if (type) {
+            query.type = type;
+            validate.validateString(type);
         }
         const path = '/organisations?' + querystring.stringify(query);
         return client.get('auth', path, callback);

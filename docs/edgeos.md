@@ -15,8 +15,6 @@
 
 5. [netField.edgeos.updategetEdgeos(edgeosId, formData, [callback])](#updateEdgeos)
 
-6. [netField.edgeos.getEdgeosPlatforms([callback])](#getEdgeosPlatforms)
-
 ## Resource Usage
 
 ### getEdgeos
@@ -90,15 +88,4 @@ netField.edgeos.create(formData, [callback])
  * @param {function} callback optional
 */
 netField.edgeos.update(edgeosId, formData, [callback]);
-```
-
-### getEdgeosPlatforms
-
-Get all available edge OS platforms
-
-```javascript
-/** 
- * @param {function} callback optional
- */
-netField.edgeos.getEdgeosPlatforms([callback]);
 ```

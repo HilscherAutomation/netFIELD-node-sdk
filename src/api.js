@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2019 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -20,10 +20,19 @@ var validate = require('./utils/validate');
  * Also decodes the token and sets the tokenExpiresAt value accordingly
  */
 var setUserToken = exports.setUserToken = function setUserToken(token) {
-    validate.validateString(token);
-    var decodedToken = jwt.decode(token);
-    setTokenExpiresAt(new Date(decodedToken.exp * 1000));
-    configuration.default_options.userToken = token;
+    try {
+      validate.validateString(token);
+      var decodedToken = jwt.decode(token);
+      setTokenExpiresAt(new Date(decodedToken.exp * 1000));
+      configuration.default_options.userToken = token;
+    } catch(e) {
+      var onSetUserTokenError = configuration.default_options.onSetUserTokenError;
+      if (onSetUserTokenError) {
+        onSetUserTokenError(e);
+      } else {
+        throw e;
+      }
+    }
 }
 
 var setKeyToken = exports.setKeyToken = function setKeyToken(token) {

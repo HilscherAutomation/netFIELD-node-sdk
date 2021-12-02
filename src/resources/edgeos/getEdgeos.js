@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2019 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 "use strict";
@@ -16,10 +16,11 @@ var checkers = require("../../utils/checkers");
  * @param {string} sortBy
  * @param {string} sortOrder asc, desc
  * @param {string} platform string
+ * @param {number} platformKey number
  * @param {function} callback optional
  */
 
-module.exports = function(page, limit, sortBy, sortOrder, platform, callback) {
+module.exports = function(page, limit, sortBy, sortOrder, platform, platformKey, callback) {
   for (let i = 0; i < arguments.length; i++) {
     if (checkers.isFunction(arguments[i])) {
       callback = arguments[i];
@@ -49,6 +50,11 @@ module.exports = function(page, limit, sortBy, sortOrder, platform, callback) {
     if (platform && !checkers.isFunction(platform)) {
       query.platform = platform;
       validate.validateString(platform);
+    }
+
+    if (platformKey && !checkers.isFunction(platformKey)) {
+      query.platformKey = platformKey;
+      validate.validateNumber(platformKey);
     }
 
     var path = "/edgeos?" + querystring.stringify(query);

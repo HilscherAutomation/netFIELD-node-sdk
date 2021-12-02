@@ -13,6 +13,7 @@
 
 4. [netField.organisation.delete(organisationId, [callback])](#deleteorganisation)
 
+5. [netField.organisation.getAll(page, limit, sortBy, sortOrder, type [callback])](#getorganisations)
 
 ## Resource Usage
 
@@ -67,18 +68,20 @@ netField.organisation.create(parentOrganisationId, params, [callback])
 netField.organisation.delete(organisationId, [callback])
 ```
 
-### getorganisationdevices
+### getorganisations
 
-    Get devices per organisationId and child organisations
+    Get available organisations
 
 ```javascript
-/**
- * @param {number} organisationId
- * @param {number} page
- * @param {string} attribute
- * @param {string} sort
- * @param {string} depth
- * @param {function} callback optional
-*/
-netField.organisation.devices.get(organisationId, page, attribute, sort, depth, [callback])
+/** 
+ * @param {number} page (optional)
+ * @param {number} limit (optional)
+ * @param {string} sortBy (optional)
+ * @param {string} sortOrder asc, desc (optional)
+ * @param {string} type tenants, organisations (optional)
+ * @param {function} callback (optional)
+ */
+netField.organisation.getAll(page, limit, sortBy, sortOrder, type, [callback])
 ```
+
+

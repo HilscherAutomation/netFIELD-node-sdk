@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2019 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 "use strict";
@@ -24,6 +24,9 @@ var passwordreset = require('./resources/users/passwordreset');
 var reset = require('./resources/users/reset');
 var getSuggestions = require('./resources/users/getsuggestions')
 var getVerifySensorEdgeUser = require('./resources/users/getverifysensoredgeuser');
+var addNotificationEmail = require('./resources/users/addnotificationemail');
+var getNotificationEmails = require('./resources/users/getnotificationemails');
+var deleteNotificationEmail = require('./resources/users/deletenotificationemail');
 /* Organisations */
 var getorganisation = require('./resources/organisations/getorganisation');
 var updateorganisation = require('./resources/organisations/updateogranisation');
@@ -41,6 +44,8 @@ var getmanifestroute = require('./resources/organisations/manifests/getroute');
 var getmanifestcontainer = require('./resources/organisations/manifests/getcontainer');
 var updatemanifestcontainer = require('./resources/organisations/manifests/updatecontainer');
 var updatemanifestroute = require('./resources/organisations/manifests/updateroute');
+var copymanifest = require('./resources/organisations/manifests/copymanifest');
+var applymanifesttoonboardeddevice = require('./resources/organisations/manifests/applymanifest');
 /* Devices */
 var createdevice = require('./resources/devices/createdevice');
 var getdevice = require('./resources/devices/getdevice');
@@ -62,7 +67,6 @@ var deleteAllNotifications = require('./resources/devices/deletealldevicenotific
 var deleteNotification = require('./resources/devices/deletedevicenotification');
 var getNotifications = require('./resources/devices/getNotifications');
 var enableDisableDevice = require('./resources/devices/enable');
-var getDeviceHardwareInfo = require('./resources/devices/getdevicehardwareinfo');
 /* Devices Remote */
 var createremotedevice = require('./resources/devices/remote/createremote');
 var getremotedevicestatus = require('./resources/devices/remote/getstatus');
@@ -80,10 +84,10 @@ var getcontainerproperties = require('./resources/devices/containers/getcontaine
 var getinstalledcontainers = require('./resources/devices/containers/getinstalledcontainers');
 var getdevicecontainer = require('./resources/devices/containers/getdevicecontainer');
 var getdeployablecontainers = require('./resources/devices/containers/getdeployablecontainers');
+var deletealldevicecontainers = require('./resources/devices/containers/deletealldevicecontainers');
 /* Device Deployment manifests */
 var checkdevicedeploymentmanifest = require('./resources/devices/deploymentManifests/check');
 var deploydevicedeploymentmanifest = require('./resources/devices/deploymentManifests/deploy');
-
 /* Roles */
 var createrole = require('./resources/roles/createrole');
 var getrole = require('./resources/roles/getrole');
@@ -98,6 +102,9 @@ var searchdevices = require('./resources/search/searchdevices');
 var searchcontainers = require('./resources/search/searchcontainers');
 var searchorganisations = require('./resources/search/searchorganisations');
 var searchusers = require('./resources/search/searchusers');
+var searchdeploymentFilters = require('./resources/search/searchdeploymentFilters');
+var searchdeploymentJobs = require('./resources/search/searchdeploymentJobs');
+var searchdeploymentRollouts = require('./resources/search/searchdeploymentRollouts')
 /* Containers */
 var getcontainers = require('./resources/containers/getcontainers');
 var createcontainer = require('./resources/containers/createcontainer');
@@ -106,6 +113,7 @@ var updatecontainer = require('./resources/containers/updatecontainer');
 var getcontainer = require('./resources/containers/getcontainer');
 var sharecontainer = require('./resources/containers/sharecontainer');
 var unsharecontainer = require('./resources/containers/unsharecontainer');
+var disablecontainer = require('./resources/containers/disablecontainer');
 /* Container Versions */
 var createcontainerversion = require('./resources/containers/versions/createversion');
 var deletecontainerversion = require('./resources/containers/versions/deleteversion');
@@ -179,13 +187,62 @@ var getdashboardpanel = require('./resources/dashboards/getdashboardpanel');
 var getallpanelseries = require('./resources/dashboards/getallpanelseries');
 var getpanelseries = require('./resources/dashboards/getpanelseries');
 var getsinglecontainerroute = require('./resources/devices/containers/getsinglecontainerroute');
+/* Deployments */
+// filters
+var createFilter = require('./resources/deployments/filters/createfilter');
+var getAllFilters = require('./resources/deployments/filters/getfilters');
+var updateFilters = require('./resources/deployments/filters/updatefilters');
+var deleteFilter = require('./resources/deployments/filters/deletefilter');
+var getFilterById = require('./resources/deployments/filters/getfilterbyId');
+var executeFilter = require('./resources/deployments/filters/execute');
+// jobs
+var createJob = require('./resources/deployments/jobs/createjob');
+var updateJob = require('./resources/deployments/jobs/updatejob');
+var deleteJob = require('./resources/deployments/jobs/deletejob');
+var executeJob = require('./resources/deployments/jobs/executeJob');
+var getJobById = require('./resources/deployments/jobs/getsinglejob');
+var getAllJobs = require('./resources/deployments/jobs/getjobs');
+// jobContainers
+var addContainer = require('./resources/deployments/jobs/containers/addcontainer');
+var updateContainer = require('./resources/deployments/jobs/containers/updatecontainer');
+var deleteContainer = require('./resources/deployments/jobs/containers/deletecontainer');
+var getAllContainers = require('./resources/deployments/jobs/containers/getallcontainers');
+var getContainerById = require('./resources/deployments/jobs/containers/getcontainerbyid');
+// jobContainerMethods
+var addMethod = require('./resources/deployments/jobs/containers/methods/addmethod');
+var updateMethod = require('./resources/deployments/jobs/containers/methods/updatemethod');
+var deleteMethod = require('./resources/deployments/jobs/containers/methods/deletemethod');
+var getAllMethods = require('./resources/deployments/jobs/containers/methods/getallmethods');
+var getMethodById = require('./resources/deployments/jobs/containers/methods/getmethodbyid');
+// jobRoutes
+var addRoute = require('./resources/deployments/jobs/routes/addroute');
+var updateRoute = require('./resources/deployments/jobs/routes/updateroute');
+var deleteRoute = require('./resources/deployments/jobs/routes/deleteroutes');
+var getAllRoutes = require('./resources/deployments/jobs/routes/getallroutes');
+var getRouteById = require('./resources/deployments/jobs/routes/getroutebyid');
+// rollouts
+var getAllRolloutsByOrganisationId = require('./resources/deployments/rollouts/getrollouts');
+var getRolloutById = require('./resources/deployments/rollouts/getrolloutbyId');
+var pauseJob = require('./resources/deployments/rollouts/pausejob');
+var startJob = require('./resources/deployments/rollouts/startjob');
+var rollbackJob = require('./resources/deployments/rollouts/rollbackjob');
+var getRollbacks = require('./resources/deployments/rollouts/getrollbacks');
 /* Sensor Edge Manifest */
 var createsensoredgecontainer = require('./resources/sensorEdgeManifeset/createsensoredgecontainer');
 var updatesensoredgecontainer = require('./resources/sensorEdgeManifeset/updatesensoredgecontainer');
 var deletesensoredgecontainer = require('./resources/sensorEdgeManifeset/deletesensoredgecontainer');
 var getallsensoredgecontainers = require('./resources/sensorEdgeManifeset/getallsensoredgecontainers');
 var getsensoredgecontainer = require('./resources/sensorEdgeManifeset/getsensoredgecontainer');
+var uploadsensoredgeos = require('./resources/sensorEdgeManifeset/uploadsensoredgeos');
 var offBoardConfirm = require('./resources/devices/offBoardConfirm');
+/* Software Modules */
+var createsoftwaremodules = require('./resources/softwareModules/create');
+var getsoftwaremodule = require('./resources/softwareModules/getmodule');
+var createsoftwaremoduleartifact = require('./resources/softwareModules/artifacts/create');
+var getsoftwaremoduleartifact = require('./resources/softwareModules/artifacts/getartifact');
+/* App store */
+var getorders = require('./resources/softwareModules/appStore/getorders');
+var getorder = require('./resources/softwareModules/appStore/getorder');
 
 module.exports = function () {
     return {
@@ -215,7 +272,12 @@ module.exports = function () {
             delete: deleteuser, //DELETE /users/{userId}
             profile: {
                 get: getprofile, //GET /users/profile
-                update: updateprofile //PUT /users/profile
+                update: updateprofile, //PUT /users/profile
+                notificationEmails: {
+                    add: addNotificationEmail, // POST /users/profile/notification-emails
+                    getAll: getNotificationEmails, // GET /users/profile/notification-emails
+                    delete: deleteNotificationEmail // DELETE /users/profile/notification-emails/{notificationEmailId}
+                }
             },
             roles: {
                 add: addRoleToUser, //PUT /users/{userId}/roles/{roleName}
@@ -246,6 +308,8 @@ module.exports = function () {
                 updateRoute: updatemanifestroute, // PUT /organisations/{organisationId}/deployment-manifests/containers/{routeId}
                 getContainer: getmanifestcontainer, //GET /organisations/{organisationId}/deployment-manifests/containers/{containerId}
                 getRoute: getmanifestroute, // GET /organisations/{organisationId}/deployment-manifests/route/{routeId}
+                copyManifest: copymanifest, // PUT /organisations/{organisationId}/deployment-manifests/copy
+                applyManifest: applymanifesttoonboardeddevice, // PUT /organisations/{organisationId}/deployment-manifests/{deviceId}/apply
             }
         },
         roles: {
@@ -260,6 +324,9 @@ module.exports = function () {
             containers: searchcontainers, // GET /search/containers
             organisations: searchorganisations, // GET /search/organisations
             users: searchusers, // GET /search/users
+            deploymentFilters: searchdeploymentFilters, //GET /search/deployment-filters
+            deploymentJobs: searchdeploymentJobs, //GET /search/deployment-jobs
+            deploymentRollouts: searchdeploymentRollouts //GET /search/deployment-rollouts
         },
         devices: {
             create: createdevice, //POST /devices
@@ -274,7 +341,6 @@ module.exports = function () {
             offBoard: offBoard, //PUT /devices/offboard
             enableDisable: enableDisableDevice, //PUT /devices/{deviceId}/state
             offBoardConfirm: offBoardConfirm, // PUT /devices/offboard/confirm
-            getHardwareInfo: getDeviceHardwareInfo, // GET /devices/{deviceId}/hardware-info
             customFields: {
                 create: createdevicecustomfields, //POST /devices/{deviceId}/custom-fields
                 getAll: getdevicecustomfields, //GET /devices/{deviceId}/custom-fields
@@ -296,6 +362,7 @@ module.exports = function () {
                 create: createdevicecontainer, //POST /devices/{deviceId}/containers/{containerId}
                 update: updatedevicecontainer, //PUT /devices/{deviceId}/containers/{containerId}
                 properties: getcontainerproperties, //GET /devices/{deviceId}/containers/{containerId}/properties
+                deleteAll: deletealldevicecontainers, //DELETE /devices/{deviceId}/containers/
                 routes: {
                     getAll: getcontainerroutes, //GET /devices/{deviceId}/containers/routes
                     get: getsinglecontainerroute, //GET /devices/{deviceId}/containers/routes/{routeId}
@@ -311,7 +378,7 @@ module.exports = function () {
             },
             deploymentManifests: {
                 check: checkdevicedeploymentmanifest, //GET /devices/{deviceId}/deploymentManifests/check
-                deploy: deploydevicedeploymentmanifest, //PUT /devices/{deviceId}/deploymentManifests/deploy         
+                deploy: deploydevicedeploymentmanifest, //PUT /devices/{deviceId}/deploymentManifests/deploy
             }
         },
         containers: {
@@ -322,6 +389,7 @@ module.exports = function () {
             update: updatecontainer, //PUT /containers/{containerId}
             share: sharecontainer, //PUT /containers/{containerId}/share
             unshare: unsharecontainer, //DELETE /containers/{containerId}/share/{organisationId}
+            disable: disablecontainer, // POST /containers/{containerId}/disable
             versions: {
                 createversion: createcontainerversion, //POST /containers/{containerId}/versions
                 deleteversion: deletecontainerversion, //DELETE /containers/{containerId}/versions/{versionId}
@@ -413,6 +481,68 @@ module.exports = function () {
             delete: deletesensoredgecontainer, // DELETE /sensoredge/deployment-manifest/containers/{containerId}
             get: getsensoredgecontainer, // GET /sensoredge/deployment-manifest/containers/{containerId}
             getAll: getallsensoredgecontainers, // GET /sensoredge/deployment-manifest/containers
+            uploadOs: uploadsensoredgeos, // POST /sensoredge/deployment-manifest/os
         },
+        deployments: {
+            filters: {
+                create: createFilter, //POST /deployments/filters
+                getAll: getAllFilters, //GET /deployments/filters
+                update: updateFilters, //PUT /deployments/filters/{filterId}
+                delete: deleteFilter, //DELETE /deployments/filters/{filterId}
+                get: getFilterById, //GET /deployments/filters/{filterId}
+                execute: executeFilter, //POST /deployments/filters/devices
+            },
+            jobs: {
+                create: createJob, //POST /deployments/jobs
+                update: updateJob, //PUT /deployments/jobs/{jobId}
+                delete: deleteJob, //DELETE /deployments/jobs/{jobId}
+                get: getJobById, //GET /deployments/jobs/{jobId}
+                getAll: getAllJobs, //GET /deployments/jobs
+                execute: executeJob, //POST /deployments/jobs/{jobId}/execute/{filterId}
+                containers: {
+                    add: addContainer, //POST /deployments/jobs/{jobId}/containers/{containerId}
+                    update: updateContainer, //PUT /deployments/jobs/{jobId}/containers/{containerId}
+                    delete: deleteContainer, //DELETE /deployments/jobs/{jobId}/containers/{containerId}
+                    getAll: getAllContainers, //GET /deployments/jobs/{jobId}/containers
+                    get: getContainerById, //GET /deployments/jobs/{jobId}/containers/{containerId}
+                    methods: {
+                        add: addMethod, //POST /deployments/jobs/{jobId}/containers/{containerId}/methods
+                        update: updateMethod, //PUT /deployments/jobs/{jobId}/containers/{containerId}/methods/{methodId}
+                        delete: deleteMethod, //DELETE /deployments/jobs/{jobId}/containers/{containerId}/methods/{methodId}
+                        getAll: getAllMethods, //GET /deployments/jobs/{jobId}/containers/{containerId}/methods
+                        get: getMethodById, //GET /deployments/jobs/{jobId}/containers/{containerId}/methods/{methodId}
+                    },
+                },
+                routes: {
+                    add: addRoute, //POST /deployments/jobs/{jobId}/routes
+                    update: updateRoute, //PUT /deployments/jobs/{jobId}/routes/{routeId}
+                    delete: deleteRoute, //DELETE /deployments/jobs/{jobId}/routes/routerId}
+                    getAll: getAllRoutes, //GET /deployments/jobs/{jobId}/routes
+                    get: getRouteById, //GET /deployments/jobs/{jobId}/routes/{routeId}
+                }
+            },
+            rollouts: {
+                getAll: getAllRolloutsByOrganisationId, //GET /deployments/rollouts?jobId={jobId}
+                get: getRolloutById, //GET /deployments/rollouts/{rolloutId}
+                pause: pauseJob, //PUT /deployments/rollouts/{rolloutId}/pause
+                start: startJob, //PUT /deployments/rollouts/{rolloutId}/start
+                getRollbacks: getRollbacks, //PUT /deployments/rollouts/{rolloutId}/rollbacks/{rollbackId}
+                rollback: rollbackJob, //PUT /deployments/rollouts/{rolloutId}/rollback
+            },
+        },
+        softwaremodules: {
+            modules: {
+                create: createsoftwaremodules, // POST /rest/v1/softwaremodules
+                get: getsoftwaremodule, // GET /rest/v1/softwaremodules/{softwareModuleId}
+            },
+            artifacts: {
+                create: createsoftwaremoduleartifact, // POST /rest/v1/softwaremodules/{softwareModuleId}/artifacts
+                get: getsoftwaremoduleartifact, //GET /rest/v1/softwaremodules/{softwareModuleId}/artifacts/{artifactId}
+            },
+            orders: {
+                getAll: getorders, // GET /v1/app-store/containers/orders
+                get: getorder // GET /v1/app-store/containers/orders/{orderId}
+            }
+        }
     };
 };

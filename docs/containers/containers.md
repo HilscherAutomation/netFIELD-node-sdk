@@ -5,7 +5,7 @@
 
 ## Available Resources
 
-1. [netField.containers.getAll([page, limit, sortBy, sortOrder, callback])](#getAll)
+1. [netField.containers.getAll([page, limit, sortBy, sortOrder, includeDisabled, callback])](#getAll)
 
 2. [netField.containers.get(containerId, [callback])](#get)
 
@@ -13,11 +13,13 @@
 
 4. [netField.containers.update(params, [options], [callback])](#update)
 
-5. [netField.containers.delete(containerId, [callback])](#delete)
+5. [netField.containers.delete(containerId, [deleteContainerReferences], [callback])](#delete)
 
 6. [netField.containers.share(containerId, organisationIds, [callback])](#share)
 
 7. [netField.containers.unshare(containerId, organisationId, [callback])](#unshare)
+
+8. [netField.containers.disable(containerId, params, [callback])](#disable)
 
 ## Resource Usage
 
@@ -79,9 +81,10 @@ netField.containers.update(params, [options], [callback])
 ```javascript
 /**
  * @param {string} containerId
+ * @param {boolean} deleteContainerReferences optional
  * @param {function} callback optional
 */
-netField.containers.delete(containerId, [callback])
+netField.containers.delete(containerId, [deleteContainerReferences], [callback])
 ```
 
 ### share
@@ -108,4 +111,13 @@ netField.containers.share(containerId, organisationIds, [callback])
  * @param {function} callback optional
 */
 netField.containers.unshare(containerId, organisationId, [callback])
+```
+
+```javascript
+/**
+ * @param {string} containerId
+ * @param {object} params
+ * @param {function} callback optional
+*/
+netField.containers.disable(containerId, params, [callback])
 ```

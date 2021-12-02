@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2020 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -13,7 +13,7 @@ var checkers = require('../../../utils/checkers');
  * @param {object} params
  * @param {string} containerId
  * @param {string} versionId
- * @param {object} options optional 
+ * @param {object} options optional
  * @param {function} callback optional
  */
 

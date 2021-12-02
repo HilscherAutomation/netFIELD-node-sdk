@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2019 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 "use strict";
@@ -28,6 +28,10 @@ var mustBeOfType = exports.mustBeOfType = function mustBeOfType(type) {
 
 var mustBeObject = exports.mustBeObject = function mustBeObject() {
     return mustBeOfType('Object');
+}
+
+var mustBeArray = exports.mustBeArray = function mustBeArray() {
+    return mustBeOfType('Array');
 }
 
 var mustBeFormData = exports.mustBeFormData = function mustBeFormData() {

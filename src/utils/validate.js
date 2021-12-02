@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2019 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 "use strict";
@@ -9,6 +9,12 @@ var errors = require('./errors');
 var validateObject = exports.validateObject = function validateObject(params) {
     if (typeof params !== 'object' || !params) {
         throw new Error(errors.mustBeObject());
+    }
+}
+
+var validateArray = exports.validateArray = function validateArray(params) {
+    if (!Array.isArray(params)) {
+        throw new Error(errors.mustBeArray());
     }
 }
 

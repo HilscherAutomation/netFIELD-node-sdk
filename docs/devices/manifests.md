@@ -14,7 +14,7 @@
 
 ### check
 
-    Checks the actuality of sensor edge device containers
+    Checks the actuality of sensorEDGE OS and containers
 
 ```javascript
 /**
@@ -26,7 +26,7 @@ netField.devices.deploymentManifests.check(deviceId, [callback])
 
 ### deploy
 
-    Update and redeploy sensor edge device containers
+    Update sensorEDGE OS and redeploy device containers
 
 ```javascript
 /** 

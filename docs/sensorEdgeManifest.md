@@ -15,6 +15,8 @@
 
 5. [netField.sensoredgemanifest.delete(containerId, [callback])](#delete)
 
+6. [netField.sensoredgemanifest.uploadOs(params, [options], [callback])](#upload)
+
 ## Resource Usage
 
 ### getAll
@@ -78,4 +80,17 @@ netField.sensoredgemanifest.update(params, [options], [callback])
  * @param {function} callback optional
 */
 netField.sensoredgemanifest.delete(containerId, [callback])
+```
+
+### upload
+
+    Upload sensorEDGE OS
+
+```javascript
+/**
+ * @param {any} params
+ * @param {any} options optional
+ * @param {function} callback optional
+*/
+netField.sensoredgemanifest.uploadOs(params, [options], [callback])
 ```
