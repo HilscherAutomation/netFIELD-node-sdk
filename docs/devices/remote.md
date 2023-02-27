@@ -20,7 +20,7 @@
 ```javascript
 /**
  * @param {string} deviceId
- * @param {any} params
+ * @param {{status: string}} params
  * @param {function} callback optional
 */
 netField.devices.remote.create(deviceId, params, [callback])

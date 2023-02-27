@@ -9,17 +9,21 @@
 
 2. [netField.groups.update(groupId, params, [callback])](#updategroup)
 
-3. [netField.groups.create(groupId, params, [callback])](#creategroup)
+3. [netField.groups.create(parentGroupId, params, [callback])](#creategroup)
 
 4. [netField.groups.delete(groupId, [callback])](#deletegroup)
 
-5. [netField.groups.getGroupItems(groupId, page, limit, sortBy, sortOrded, [callback])](#getgroupitems)
+5. [netField.groups.getGroupItems(groupId, [page], [limit], [sortBy], [sortOrder], [callback])](#getgroupitems)
 
 6. [netField.groups.addDevice(groupId, deviceId, [callback])](#adddevicetogroup)
 
 7. [netField.groups.removeDevice(groupId, deviceId, [callback])](#removedevicefromgroup)
+
 8. [netField.groups.addContainer(groupId, containerId, [callback])](#addcontainertogroup)
+
 9. [netField.groups.removeContainer(groupId, containerId, [callback])](#removecontainerfromgroup)
+
+10. [netField.groups.getAll(organisationId, page, limit, sortBy, sortOrder, [callback])](#getgroups)
 
 
 ## Resource Usage
@@ -44,7 +48,7 @@ netField.groups.get(groupId, depth, [callback])
 ```javascript
 /**
  * @param {number} groupId
- * @param {object} params
+ * @param {{name: string, parentId: number}} params
  * @param {function} callback optional
 */
 netField.groups.update(groupId, params, [callback])
@@ -56,11 +60,11 @@ netField.groups.update(groupId, params, [callback])
 
 ```javascript
 /**
- * @param {number} groupId
- * @param {object} params
+ * @param {number} parentGroupId
+ * @param {{name: string, groupType: string}} params
  * @param {function} callback optional
 */
-netField.groups.create(groupId, params, [callback])
+netField.groups.create(parentGroupId, params, [callback])
 ```
 
 ### deletegroup
@@ -82,10 +86,10 @@ netField.groups.delete(groupId, [callback])
 ```javascript
 /**
  * @param {number} groupId
- * @param {number} page
- * @param {number} limit
- * @param {String} sortBy attribute from user object
- * @param {String} sortOrder asc, desc
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {String} sortBy optional (attribute from user object)
+ * @param {String} sortOrder optional (asc, desc)
  * @param {function} callback optional
  */
 netfield.groups.getGroupItems(groupId, page, limit, sortBy, sortOrder, callback)
@@ -142,3 +146,19 @@ netField.groups.addContainer(groupId, containerId, [callback])
 */
 netField.groups.removeContainer(groupId, containerId, [callback])
 ```
+
+### getgroups
+
+    Get all groups by organisationId
+
+```javascript
+/**
+ * @param {number} organisationId
+ * @param {number} page
+ * @param {number} limit
+ * @param {String} sortBy 
+ * @param {String} sortOrder asc, desc
+ * @param {String} groupType devices, containers
+ * @param {function} callback optional
+ */
+netfield.groups.getAll(organisationId, page, limit, sortBy, sortOrder, groupType, callback)

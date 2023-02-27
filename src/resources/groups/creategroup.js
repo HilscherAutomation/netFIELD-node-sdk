@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,15 +9,15 @@ var validate = require('../../utils/validate');
 
 /**
  * Create Devices/Containers Group
- * @param {number} groupId
- * @param {object} params
+ * @param {number} parentGroupId
+ * @param {{name: string, groupType: string}} params
  * @param {function} callback optional
  */
-module.exports = function (groupId, params, callback) {
+module.exports = function (parentGroupId, params, callback) {
     try {
-        validate.validateNumber(groupId);
+        validate.validateNumber(parentGroupId);
         validate.validateObject(params);
-        var path = '/groups/' + groupId;
+        var path = '/groups/' + parentGroupId;
         return client.post('auth', path, params, callback);
     } catch (e) {
         if (callback) {

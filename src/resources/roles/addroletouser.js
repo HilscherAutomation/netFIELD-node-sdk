@@ -1,9 +1,10 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
-**********************************************************************/
+ **********************************************************************/
 'use strict';
 
+var querystring = require('query-string');
 var client = require('../../client');
 var validate = require('../../utils/validate');
 
@@ -11,14 +12,17 @@ var validate = require('../../utils/validate');
  * Add a role to a user
  * @param {Number} userId
  * @param {String} roleName
- * @param {object} params
+ * @param {Number} organisationId
  * @param {function} callback optional
  */
-module.exports = function (userId, roleName, callback) {
+module.exports = function(userId, roleName, organisationId, callback) {
     try {
+        const query = {};
         validate.validateNumber(userId);
+        validate.validateNumber(organisationId);
+        query.organisationId = organisationId;
         validate.validateString(roleName);
-        var path = '/users/'+ userId +'/roles/'+ encodeURIComponent(roleName);
+        var path = '/users/' + userId + '/roles/' + encodeURIComponent(roleName) + '?' + querystring.stringify(query);
         return client.put('auth', path, {}, callback);
     } catch (e) {
         if (callback) {

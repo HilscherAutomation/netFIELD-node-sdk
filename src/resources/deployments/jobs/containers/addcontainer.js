@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -12,7 +12,16 @@ var checkers = require('../../../../utils/checkers');
  * Add a container to deployment job
  * @param {string} jobId
  * @param {string} containerId
- * @param {object} params
+ * @param {{version: string,
+ * restartPolicy: string,
+ * desiredStatus: string,
+ * containerCreateOptions: object,
+ * containerTwinDesiredOptions: object,
+ * environmentVariables: Array<object>
+ * startupOrder: number, 
+ * useProxySettings: boolean,
+ * processorArchitecture: string,
+ * directMethods: Array<object>}} params
  * @param {object} options
  * @param {function} callback optional
  */

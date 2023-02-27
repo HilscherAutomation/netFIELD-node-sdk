@@ -13,6 +13,8 @@
 
 4. [netField.devices.containers.routes.delete(routeId, deviceId, [callback])](#delete)
 
+5. [netField.devices.containers.routes.get(deviceId, routeId, [callback])](#get)
+
 ## Resource Usage
 
 ### get
@@ -47,7 +49,7 @@ netField.devices.containers.routes.getAll(deviceId, [callback])
 ```javascript
 /**
  * @param {string} deviceId
- * @param {any} params
+ * @param {{name: string, source: string, condition: string, target: string}} params
  * @param {function} callback optional
 */
 netField.devices.containers.routes.create(deviceId, params, [callback])
@@ -61,7 +63,7 @@ netField.devices.containers.routes.create(deviceId, params, [callback])
 /**
  * @param {string} routeId
  * @param {string} deviceId
- * @param {any} params
+ * @param {{name: string, source: string, condition: string, target: string}} params
  * @param {function} callback optional
 */
 netField.devices.containers.routes.update(routeId, deviceId, params, [callback])

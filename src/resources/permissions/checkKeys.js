@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,21 +9,17 @@ var validate = require('../../utils/validate');
 
 /**
  * Check what permissions a user is allowed to use with given keyIds
- * @param {Array<String>} keyIds
+ * @param {{keyIds: Array<String>, resources: Array<string>}} params
  * @param {function} callback optional
  */
-module.exports = function (keyIds, callback) {
+module.exports = function (params, callback) {
     try {
-        if (!keyIds || !Array.isArray(keyIds)) {
-            throw new Error("Keys must be an array");
-        }
+        const {keyIds} = params;
+        validate.validateArray(keyIds);
         for (let i = 0; i < keyIds.length; i += 1) {
             validate.validateString(keyIds[i]);
         }
-        const params = {
-            keyIds: keyIds
-        };
-
+        validate.validateObject(params);
         var path = '/permissions/keys';
         return client.post('auth', path, params, callback);
     } catch (e) {

@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,7 +9,14 @@ var validate = require('../../utils/validate');
 
 /**
  * Test webhook
- * @param {object} params
+ * @param {{organisationId: number,
+ * url: string,
+ * description: string,
+ * requestType: string,
+ * actionType: string,
+ * headers: Array<{name: string, value: string}>,
+ * queries: Array<{name: string, value: string}>,
+ * payload: string}} params
  * @param {function} callback optional
  */
 module.exports = function (params, callback) {

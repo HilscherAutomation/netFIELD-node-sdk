@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,20 +9,17 @@ var validate = require('../../utils/validate');
 
 /**
  * Check what permissions a user is allowed to use with given containers
- * @param {Array<String>} containerIds
+ * @param {{containerIds: Array<String>, resources: Array<string>}} params
  * @param {function} callback optional
  */
-module.exports = function (containerIds, callback) {
+module.exports = function (params, callback) {
     try {
-        if (!containerIds || !Array.isArray(containerIds)) {
-            throw new Error("containerIds must be an array of string");
-        }
+        const {containerIds} = params;
+        validate.validateArray(containerIds);
         for (let i = 0; i < containerIds.length; i += 1) {
             validate.validateString(containerIds[i]);
         }
-        const params = {
-            containerIds: containerIds,
-        };
+        validate.validateObject(params);
         var path =  '/permissions/containers';
         return client.post('auth', path, params, callback);
     } catch (e) {

@@ -5,13 +5,13 @@
 
 ## Available Resources
 
-1. [netField.device.createDeviceNotification(deviceId, params, [callback])](#createNotification)
+1. [netField.devices.notifications.create(deviceId, params, [callback])](#createNotification)
 
-2. [netField.device.deleteNotification(deviceId, notificationid, [callback])](#deletenotification)
+2. [netField.devices.notifications.delete(deviceId, notificationid, [callback])](#deletenotification)
 
-3. [netField.device.deleteAllNotifications(deviceId, [callback])](#deleteallnotification)
+3. [netField.devices.notifications.deleteAll(deviceId, [callback])](#deleteallnotification)
 
-4. [netField.device.getNotifications(deviceId, page, limit, sortBy, sortOrder [callback])](#getallnotifications)
+4. [netField.devices.notifications.getAll(deviceId, [page], [limit], [sortBy], [sortOrder], [callback])](#getallnotifications)
 
 ## Resource Usage
 
@@ -22,10 +22,10 @@
 ```javascript
 /**
  * @param {string} deviceId
- * @param {object} params
+ * @param {{serialNumber: string, level: string, message: string}} params
  * @param {function} callback optional
 */
-netField.devices.createNotification(deviceId, params [callback])
+netField.devices.notifications.create(deviceId, params [callback])
 ```
 
 ### deletenotification
@@ -38,7 +38,7 @@ netField.devices.createNotification(deviceId, params [callback])
  * @param {string} notificationId
  * @param {function} callback optional
 */ 
-netField.devices.deleteNotification(deviceId, notificationId, [callback])
+netField.devices.notifications.delete(deviceId, notificationId, [callback])
 ```
 
 ### deleteallnotifications
@@ -50,7 +50,7 @@ netField.devices.deleteNotification(deviceId, notificationId, [callback])
  * @param {string} deviceId
  * @param {function} callback optional
 */ 
-netField.devices.deleteAllNotifications(deviceId, [callback])
+netField.devices.notifications.deleteAll(deviceId, [callback])
 ```
 
 ### getallnotifications
@@ -60,11 +60,11 @@ netField.devices.deleteAllNotifications(deviceId, [callback])
 ```javascript
 /**
  * @param {string} deviceId
- * @param {number} page
- * @param {number} limit
- * @param {string} sortBy
- * @param {string} sortOrder
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
  * @param {function} callback optional
 */ 
-netField.devices.getNotifications(deviceId, page, limit, sortBy, sortOrder [callback])
+netField.devices.notifications.getAll(deviceId, page, limit, sortBy, sortOrder [callback])
 ```

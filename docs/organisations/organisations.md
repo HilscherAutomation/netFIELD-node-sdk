@@ -13,7 +13,9 @@
 
 4. [netField.organisation.delete(organisationId, [callback])](#deleteorganisation)
 
-5. [netField.organisation.getAll(page, limit, sortBy, sortOrder, type [callback])](#getorganisations)
+5. [netField.organisation.getAll([page], [limit], [sortBy], [sortOrder], [type], [callback])](#getorganisations)
+
+6. [netField.organisation.createUpgradeRequest(organisationId, params, [callback])](#createupgraderequest)
 
 ## Resource Usage
 
@@ -37,7 +39,29 @@ netField.organisation.get(organisationId, depth, [callback])
 ```javascript
 /**
  * @param {number} organisationId
- * @param {object} params
+ * @param {{name: string,
+ * admin: string,
+ * phoneNumber: string,
+ * street: string,
+ * houseNumber: string,
+ * addressSupplement: string,
+ * zipCode: string,
+ * city: string,
+ * state: string,
+ * country: string,
+ * notes: string,
+ * companyName: string,
+ * allowChildrenToInheritManifest: boolean,
+ * inheritParentManifest: boolean,
+ * childOrganisationsLimit: number,
+ * usersLimit: number,
+ * devicesLimit: number,
+ * keysLimit: number,
+ * keysRequestMonthlyLimit: number,
+ * wsConnectionLimit: number,
+ * dataStorageLimit: number,
+ * persistStreamingData: boolean,
+ * }} params
  * @param {function} callback optional
 */
 netField.organisation.update(organisationId, params, [callback])
@@ -49,11 +73,33 @@ netField.organisation.update(organisationId, params, [callback])
 
 ```javascript
 /**
- * @param {number} parentOrganisationId
- * @param {object} params
+ * @param {number} organisationId
+ * @param {{name: string,
+ * admin: string,
+ * phoneNumber: string,
+ * street: string,
+ * houseNumber: string,
+ * addressSupplement: string,
+ * zipCode: string,
+ * city: string,
+ * state: string,
+ * country: string,
+ * notes: string,
+ * allowChildrenToInheritManifest: boolean,
+ * childOrganisationsLimit: number,
+ * usersLimit: number,
+ * devicesLimit: number,
+ * keysLimit: number,
+ * keysRequestMonthlyLimit: number,
+ * wsConnectionLimit: number,
+ * dataStorageLimit: number,
+ * inheritParentManifest: boolean,
+ * persistStreamingData: boolean,
+ * defaultRoles: Array<{name: string, roleName: string}>,
+ * }} params
  * @param {function} callback optional
 */
-netField.organisation.create(parentOrganisationId, params, [callback])
+netField.organisation.create(organisationId, params, [callback])
 ```
 
 ### deleteorganisation
@@ -74,14 +120,26 @@ netField.organisation.delete(organisationId, [callback])
 
 ```javascript
 /** 
- * @param {number} page (optional)
- * @param {number} limit (optional)
- * @param {string} sortBy (optional)
- * @param {string} sortOrder asc, desc (optional)
- * @param {string} type tenants, organisations (optional)
- * @param {function} callback (optional)
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional (asc, desc)
+ * @param {string} type optional (tenants, organisations)
+ * @param {function} callback optional
  */
 netField.organisation.getAll(page, limit, sortBy, sortOrder, type, [callback])
 ```
 
+### createupgraderequest
 
+    Create organisation upgrade request
+
+```javascript
+/** 
+ * @param {number} organisationId
+ * @param {{ email: string, street: string, houseNumber: string, zipCode: string,
+    city: string, state?: string, country: string, subscriptionPlan: string}} params
+ * @param {function} callback optional
+ */
+netField.organisation.organisation.createUpgradeRequest(organisationId, params, [callback])
+```

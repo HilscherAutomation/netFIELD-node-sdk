@@ -1,10 +1,10 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
-**********************************************************************/
+ **********************************************************************/
 'use strict';
 
-var querystring = require('querystring');
+var querystring = require('query-string');
 var client = require('../../client');
 var validate = require('../../utils/validate');
 var checkers = require('../../utils/checkers');
@@ -12,13 +12,14 @@ var checkers = require('../../utils/checkers');
 /**
  * Get roles by userId and page
  * @param {number} userId
+ * @param {number} organisationId
  * @param {number} page
  * @param {number} limit
  * @param {string} sortBy
  * @param {string} sortOrder asc, desc
  * @param {function} callback optional
  */
-module.exports = function (userId, page, limit, sortBy, sortOrder, callback) {
+module.exports = function(userId, organisationId, page, limit, sortBy, sortOrder, callback) {
     if (checkers.isFunction(page)) {
         callback = page;
         page = null;
@@ -53,6 +54,8 @@ module.exports = function (userId, page, limit, sortBy, sortOrder, callback) {
             query.sortOrder = sortOrder;
             validate.validateString(sortOrder);
         }
+        validate.validateNumber(organisationId);
+        query.organisationId = organisationId;
         validate.validateNumber(userId);
         var path = '/users/' + userId + '/roles?' + querystring.stringify(query);
         return client.get('auth', path, callback);

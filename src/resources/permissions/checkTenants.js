@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,20 +9,17 @@ var validate = require('../../utils/validate');
 
 /**
  * Check what permissions a user is allowed to use with given tenants
- * @param {Array<number>} tenantIds
+ * @param {{tenantIds: Array<number>, resources: Array<string>}} params
  * @param {function} callback optional
  */
-module.exports = function (tenantIds, callback) {
+module.exports = function (params, callback) {
     try {
-        if (!tenantIds || !Array.isArray(tenantIds)) {
-            throw new Error("tenantIds must be an array of number");
-        }
+        const {tenantIds} = params;
+        validate.validateArray(tenantIds);
         for (let i = 0; i < tenantIds.length; i += 1) {
             validate.validateNumber(tenantIds[i]);
         }
-        const params = {
-            tenantIds: tenantIds,
-        };
+        validate.validateObject(params);
         var path =  '/permissions/tenants';
         return client.post('auth', path, params, callback);
     } catch (e) {

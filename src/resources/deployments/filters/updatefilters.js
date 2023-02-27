@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -10,7 +10,7 @@ var validate = require('../../../utils/validate');
 /**
  * Update filter by id
  * @param {string} filterId
- * @param {object} params
+ * @param {{ name: string, description: string, filterCondition: object}} params
  * @param {function} callback optional
  */
 module.exports = function (filterId, params, callback) {

@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -8,11 +8,11 @@ var client = require('../../../client');
 var validate = require('../../../utils/validate');
 var checkers = require('../../../utils/checkers');
 
-/**
+/** 
  * Execute deployment job by filter condition
  * @param {string} jobId
  * @param {string} filterId
- * @param {object} params
+ * @param {{excludedDevices: Array<string>}} params
  * @param {function} callback optional
  */
 module.exports = function (jobId, filterId, params = {}, callback) {

@@ -1,16 +1,16 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
 
 var client = require('../../client');
 var validate = require('../../utils/validate');
-var querystring = require('querystring');
+var querystring = require('query-string');
 
 /**
  * Get a list of suggestions for a registered user, identified by their email
- * @param {object} params params
+ * @param {{search: string}} params params
  * @param {function} callback optional
  */
 module.exports = function (params, callback) {

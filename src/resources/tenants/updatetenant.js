@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -10,7 +10,14 @@ var validate = require('../../utils/validate');
 /**
  * Update tenant by tenantId
  * @param {number} tenantId
- * @param {object} params
+ * @param {status: string,
+ * childOrganisationsLimit: number,
+ * usersLimit: number,
+ * devicesLimit: number,
+ * keysLimit: number, 
+ * keysRequestMonthlyLimit: number,
+ * dataStorageLimit: number, 
+ * wsConnectionLimit: number} params
  * @param {function} callback optional
  */
 module.exports = function (tenantId, params, callback) {

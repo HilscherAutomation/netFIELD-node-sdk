@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,19 +9,17 @@ var validate = require('../../utils/validate');
 
 /**
  * Check what permissions a user is allowed to use with given roles
- * @param {Object} roles
+ * @param {{roles: Object, resources: Array<string>}} params
  * @param {function} callback optional
  */
-module.exports = function (roles, callback) {
+module.exports = function (params, callback) {
   try {
+     const {roles} = params;
      validate.validateObject(roles);
      for (let i = 0; i < roles.length; i += 1) {
         validate.validateObject(roles[i]);
       }
-     const params = {
-       roles: roles
-     };
-
+      validate.validateObject(params);
       var path = '/permissions/roles';
       return client.post('auth', path, params, callback);
     } catch (e) {

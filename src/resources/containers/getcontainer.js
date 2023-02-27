@@ -1,18 +1,18 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
-**********************************************************************/
+ **********************************************************************/
 'use strict';
 
 var client = require('../../client');
 var validate = require('../../utils/validate');
 
 /**
- * Get container from appstore
+ * Get container from app store
  * @param {string} containerId
  * @param {function} callback optional
  */
-module.exports = function (containerId, callback) {
+module.exports = function(containerId, callback) {
     try {
         validate.validateString(containerId);
         var path = '/containers/' + containerId;

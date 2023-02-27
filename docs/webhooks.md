@@ -5,13 +5,13 @@
 
 ## Available Resources
 
-1. [netField.webhooks.getAll(organisationId, [page, limit, sortBy, sortOrder, callback])](#getAll)
+1. [netField.webhooks.getAll(organisationId, [page], [limit], [sortBy], [sortOrder], [callback])](#getAll)
 
 2. [netField.webhooks.get(webhookId, [callback])](#get)
 
-3. [netField.webhooks.create(params, [options], [callback])](#create)
+3. [netField.webhooks.create(params, [callback])](#create)
 
-4. [netField.webhooks.update(webhookId, params, [options], [callback])](#update)
+4. [netField.webhooks.update(webhookId, params, [callback])](#update)
 
 5. [netField.webhooks.delete(webhookId, [callback])](#delete)
 
@@ -26,10 +26,13 @@
 ```javascript
 /**
  * @param {number} organisationId
- * @param {any} options optional
+* @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional (asc, desc)
  * @param {function} callback optional
 */
-netField.webhooks.getAll(organisationId, [options], [callback])
+netField.webhooks.getAll(organisationId, page, limit, sortBy, sortOrder, [callback])
 ```
 
 ### get
@@ -39,10 +42,9 @@ netField.webhooks.getAll(organisationId, [options], [callback])
 ```javascript
 /**
  * @param {string} webhookId
- * @param {any} options optional
  * @param {function} callback optional
 */
-netField.webhooks.get(webhookId, [options], [callback])
+netField.webhooks.get(webhookId, [callback])
 ```
 
 ### create
@@ -51,10 +53,17 @@ netField.webhooks.get(webhookId, [options], [callback])
 
 ```javascript
 /**
- * @param {any} params
+ * @param {{ organisationId: number,
+ * url: string,
+ * description: string,
+ * requestType: string,
+ * actionType: string,
+ * headers: Array<{name: string, value: string}>,
+ * queries: Array<{name: string, value: string}>,
+ * payload: string}} params
  * @param {function} callback optional
 */
-netField.webhooks.create(params, [options], [callback])
+netField.webhooks.create(params, [callback])
 ```
 
 ### update
@@ -64,7 +73,13 @@ netField.webhooks.create(params, [options], [callback])
 ```javascript
 /**
  * @param {string} webhookId
- * @param {any} params
+ * @param {{url: string,
+ * description: string,
+ * requestType: string,
+ * actionType: string,
+ * headers: Array<{name: string, value: string}>,
+ * queries: Array<{name: string, value: string}>,
+ * payload: string}} params
  * @param {function} callback optional
 */
 netField.webhooks.update(webhookId, params, [callback])
@@ -88,7 +103,14 @@ netField.webhooks.delete(webhookId, [callback])
 
 ```javascript
 /**
- * @param {any} params
+ * @param {{organisationId: number,
+ * url: string,
+ * description: string,
+ * requestType: string,
+ * actionType: string,
+ * headers: Array<{name: string, value: string}>,
+ * queries: Array<{name: string, value: string}>,
+ * payload: string}} params
  * @param {function} callback optional
 */
 netField.webhooks.test(params, [callback])

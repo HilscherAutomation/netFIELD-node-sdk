@@ -1,23 +1,24 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
-var querystring = require('querystring');
+var querystring = require('query-string');
 var client = require('../../../client');
 var validate = require('../../../utils/validate');
 var checkers = require('../../../utils/checkers');
 
 /**
  * Execute deployment filter by filterId or filter condition
- * @param {object} params
+ * @param {{type: string, filterId: string, filterCondition: object}} params
  * @param {number} page
  * @param {number} limit
  * @param {string} sortBy
  * @param {string} sortOrder asc, desc
+ * @param {string} searchValue optional
  * @param {function} callback optional
  */
-module.exports = function (params, page, limit, sortBy, sortOrder, callback) {
+module.exports = function (params, page, limit, sortBy, sortOrder, searchValue, callback) {
   if (checkers.isFunction(page)) {
     callback = page;
     page = null;
@@ -51,6 +52,10 @@ module.exports = function (params, page, limit, sortBy, sortOrder, callback) {
     if (sortOrder) {
       query.sortOrder = sortOrder;
       validate.validateString(sortOrder);
+    }
+    if (searchValue) {
+      query.searchValue = searchValue;
+      validate.validateString(searchValue);
     }
     validate.validateObject(params);
     var path = '/deployments/filters/devices?' + querystring.stringify(query);

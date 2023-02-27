@@ -6,9 +6,9 @@
 
 ## Available Resources
 
-1. [netField.softwaremodules.appStore.get(orderId, [callback])](#getsoftwaremoduleorder)
+1. [netField.softwaremodules.orders.get(orderId, [callback])](#getsoftwaremoduleorder)
 
-2. [netField.softwaremodules.appStore.getAll(organisationId, page, limit, sortBy, sortOrder, [callback])](#getAll)
+2. [netField.softwaremodules.orders.getAll(organisationId, [page], [limit], [sortBy], [sortOrder], [callback])](#getAll)
 
 ## Resource Usage
 
@@ -21,7 +21,7 @@
  * @param {number} orderId
  * @param {function} callback optional
  */
-[netField.softwaremodules.appStore.get(softwareModuleId, [callback])
+[netField.softwaremodules.orders.get(softwareModuleId, [callback])
 ```
 
 ### getAll
@@ -31,11 +31,11 @@
 ``` javascript
 /**
  * @param {organisationId} number
- * @param {number} page
- * @param {number} limit
- * @param {string} sortBy
- * @param {string} sortOrder
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
  * @param {function} callback optional
 */
-netField.softwaremodules.artifacts.getAll(([page, limit, sortBy, sortOrder, callback])
+netField.softwaremodules.orders.getAll(organisationId, page, limit, sortBy, sortOrder, [callback])
 ```

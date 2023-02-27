@@ -1,31 +1,26 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
-**********************************************************************/
+ **********************************************************************/
 'use strict';
 
 const client = require('../../client');
 const validate = require('../../utils/validate');
 
 /**
- * Share container with other organisations
- * @param {string} containerId
- * @param {Array<number>} organisationIds
+ * Share container with other organisation
+ * @param {{containerId: string,
+ * versionIds: string[],
+ * sharingOrganisationId: number,
+ * targetOrganisationId: number,
+ * limit: number}} params
  * @param {function} callback optional
  */
-module.exports = function (containerId, organisationIds, callback) {
+module.exports = function(params, callback) {
     try {
-        if (!organisationIds || !Array.isArray(organisationIds)) {
-            throw new Error("organisationIds must be an array of string");
-        }
-        for (const organisation of organisationIds) {
-            validate.validateNumber(organisation);
-        }
-        const params = {
-          organisationIds: organisationIds,
-        };
-        const path =  '/containers/' + containerId + '/share';
-        return client.put('auth', path, params, callback);
+        validate.validateObject(params);
+        var path = '/containers/share';
+        return client.post('auth', path, params, callback);
     } catch (e) {
         if (callback) {
             return callback(e, null);

@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,7 +9,7 @@ var validate = require('../../utils/validate');
 
 /**
  * Add notification email to current user profile
- * @param {object} params 
+ * @param {{email: string}} params 
  * @param {function} callback optional
  */
 module.exports = function (params, callback) {

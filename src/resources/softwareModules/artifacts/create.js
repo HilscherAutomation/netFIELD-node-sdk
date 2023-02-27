@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,7 +9,7 @@ var validate = require('../../../utils/validate');
 
 /**
  * Create software module artifact
- * @param {object} params
+ * @param {{fileName: string, file: File, md5sum: string, sha1sum: string, sha256sum: string}} params
  * @param {number} softwareModuleId
  * @param {function} callback optional
  */

@@ -11,9 +11,31 @@
 
 3. [netField.revokeUserToken([callback])](#revokeUserToken)
 
-4. [netField.auth.resetPassword(email, [callback])](#resetPassword)
+4. [netField.auth.resetPassword(email, captchaToken, language, [callback])](#resetPassword)
 
-5. [netField.auth.setPassword(params, [callback])](#reset)
+5. [netField.auth.setPassword(params, language, [callback])](#reset)
+
+6. [netField.auth.sso(params, [callback])](#authsso)
+
+7. [netField.auth.twoFactor.enable([callback])](#enabletwofactor)
+
+8. [netField.auth.twoFactor.disable(code, [callback])](#disabletwofactor)
+
+9. [netField.auth.twoFactor.verify(twoFactorMethodId, twoFactorCode, tokenType, [callback])](#verifytwofactorcode)
+
+10. [netField.auth.twoFactor.send([callback])](#sendtwofactorcode)
+
+11. [netField.auth.twoFactor.methods.add(twoFactorMethodType, [callback])](#addtwofactormethod)
+
+12. [netField.auth.twoFactor.methods.delete(twoFactorMethodId, code, [callback])](#deletetwofactormethod)
+
+13. [netField.auth.twoFactor.methods.getAll([callback])](#getalltwofactormethods)
+
+14. [netField.auth.twoFactor.methods.getEnabled([callback])](#getenabledtwofactormethods)
+
+15. [netField.auth.twoFactor.methods.select(twoFactorMethodId, [callback])](#selecttwofactormethod)
+
+16. [netField.auth.twoFactor.methods.verify(twoFactorMethodId, twoFactorCode, [callback])](#verifytwofactormethod)
 
 
 ## Resource Usage
@@ -24,7 +46,7 @@
 
 ```javascript
 /**
- * @param {object} params
+ * @param {{grantType: string, refreshToken: string, email: string, password: string, stayLoggedIn: boolean, language: string}} params
  * @param {function} callback optional
 */
 netField.generateUserToken(params, [callback])
@@ -59,9 +81,11 @@ netField.revokeUserToken([callback])
 ```javascript
 /**
  * @param {string} email
+ * @param {string} captchaToken
+ * @param {string} language optional
  * @param {function} callback optional
 */
-netField.auth.resetPassword(email, [callback])
+netField.auth.resetPassword(email, captchaToken, language, [callback])
 ```
 
 ### reset
@@ -70,8 +94,142 @@ netField.auth.resetPassword(email, [callback])
 
 ```javascript
 /**
- * @param {object} params
+ * @param {{email: string, password: string, code: string}} params
+ * @param {string} language optional
  * @param {function} callback optional
 */
-netField.auth.setPassword(params, [callback])
+netField.auth.setPassword(params, language, [callback])
+```
+
+### authsso
+
+    Sign In with SSO
+
+```javascript
+/**
+ * @param {{code: string, sso: string}} params
+ * @param {function} callback optional
+*/
+netField.auth.sso(params, [callback])
+```
+
+### enabletwofactor
+
+    Enable two-factor authentication for the current user
+
+```javascript
+/** 
+ * @param {function} callback optional
+*/
+netField.auth.twoFactor.enable([callback])
+```
+
+### disabletwofactor
+
+    Disable two-factor authentication for the current user
+
+```javascript
+/** 
+ * @param {string} code verification code
+ * @param {function} callback optional
+*/
+netField.auth.twoFactor.disable(code, [callback])
+```
+
+### verifytwofactorcode
+
+    Verify two-factor authentication code and generate authorization and refresh token
+
+```javascript
+/** 
+ * @param {number} twoFactorMethodId
+ * @param {string} twoFactorCode
+ * @param {string} tokenType optional
+ * @param {function} callback optional
+*/
+netField.auth.twoFactor.verify(twoFactorMethodId, twoFactorCode, tokenType, [callback])
+```
+
+### sendtwofactorcode
+
+    Sends two-factor authentication code to the user email 
+
+```javascript
+/** 
+ * @param {function} callback optional
+*/
+netField.auth.twoFactor.send([callback])
+```
+
+### addtwofactormethod
+
+    Add two-factor authentication method
+
+```javascript
+/**
+ * @param {string} twoFactorMethodType
+ * @param {function} callback optional
+*/
+netField.auth.twoFactor.methods.add(twoFactorMethodType, [callback])
+```
+
+### deletetwofactormethod
+
+    Delete (disable) two-factor authentication method
+
+```javascript
+/**
+ * @param {number} twoFactorMethodId
+ * @param {string} code verification code
+ * @param {function} callback optional
+*/
+netField.auth.twoFactor.methods.delete(twoFactorMethodId, code, [callback])
+```
+
+### getalltwofactormethods
+
+    Get all two-factor authentication methods for the current user
+
+```javascript
+/** 
+ * @param {function} callback optional
+*/
+netField.auth.twoFactor.methods.getAll([callback])
+```
+
+### getenabledtwofactormethods
+
+    Get a list of enabled two-factor authentication methods for the current user
+
+```javascript
+/** 
+ * @param {function} callback optional
+*/
+netField.auth.twoFactor.methods.getEnabled([callback])
+```
+
+### selecttwofactormethod
+
+    Select which two-factor authentication method to use
+
+```javascript
+/**
+ * @param {number} twoFactorMethodId 
+ * @param {function} callback optional
+*/
+netField.auth.twoFactor.methods.select(twoFactorMethodId, [callback])
+```
+
+
+### verifytwofactormethod
+
+    Verify (enable) two-factor authentication method
+
+```javascript
+/** 
+ * @param {number} twoFactorMethodId
+ * @param {string} twoFactorCode
+ * @param {function} callback optional
+*/
+netField.auth.twoFactor.methods.verify(twoFactorMethodId, twoFactorCode, [callback])
 ```

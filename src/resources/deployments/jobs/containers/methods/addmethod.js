@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -11,7 +11,7 @@ var validate = require('../../../../../utils/validate');
  * Add direct method to container into deployment job
  * @param {string} jobId
  * @param {string} containerId
- * @param {object} params 
+ * @param {{methodName: string, methodPayload: object}} params 
  * @param {function} callback optional
  */
 module.exports = function (jobId, containerId, params, callback) {

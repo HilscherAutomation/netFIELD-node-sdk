@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 "use strict";
@@ -33,5 +33,11 @@ var validateString = exports.validateString = function validateString(str) {
 var validateNumber = exports.validateNumber = function validateNumber(num) {
     if (typeof num !== 'number' || !num) {
         throw new Error(errors.mustBeNumber());
+    }
+}
+
+var validateDate = exports.validateDate = function validateDate(date) {
+    if (isNaN(Date.parse(date))) {
+        throw new Error(errors.mustBeDate());
     }
 }

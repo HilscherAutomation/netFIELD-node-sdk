@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 "use strict";
@@ -96,24 +96,36 @@ var del = exports.delete = function del(authStrategy, path, params, callback) {
 };
 
 var buildHttpOptions = function buildHttpOptions(authStrategy, method, config, path, postData) {
-  var headers = Object.assign({ Authorization: null }, config.headers);
+  var headers = Object.assign({
+    ...config.headers,
+    ...(postData && { 'Content-Length': Buffer.byteLength(postData) })
+  });
   switch (authStrategy) {
     case 'auth':
-      headers.Authorization = config.userToken || 'dummy';
+      if (config.userToken) {
+        headers.Authorization = config.userToken;
+      }
       break;
     case 'public':
-      headers.Authorization = config.accessToken || 'dummy';
+      if (config.accessToken) {
+        headers.Authorization = config.accessToken;
+      }
       break;
     case 'key':
-      headers.Authorization = config.keyToken || 'dummy';
+      if (config.keyToken) {
+        headers.Authorization = config.keyToken;
+      }
+      break;
+    case 'dynamicPages':
+      if (config.dynamicPagesAuthorizationToken) {
+        headers.Authorization = config.dynamicPagesAuthorizationToken;
+      }
       break;
     default:
-      headers.Authorization = config.userToken || 'dummy';
+      if (config.userToken) {
+        headers.Authorization = config.userToken;
+      }
       break;
-  }
-
-  if (postData) {
-    headers['Content-Length'] = Buffer.byteLength(postData);
   }
 
   return {
@@ -126,6 +138,8 @@ var buildHttpOptions = function buildHttpOptions(authStrategy, method, config, p
 }
 
 var makeRequest = function makeRequest(client, httpOptions, postData, callback) {
+  var { onUnauthorizeCall } = api.getConfiguration();
+
   return new Promise(function (resolve, reject) {
     var req = client.request(httpOptions, function (res) {
       res.setEncoding('utf8');
@@ -159,6 +173,8 @@ var makeRequest = function makeRequest(client, httpOptions, postData, callback) 
             api.removeUserToken();
             api.removeUserRefreshToken();
             api.removeTokenExpiresAt();
+
+            if (onUnauthorizeCall) onUnauthorizeCall();
           }
           var data = handleResSuccess(processedData, res);
           var error = handleResError(processedData, res);
@@ -206,6 +222,7 @@ var makeRequest = function makeRequest(client, httpOptions, postData, callback) 
 };
 
 var sendFormData = function sendFormData(url, token, formData, method, options, callback) {
+  var { onUnauthorizeCall } = api.getConfiguration();
   var status;
   var requestMethod = method || 'POST';
   return new Promise(function (resolve, reject) {
@@ -219,7 +236,13 @@ var sendFormData = function sendFormData(url, token, formData, method, options, 
     fetch(url, request)
       .then(function (response) {
         status = response.status;
-        return response.json();
+        return new Promise((resolve) => {
+          if (response) {
+            response.json().then(json => resolve(json)).catch(() => resolve(null))
+          } else {
+            resolve(null)
+          }
+        })
       })
       .then(function (json) {
         // Success
@@ -230,6 +253,11 @@ var sendFormData = function sendFormData(url, token, formData, method, options, 
           }
           return resolve(json);
         }
+
+        if (status === 401) {
+          if (onUnauthorizeCall) onUnauthorizeCall();
+        }
+
         // Error
         var error = {
           error: json && json.error ? json.error : undefined,

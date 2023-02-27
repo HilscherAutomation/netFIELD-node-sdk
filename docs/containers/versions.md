@@ -6,7 +6,7 @@
 
 ## Available Resources
 
-1. [netField.containers.versions.createversion(params, containerId, [options], [callback])](#create)
+1. [netField.containers.versions.createversion(containerId, params, [options], [callback])](#create)
 
 2. [netField.containers.versions.deleteversion(containerId, versionId, [callback])](#delete)
 
@@ -20,17 +20,25 @@
 
 ### create
 
-    Create a manifest container
+    Create a container version
 
 ``` javascript
 /**
- * @param {integer} organisationId
  * @param {string} containerId
- * @param {object} params
+ * @param {{version: string,
+ * imageUri: string,
+ * releaseNotes: string,
+ * useGlobalCredentials: boolean,
+ * registryType: string,
+ * credential: object,
+ * processorArchitecture: string,
+ * containerCreateOptions: object,
+ * containerTwinDesiredOptions: object,
+ * environmentVariables: Array<object>}} params
  * @param {object} options optional
  * @param {function} callback optional
  */
-netField.containers.versions.createversion(organisationId, containerId, params, [options], [callback])
+netField.containers.versions.createversion(containerId, params, [options], [callback])
 ```
 
 ### delete
@@ -66,11 +74,11 @@ netField.containers.versions.getversion(containerId, versionId, [callback])
 ``` javascript
 /**
  * @param {string} containerId
- * @param {number} page (optional)
- * @param {number} limit (optional)
- * @param {string} sortBy (optional)
- * @param {string} sortOrder asc, desc (optional)
- * @param {function} callback (optional)
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional (asc, desc)
+ * @param {function} callback optional
  */
 netField.containers.versions.getallversions(containerId, page, limit, sortBy, sortOrder, [callback])
 ```
@@ -81,7 +89,16 @@ netField.containers.versions.getallversions(containerId, page, limit, sortBy, so
 
 ``` javascript
 /**
- * @param {object} params
+ * @param {{version: string,
+ * imageUri: string,
+ * releaseNotes: string,
+ * useGlobalCredentials: boolean,
+ * registryType: string,
+ * credential: object,
+ * processorArchitecture: string,
+ * containerCreateOptions: object,
+ * containerTwinDesiredOptions: object,
+ * environmentVariables: Array<object>}} params
  * @param {string} containerId
  * @param {string} versionId
  * @param {object} options optional 

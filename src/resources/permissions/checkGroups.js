@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,20 +9,17 @@ var validate = require('../../utils/validate');
 
 /**
  * Check what permissions a user is allowed to use with given groups
- * @param {Array<number>} groupIds
+ * @param {{groupIds: Array<number>, resources: Array<string>}} params
  * @param {function} callback optional
  */
-module.exports = function (groupIds, callback) {
+module.exports = function (params, callback) {
     try {
-        if (!groupIds || !Array.isArray(groupIds)) {
-            throw new Error("groupIds must be an array of number");
-        }
+        const {groupIds} = params;
+        validate.validateArray(groupIds);
         for (let i = 0; i < groupIds.length; i += 1) {
             validate.validateNumber(groupIds[i]);
         }
-        const params = {
-          groupIds: groupIds,
-        };
+        validate.validateObject(params);
         var path =  '/permissions/groups';
         return client.post('auth', path, params, callback);
     } catch (e) {
