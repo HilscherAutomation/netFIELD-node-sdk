@@ -1,5 +1,5 @@
 /** ********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
  **********************************************************************/
 
@@ -7,7 +7,7 @@
 
 let client = require('../../client');
 let validate = require('../../utils/validate');
-let querystring = require('querystring');
+let querystring = require('query-string');
 
 /**
  * Check specific resource permission

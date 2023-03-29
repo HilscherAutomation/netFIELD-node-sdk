@@ -1,24 +1,24 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 "use strict";
 
 var messagePrefix = '[EdgeSDK]';
 
-var mustContain = exports.mustContain = function mustContain(name, params){
-    return messagePrefix + ' ' + name +' must contain ' + params + '!';
+var mustContain = exports.mustContain = function mustContain(name, params) {
+    return messagePrefix + ' ' + name + ' must contain ' + params + '!';
 }
 
-var mustBe = exports.mustBe = function mustBe(name, params){
-    return messagePrefix + ' ' + name +' must be ' + params + '!';
+var mustBe = exports.mustBe = function mustBe(name, params) {
+    return messagePrefix + ' ' + name + ' must be ' + params + '!';
 }
 
-var mustBeLoggedIn = exports.mustBeLoggedIn = function mustBeLoggedIn(){
+var mustBeLoggedIn = exports.mustBeLoggedIn = function mustBeLoggedIn() {
     return messagePrefix + ' User needs to be logged in to call this resource.';
 }
 
-var mustSetConfiguration = exports.mustSetConfiguration = function mustSetConfiguration(){
+var mustSetConfiguration = exports.mustSetConfiguration = function mustSetConfiguration() {
     return messagePrefix + ' SDK must be configured before invoking functions.';
 }
 
@@ -44,4 +44,8 @@ var mustBeString = exports.mustBeString = function mustBeString() {
 
 var mustBeNumber = exports.mustBeNumber = function mustBeNumber() {
     return mustBeOfType('Number');
+}
+
+var mustBeDate = exports.mustBeDate = function mustBeDate() {
+    return mustBeOfType('Date');
 }

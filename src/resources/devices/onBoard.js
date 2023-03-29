@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,7 +9,15 @@ var validate = require('../../utils/validate');
 
 /**
  * OnBoard Device
- * @param {object} params
+ * @param {{
+ *   activationCode: string, 
+ *   serialNumber: string, 
+ *   firmwareVersion: string, 
+ *   modelName: string, 
+ *   containerJWT: string, 
+ *   useManifest: boolean,
+ *   useRemoteControl: boolean
+ * }} params
  * @param {function} callback optional
  */
 module.exports = function (params, callback) {

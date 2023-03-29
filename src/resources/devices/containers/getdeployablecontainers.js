@@ -1,10 +1,10 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
  **********************************************************************/
 "use strict";
 
-var querystring = require("querystring");
+var querystring = require("query-string");
 var client = require("../../../client");
 var validate = require("../../../utils/validate");
 var checkers = require("../../../utils/checkers");
@@ -16,9 +16,13 @@ var checkers = require("../../../utils/checkers");
  * @param {number} limit
  * @param {string} sortBy
  * @param {string} sortOrder
+ * @param {boolean} includeDisabled (optional)
+ * @param {Array<string>} category (optional)
+ * @param {Array<string>} organisationName (optional)
+ * @param {boolean} purchased (optional)
  * @param {function} callback optional
  */
-module.exports = function(deviceId, page, limit, sortBy, sortOrder, includeDisabled, callback) {
+module.exports = function(deviceId, page, limit, sortBy, sortOrder, includeDisabled, category, organisationName, purchased, callback) {
   for (let i = 0; i < arguments.length; i++) {
     if (checkers.isFunction(arguments[i])) {
       callback = arguments[i];
@@ -47,6 +51,31 @@ module.exports = function(deviceId, page, limit, sortBy, sortOrder, includeDisab
     }
     if (includeDisabled !== undefined && includeDisabled != null) {
       query.includeDisabled = includeDisabled;
+    }
+    if (category !== undefined && category != null) {
+        if (Array.isArray(category)) {
+          validate.validateArray(category);
+          for (let i = 0; i < category.length; i += 1) {
+            validate.validateString(category[i]);
+          }
+        } else {
+          validate.validateString(category);
+        }
+        query.category = category;
+    }
+    if (organisationName !== undefined && organisationName != null) {
+        if (Array.isArray(organisationName)) {
+          validate.validateArray(organisationName);
+          for (let i = 0; i < organisationName.length; i += 1) {
+            validate.validateString(organisationName[i]);
+          }
+        } else {
+          validate.validateString(organisationName);
+        }
+        query.organisationName = organisationName;
+    }
+    if (purchased !== undefined && purchased != null) {
+        query.purchased = purchased;
     }
     validate.validateString(deviceId);
     var path = "/devices/" + deviceId + "/containers/deployable?" + querystring.stringify(query);

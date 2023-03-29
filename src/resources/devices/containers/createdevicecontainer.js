@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -12,7 +12,15 @@ var checkers = require('../../../utils/checkers');
  * Installs a container on a device
  * @param {string} containerId
  * @param {string} deviceId
- * @param {object} params
+ * @param {{version: string,
+ * restartPolicy: string, 
+ * desiredStatus: string,
+ * containerCreateOptions: object,
+ * containerTwinDesiredOptions: object,
+ * environmentVariables: Array<object>,
+ * startupOrder: number,
+ * useProxySettings: boolean
+ *  }} params
  * @param {object} options
  * @param {function} callback optional
  */

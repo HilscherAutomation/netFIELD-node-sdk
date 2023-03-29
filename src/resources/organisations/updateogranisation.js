@@ -1,7 +1,7 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
-**********************************************************************/
+ **********************************************************************/
 'use strict';
 
 var client = require('../../client');
@@ -10,10 +10,32 @@ var validate = require('../../utils/validate');
 /**
  * Update organisation by organisationId
  * @param {number} organisationId
- * @param {object} params
+ * @param {{name: string,
+ * admin: string,
+ * phoneNumber: string,
+ * street: string,
+ * houseNumber: string,
+ * addressSupplement: string,
+ * zipCode: string,
+ * city: string,
+ * state: string,
+ * country: string,
+ * notes: string,
+ * companyName: string,
+ * allowChildrenToInheritManifest: boolean,
+ * inheritParentManifest: boolean,
+ * childOrganisationsLimit: number,
+ * usersLimit: number,
+ * devicesLimit: number,
+ * keysLimit: number,
+ * keysRequestMonthlyLimit: number,
+ * wsConnectionLimit: number,
+ * dataStorageLimit: number,
+ * persistStreamingData: boolean,
+ * }} params
  * @param {function} callback optional
  */
-module.exports = function (organisationId, params, callback) {
+module.exports = function(organisationId, params, callback) {
     try {
         validate.validateNumber(organisationId);
         validate.validateObject(params);

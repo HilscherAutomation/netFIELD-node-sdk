@@ -1,22 +1,36 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
-**********************************************************************/
+ **********************************************************************/
 'use strict';
 
 var client = require('../../client');
 var validate = require('../../utils/validate');
-var querystring = require('querystring');
+var querystring = require('query-string');
+var checkers = require('../../utils/checkers');
 
 /**
  * Resend tempUser verification code to email
  * @param {string} email
+ * @param {string} language (optional)
  * @param {function} callback optional
  */
-module.exports = function (email, callback) {
+module.exports = function(email, language, callback) {
+    if (checkers.isFunction(language)) {
+        callback = language;
+        language = null;
+    }
     try {
-        validate.validateString(email);
-        var path = '/users/sensoredge/verify/resend?' + querystring.stringify({email: email});
+        const query = {};
+        if (language) {
+            query.language = language;
+            validate.validateString(language);
+        }
+        if (email) {
+            query.email = email;
+            validate.validateString(email);
+        }
+        var path = '/users/sensoredge/verify/resend?' + querystring.stringify(query);
         return client.get('public', path, callback);
     } catch (e) {
         if (callback) {

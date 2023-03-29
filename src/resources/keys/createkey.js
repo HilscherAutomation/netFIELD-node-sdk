@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,6 +9,11 @@ var validate = require('../../utils/validate');
 
 /**
  * Create Key
+ * @param {{organisationId: number,
+ * name: string,
+ * type: string,
+ * resources: Array<{resource: string, permissions: Array<string>}>,
+ * expiresAt: string}} params
  * @param {function} callback optional
  */
 

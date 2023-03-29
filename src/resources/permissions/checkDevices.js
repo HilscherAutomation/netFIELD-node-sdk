@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,20 +9,17 @@ var validate = require('../../utils/validate');
 
 /**
  * Check what permissions a user is allowed to use with given devices
- * @param {Array<String>} deviceIds
+ * @param {{deviceIds: Array<String>, resources: Array<string>}} params
  * @param {function} callback optional
  */
-module.exports = function (deviceIds, callback) {
+module.exports = function (params, callback) {
     try {
-        if (!deviceIds || !Array.isArray(deviceIds)) {
-            throw new Error("deviceIds must be an array of string");
-        }
+        const {deviceIds} = params;
+        validate.validateArray(deviceIds);
         for (let i = 0; i < deviceIds.length; i += 1) {
             validate.validateString(deviceIds[i]);
         }
-        const params = {
-            deviceIds: deviceIds,
-        };
+        validate.validateObject(params);
         var path =  '/permissions/devices';
         return client.post('auth', path, params, callback);
     } catch (e) {

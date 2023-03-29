@@ -18,7 +18,7 @@
 
 ``` javascript
 /**
- * @param {Array<object>} params
+ * @param {{fileName: string, file: File, md5sum: string, sha1sum: string, sha256sum: string}} params
  * @param {number} softwareModuleId
  * @param {function} callback optional
  */
@@ -35,5 +35,5 @@ netField.softwaremodules.artifacts.create(params, softwareModuleId, [callback])
  * @param {number} artifactId
  * @param {function} callback optional
  */
-netField.softwaremodules.artifacts.getartifact(softwareModuleId, artifactId[callback])
+netField.softwaremodules.artifacts.getartifact(softwareModuleId, artifactId, [callback])
 ```

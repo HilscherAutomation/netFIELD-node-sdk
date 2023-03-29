@@ -5,23 +5,51 @@
 
 ## Available Resources
 
-1. [netField.permissions.devices(deviceIds, [callback])](#devicepermissions)
+1. [netField.permissions.devices(params, [callback])](#devicepermissions)
 
-2. [netField.permissions.containers(containerIds, [callback])](#containerpermissions)
+2. [netField.permissions.containers(params, [callback])](#containerpermissions)
 
-3. [netField.permissions.organisations(organisationIds, [callback])](#organisationpermissions)
+3. [netField.permissions.organisations(params, [callback])](#organisationpermissions)
 
-4. [netField.permissions.users(userIds, [callback])](#userpermissions)
+4. [netField.permissions.users(params, [callback])](#userpermissions)
 
-5. [netField.permissions.roles(roles, [callback])](#rolepermissions)
+5. [netField.permissions.roles(params, [callback])](#rolepermissions)
 
-6. [netField.permissions.tenants(tenantIds, [callback])](#tenantspermissions)
+6. [netField.permissions.tenants(params, [callback])](#tenantspermissions)
 
-7. [netField.permissions.edgeos(edgeosIds, [callback])](#edgeospermissions)
+7. [netField.permissions.edgeos(params, [callback])](#edgeospermissions)
 
-8. [netField.permissions.groups(groupIds, [callback])](#groupspermissions)
+8. [netField.permissions.groups(params, [callback])](#groupspermissions)
+
+9. [netField.permissions.webhooks(params, [callback])](#webhookspermissions)
+
+10. [netField.permissions.permissions(resource, [callback])](#checkpermissions)
 
 ## Resource Usage
+
+### devicepermissions
+
+    Check devices permissions
+
+```javascript
+/**
+ * @param {{deviceIds: Array<string>, resources: Array<string>}} params
+ * @param {function} callback optional
+*/
+netField.permissions.devices(params, [callback])
+```
+
+### containerpermissions
+
+    Check containers permissions
+
+```javascript
+/**
+ * @param {{containerIds: Array<string>, resources: Array<string>}} params
+ * @param {function} callback optional
+*/
+netField.permissions.containers(params, [callback])
+```
 
 ### organisationpermissions
 
@@ -29,10 +57,10 @@
 
 ```javascript
 /**
- * @param {number[]} organisationId
+ * @param {{organisationIds: Array<number>, resources: Array<string>}} params
  * @param {function} callback optional
 */
-netField.permissions.organisations(organisationId, [callback])
+netField.permissions.organisations(params, [callback])
 ```
 
 ### userpermissions
@@ -41,10 +69,10 @@ netField.permissions.organisations(organisationId, [callback])
 
 ```javascript
 /**
- * @param {number[]} userIds
+ * @param {{userIds: Array<number>, resources: Array<string>}} params
  * @param {function} callback optional
 */
-netField.permissions.users(userIds, [callback])
+netField.permissions.users(params, [callback])
 ```
 
 ### rolepermissions
@@ -53,10 +81,10 @@ netField.permissions.users(userIds, [callback])
 
 ```javascript
 /**
- * @param {any} roles
+ * @param {{roles: Object, resources: Array<string>}} params
  * @param {function} callback optional
 */
-netField.permissions.roles(roles, [callback])
+netField.permissions.roles(params, [callback])
 ```
 
 ### tenantspermissions
@@ -65,10 +93,10 @@ netField.permissions.roles(roles, [callback])
 
 ```javascript
 /**
- * @param {number[]} tenantIds
+ * @param {{tenantIds: Array<number>, resources: Array<string>}} params
  * @param {function} callback optional
 */
-netField.permissions.tenants(tenantIds, [callback])
+netField.permissions.tenants(params, [callback])
 ```
 
 ### edgeospermissions
@@ -77,10 +105,10 @@ netField.permissions.tenants(tenantIds, [callback])
 
 ```javascript
 /**
- * @param {string[]} edgeosId
+ * @param {{edgeosIds: Array<String>, resources: Array<string>}} params
  * @param {function} callback optional
 */
-netField.permissions.edgeos(edgeosIds, [callback])
+netField.permissions.edgeos(params, [callback])
 ```
 
 ### groupspermissions
@@ -89,8 +117,32 @@ netField.permissions.edgeos(edgeosIds, [callback])
 
 ```javascript
 /**
- * @param {string[]} groupIds
+ * @param {{groupIds: Array<number>, resources: Array<string>}} params
  * @param {function} callback optional
 */
-netField.permissions.groups(groupIds, [callback])
+netField.permissions.groups(params, [callback])
+```
+
+### webhookspermissions
+
+ Check webhooks permissions
+
+```javascript
+/**
+ * @param {{webhookIds: Array<number>, resources: Array<string>}} params
+ * @param {function} callback optional
+*/
+netField.permissions.webhooks(params, [callback])
+```
+
+### checkpermissions
+
+ Check permissions and security levels per resource
+
+```javascript
+/**
+ * @param {string} resource optional
+ * @param {function} callback optional
+*/
+netField.permissions.permissions(resource, [callback])
 ```

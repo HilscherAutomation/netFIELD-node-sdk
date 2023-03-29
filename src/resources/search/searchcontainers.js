@@ -1,11 +1,11 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
 
 var client = require('../../client');
-var querystring = require('querystring');
+var querystring = require('query-string');
 var validate = require('../../utils/validate');
 var checkers = require('../../utils/checkers');
 
@@ -18,9 +18,13 @@ var checkers = require('../../utils/checkers');
  * @param {integer} limit (optional)
  * @param {string} sortBy (optional)
  * @param {string} sortOrder One of two values: "asc" or "desc". (optional)
+ * @param {boolean} includeDisabled optional default 'false'
+ * @param {string} deployableFor optional 
  * @param {function} callback (optional)
  */
-module.exports = function (searchText, filter, searchType, page, limit, sortBy, sortOrder, includeDisabled, callback) {
+module.exports = function (
+  searchText, filter, searchType, page, limit, sortBy, sortOrder, includeDisabled, deployableFor, callback
+) {
   if (checkers.isFunction(searchText)) {
     callback = searchText;
     searchText = null;
@@ -52,6 +56,10 @@ module.exports = function (searchText, filter, searchType, page, limit, sortBy, 
   if (checkers.isFunction(includeDisabled)) {
     callback = includeDisabled;
     includeDisabled = null;
+  }
+  if (checkers.isFunction(deployableFor)) {
+    callback = deployableFor;
+    deployableFor = null;
   }
 
   try {
@@ -92,6 +100,10 @@ module.exports = function (searchText, filter, searchType, page, limit, sortBy, 
     }
     if (includeDisabled) {
       query.includeDisabled = includeDisabled;
+    }
+    if (deployableFor !== undefined && deployableFor !== null) {
+      query.deployableFor = deployableFor;
+      validate.validateString(deployableFor);
     }
     const path = '/search/containers?' + querystring.stringify(query);
     return client.get('auth', path, callback);

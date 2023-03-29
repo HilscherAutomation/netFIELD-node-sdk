@@ -1,11 +1,11 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
 
 var client = require('../../client');
-var querystring = require('querystring');
+var querystring = require('query-string');
 var validate = require('../../utils/validate');
 var checkers = require('../../utils/checkers');
 

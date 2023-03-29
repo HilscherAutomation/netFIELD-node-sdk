@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 "use strict";
@@ -10,7 +10,25 @@ const path = "/tenants/organisations";
 
 /**
  * Create tenant's root organization
- * @param {object} params
+ * @param {name: string,
+ * admin: object,
+ * phoneNumber: string,
+ * street: string,
+ * houseNumber: string,
+ * addressSupplement: string,
+ * zipCode: string,
+ * city: string,
+ * state: string,
+ * country: string,
+ * notes: string,
+ * persistStreamingData: boolean,
+ * childOrganisationsLimit: number,
+ * usersLimit: number,
+ * devicesLimit: number,
+ * keysLimit: number, 
+ * keysRequestMonthlyLimit: number,
+ * dataStorageLimit: number, 
+ * wsConnectionLimit: number} params
  * @param {function} callback optional
  */
 module.exports = function(params, callback) {

@@ -1,6 +1,6 @@
 # netFIELD SDK Node
 
-*netFIELD-SDK-Node (node.js version >=10.x.x) and Node samples for REST API.*
+*netFIELD-SDK-Node (node.js version >=0.6.x) and Node samples for REST API.*
 
 ## Installation
 
@@ -10,7 +10,7 @@
 npm install netfield-node-sdk --save
 ```
 
-> Require 'netfield-sdk-node' in your file
+> Require 'netfield-node-sdk' in your file
 ```js
 var netField = require('netfield-node-sdk');
 ```
@@ -55,6 +55,7 @@ netField.generateUserToken(params, function (error, data) {
     if(error){
         throw new Error(error.message);
     }
+
 });
 ```
 
@@ -85,6 +86,7 @@ netField.generateUserToken(params)
 3. Containers
     * [Main](./docs/containers/containers.md)
     * [Versions](./docs/containers/versions.md)
+    * [Sharings](./docs/containers/sharings.md)
 
 4. Organisation
     * [Main](./docs/organisations/organisations.md)
@@ -109,6 +111,21 @@ netField.generateUserToken(params)
     * [Jobs](./docs/deployments/jobs.md)
     * [Rollouts](./docs/deployments/rollouts.md)
 
+13. AppStore
+    * [Orders](./docs/softwaremodules/appStore.md)
+    * [Artifacts](./docs/softwaremodules/artifacts.md)
+    * [Modules](./docs/softwaremodules/modules.md)
+
+14. [Metrics](./docs/metrics.md)
+
+15. [RolesManagement](./docs/rolesManagement.md)
+
+16. [BugReports](./docs/bugreports)
+
+17. [Announcements](./docs/announcements.md)
+
+18. [Resources](./docs/resources.md)
+
 
 ## Tests
 > Setup your testing environment to localmachine and change configuration through method
@@ -126,7 +143,7 @@ netField.setConfiguration({
 });
 ```
 
-> Edit setings in configure file and change  enviorment.js to be development
+> Edit setings in configure file and chaneg enviorment.js to be development
 ```js
 const enviorment = exports.enviorment = {
     enviorment: 'development'

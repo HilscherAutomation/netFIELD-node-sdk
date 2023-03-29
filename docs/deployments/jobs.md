@@ -14,7 +14,7 @@
 
 4. [netField.deployments.jobs.containers.delete(jobId, containerId, [callback])](#deleteContainerInJob)
 
-5. [netField.deployments.jobs.containers.getAll(jobId, page, limit, sortBy, sortOrder, [callback])](#getAllContainersInJob)
+5. [netField.deployments.jobs.containers.getAll(jobId, [page], [limit], [sortBy], [sortOrder], [callback])](#getAllContainersInJob)
 
 6. [netField.deployments.jobs.containers.get(jobId, containerId, [callback])](#getSingleContainerInJob)
 
@@ -24,7 +24,7 @@
 
 9. [netField.deployments.jobs.get(jobId, [callback])](#getSingleJob)
 
-10. [netField.deployments.jobs.getAll(organisationId, page, limit, sortBy, sortOrder, [callback])](#getAllJobs)
+10. [netField.deployments.jobs.getAll(organisationId, [page], [limit], [sortBy], [sortOrder], [callback])](#getAllJobs)
 
 11. [netField.deployments.jobs.routes.add(jobId, params, [callback])](#addRouteToJob)
 
@@ -32,7 +32,7 @@
 
 13. [netField.deployments.jobs.routes.delete(jobId, routeId, [callback])](#deleteRouteInJob)
 
-14. [netField.deployments.jobs.routes.getAll(jobId, page, limit, sortBy, sortOrder, [callback])](#getAllRoutesInJob)
+14. [netField.deployments.jobs.routes.getAll(jobId, [page], [limit], [sortBy], [sortOrder], [callback])](#getAllRoutesInJob)
 
 15. [netField.deployments.jobs.routes.get(jobId, routeId, [callback])](#getSingleRouteInJob)
 
@@ -44,10 +44,31 @@
 
 19. [netField.deployments.jobs.containers.methods.delete(jobId, containerId, methodId, [callback])](#deleteMethodInJobContainer)
 
-20. [netField.deployments.jobs.containers.methods.getAll(jobId, containerId, page, limit, sortBy, sortOrder, [callback])](#getAllMethodsInJobContainer)
+20. [netField.deployments.jobs.containers.methods.getAll(jobId, containerId, [page], [limit], [sortBy], [sortOrder], [callback])](#getAllMethodsInJobContainer)
 
 21. [netField.deployments.jobs.containers.methods.get(jobId, containerId,  methodId, [callback])](#getSingleMethodInJobContainer)
 
+22. [netField.deployments.jobs.os.add(jobId, params, [callback])](#addostojob)
+
+23. [netField.deployments.jobs.os.delete(jobId, platform, [callback])](#deleteosinjob)
+
+24. [netField.deployments.jobs.os.getAll(jobId, [page], [limit], [sortBy], [sortOrder], [callback])](#getallosinjob)
+
+25. [netField.deployments.jobs.os.get(jobId, platform, [callback])](#getsingleosinjob)
+
+26. [netField.deployments.jobs.executeByGroup(jobId, groupId, params, [callback])](#executeJobByGroup)
+
+27. [netField.deployments.jobs.executeCustomSelect(jobId, params, [callback])](#executeJobCustomSelect)
+
+28. [netField.deployments.jobs.schedules.create(params, [callback])](#createJobSchedule)
+
+29. [netField.deployments.jobs.schedules.update(scheduleId, params, [callback])](#updateJobSchedule)
+
+30. [netField.deployments.jobs.schedules.delete(scheduleId, [callback])](#deleteJobSchedule)
+
+31. [netField.deployments.jobs.schedules.get(scheduleId, [callback])](#getJobSchedule)
+
+32. [netField.deployments.jobs.schedules.getAll(organisationId, [page], [limit], [sortBy], [sortOrder], [callback])](#getAllJobSchedules)
 
 ## Resource Usage
 
@@ -57,7 +78,12 @@
 
 ``` javascript
 /** 
- * @param {object} params
+ * @param {{organisationId: string,
+ * name: string,
+ * containers: Array<{containerId: string, processorArchitecture: string, directMethods: Array<object>}>
+ * os: object,
+ * routes: Array<{name: string, source: string, condition: string, target: string}>
+ * type: string}} params
  * @param {function} callback optional
  */
 netField.deployments.jobs.create(params, [callback])
@@ -70,7 +96,10 @@ netField.deployments.jobs.create(params, [callback])
 ``` javascript
 /** 
  * @param {string} jobId
- * @param {object} params
+ * @param {{name: string,
+ * containers: Array<{containerId: string, processorArchitecture: string, directMethods: Array<object>}>
+ * routes: Array<{name: string, source: string, condition: string, target: string}>
+ * os: object }} params
  * @param {function} callback optional
  */
 netField.deployments.jobs.update(jobId, params, [callback])
@@ -107,10 +136,10 @@ netField.deployments.jobs.get(jobId, [callback])
 ``` javascript
 /** 
  * @param {number} organisationId
- * @param {number} page
- * @param {number} limit
- * @param {string} sortBy
- * @param {string} sortOrder
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
  * @param {function} callback optional
  */
 netField.deployments.jobs.getAll(organisationId, page, limit, sortBy, sortOrder, [callback])
@@ -124,7 +153,16 @@ netField.deployments.jobs.getAll(organisationId, page, limit, sortBy, sortOrder,
 /**
  * @param {string} jobId
  * @param {string} containerId
- * @param {object} params
+ * @param {{version: string,
+ * restartPolicy: string,
+ * desiredStatus: string,
+ * containerCreateOptions: object,
+ * containerTwinDesiredOptions: object,
+ * environmentVariables: Array<object>
+ * startupOrder: number, 
+ * useProxySettings: boolean,
+ * processorArchitecture: string,
+ * directMethods: Array<object>}} params
  * @param {function} callback optional
  */
 netField.deployments.jobs.containers.add(jobId, containerId, params, [callback])
@@ -138,7 +176,16 @@ netField.deployments.jobs.containers.add(jobId, containerId, params, [callback])
 /**
  * @param {string} jobId
  * @param {string} containerId
- * @param {object} params
+ * @param {{version: string,
+ * restartPolicy: string,
+ * desiredStatus: string,
+ * containerCreateOptions: object,
+ * containerTwinDesiredOptions: object,
+ * environmentVariables: Array<object>
+ * startupOrder: number, 
+ * useProxySettings: boolean,
+ * processorArchitecture: string,
+ * directMethods: Array<object>}} params
  * @param {function} callback optional
  */
 netField.deployments.jobs.containers.update(jobId, containerId, params, [callback])
@@ -164,10 +211,10 @@ netField.deployments.jobs.containers.delete(jobId, containerId, [callback])
 ``` javascript
 /**
  * @param {string} jobId
- * @param {number} page
- * @param {number} limit
- * @param {string} sortBy
- * @param {string} sortOrder
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
  * @param {function} callback optional
  */
 netField.deployments.jobs.containers.getAll(jobId, page, limit, sortBy, sortOrder, [callback])
@@ -193,8 +240,7 @@ netField.deployments.jobs.containers.get(jobId, containerId, [callback])
 ``` javascript
 /**
  * @param {string} jobId
- * @param {string} routeId
- * @param {object} params
+ * @param {{name: string, source: string, condition: string, target: string}} params 
  * @param {function} callback optional
  */
 netField.deployments.jobs.routes.add(jobId, params, [callback])
@@ -208,7 +254,7 @@ netField.deployments.jobs.routes.add(jobId, params, [callback])
 /**
  * @param {string} jobId
  * @param {string} routeId
- * @param {object} params
+ * @param {{name: string, source: string, condition: string, target: string}} params 
  * @param {function} callback optional
  */
 netField.deployments.jobs.routes.update(jobId, routeId, params, [callback])
@@ -234,10 +280,10 @@ netField.deployments.jobs.routes.delete(jobId, routeId, [callback])
 ``` javascript
 /**
  * @param {string} jobId
- * @param {number} page
- * @param {number} limit
- * @param {string} sortBy
- * @param {string} sortOrder
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
  * @param {function} callback optional
  */
 netField.deployments.jobs.routes.getAll(jobId, page, limit, sortBy, sortOrder, [callback])
@@ -264,13 +310,11 @@ netField.deployments.jobs.routes.get(jobId, routeId, [callback])
 /**
  * @param {string} jobId
  * @param {string} filterId 
- * @param {object} params
+ * @param {{excludedDevices: Array<string>}} params
  * @param {function} callback optional
  */
 netField.deployments.jobs.execute(jobId, filterId, params, [callback])
 ```
-
-
 
 ### addMethodToJobContainer
 
@@ -280,7 +324,7 @@ netField.deployments.jobs.execute(jobId, filterId, params, [callback])
 /**
  * @param {string} jobId
  * @param {string} containerId
- * @param {object} params
+* @param {{methodName: string, methodPayload: object}} params 
  * @param {function} callback optional
  */
 netField.deployments.jobs.containers.methods.add(jobId, containerId, params, [callback])
@@ -295,7 +339,7 @@ netField.deployments.jobs.containers.methods.add(jobId, containerId, params, [ca
  * @param {string} jobId
  * @param {string} containerId
  * @param {string} methodId
- * @param {object} params
+* @param {{methodName: string, methodPayload: object}} params 
  * @param {function} callback optional
  */
 netField.deployments.jobs.containers.methods.update(jobId, containerId, methodId, params, [callback])
@@ -323,10 +367,10 @@ netField.deployments.jobs.containers.methods.delete(jobId, containerId, methodId
 /**
  * @param {string} jobId
  * @param {string} containerId
- * @param {number} page
- * @param {number} limit
- * @param {string} sortBy
- * @param {string} sortOrder
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
  * @param {function} callback optional
  */
 netField.deployments.jobs.containers.methods.getAll(jobId, containerId, page, limit, sortBy, sortOrder, [callback])
@@ -344,4 +388,169 @@ netField.deployments.jobs.containers.methods.getAll(jobId, containerId, page, li
  * @param {function} callback optional
  */
 netField.deployments.jobs.containers.methods.get(jobId, containerId, methodId, [callback])
+```
+
+### addOsToJob
+
+    Add (update if exist) single os to a deployment job
+
+``` javascript
+/**
+ * @param {string} jobId 
+ * @param {{platform: string, edgeosId: string}} params
+ * @param {function} callback optional
+ */
+netField.deployments.jobs.os.add(jobId, params, [callback])
+```
+
+### deleteOsInJob
+
+    Delete single os in a deployment job by platform
+
+``` javascript
+/**
+ * @param {string} jobId
+ * @param {string} platform
+ * @param {function} callback optional
+ */
+netField.deployments.jobs.os.delete(jobId, platform, [callback])
+```
+
+### getAllOsInJob
+
+    Get a list of all os in a deployment job
+
+``` javascript
+/**
+ * @param {string} jobId
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
+ * @param {function} callback optional
+ */
+netField.deployments.jobs.os.getAll(jobId, page, limit, sortBy, sortOrder, [callback])
+```
+
+### getSingleOsInJob
+
+    Get single route in a deployment job by platform
+
+``` javascript
+/**
+ * @param {string} jobId
+ * @param {string} platform
+ * @param {function} callback optional
+ */
+netField.deployments.jobs.routes.get(jobId, platform, [callback])
+```
+
+### executeJobByGroup
+
+    Execute deployment job by device group
+
+``` javascript
+/**
+ * @param {string} jobId
+ * @param {number} groupId 
+ * @param {{excludedDevices: Array<string>}} params
+ * @param {function} callback optional
+ */
+netField.deployments.jobs.executeByGroup(jobId, groupId, params, [callback])
+```
+
+### executeJobCustomSelect
+
+    Execute deployment job with custom selection of devices
+
+``` javascript
+/**
+ * @param {string} jobId
+ * @param {{deviceIds: Array<string>}} params
+ * @param {function} callback optional
+ */
+netField.deployments.jobs.executeCustomSelect(jobId, params, [callback])
+```
+
+### createJobSchedule
+
+    Create a schedule of deployment job execution
+
+``` javascript
+/** 
+ * @param {{organisationId: number,
+ * jobId: string,
+ * targetType: string,
+ * targetId: string | number,
+ * deviceIds: Array<string>,
+ * excludedDevices: Array<string>,
+ * scheduleType: string, 
+ * startTime: Date,
+ * title: string,
+ * description: string}} params
+ * @param {function} callback optional
+ */
+netField.deployments.jobs.schedules.create(params, [callback])
+```
+
+### updateJobSchedule
+
+    Update a schedule of deployment job execution
+
+``` javascript
+/** 
+ * @param {string} scheduleId
+ * @param {{organisationId: number,
+ * jobId: string,
+ * targetType: string,
+ * targetId: string | number,
+ * deviceIds: Array<string>,
+ * excludedDevices: Array<string>,
+ * scheduleType: string, 
+ * startTime: Date,
+ * title: string,
+ * description: string}} params
+ * @param {function} callback optional
+ */
+netField.deployments.jobs.schedules.update(scheduleId, params, [callback])
+```
+
+### deleteJobSchedule
+
+    Delete a schedule of deployment job execution
+
+``` javascript
+/** 
+ * @param {string} scheduleId
+ * @param {function} callback optional
+ */
+netField.deployments.jobs.schedules.delete(scheduleId, [callback])
+```
+
+### getJobSchedule
+
+    Get a schedule of deployment job execution by id
+
+``` javascript
+/** 
+ * @param {string} scheduleId
+ * @param {function} callback optional
+ */
+netField.deployments.jobs.schedules.get(scheduleId, [callback])
+```
+
+### getAllJobSchedules
+
+    Get a list of all deployment job schedules
+
+``` javascript
+/** 
+ * @param {number} organisationId
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
+ * @param {function} callback optional
+ */
+netField.deployments.jobs.schedules.getAll(organisationId, page, limit, sortBy, sortOrder, [callback])
 ```

@@ -5,21 +5,19 @@
 
 ## Available Resources
 
-1. [netField.containers.getAll([page, limit, sortBy, sortOrder, includeDisabled, callback])](#getAll)
+1. [netField.containers.getAll([page], [limit], [sortBy], [sortOrder], [includeDisabled], [category], [organisationName], [purchased], [callback])](#getAll)
 
 2. [netField.containers.get(containerId, [callback])](#get)
 
 3. [netField.containers.create(params, [options], [callback])](#create)
 
-4. [netField.containers.update(params, [options], [callback])](#update)
+4. [netField.containers.update(containerId, params, [options], [callback])](#update)
 
 5. [netField.containers.delete(containerId, [deleteContainerReferences], [callback])](#delete)
 
-6. [netField.containers.share(containerId, organisationIds, [callback])](#share)
+6. [netField.containers.disable(containerId, params, [callback])](#disable)
 
-7. [netField.containers.unshare(containerId, organisationId, [callback])](#unshare)
-
-8. [netField.containers.disable(containerId, params, [callback])](#disable)
+7. [netField.containers.envVariables.getAll(containerId, installedContainerId, [callback])](#getAllEnv)
 
 ## Resource Usage
 
@@ -30,10 +28,17 @@
 ```javascript
 /**
  * Get containers from the appstore
- * @param {any} options optional
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
+ * @param {boolean} includeDisabled optional
+ * @param {Array<string>} category optional
+ * @param {Array<string>} organisationName optional
+ * @param {boolean} purchased optional
  * @param {function} callback optional
 */
-netField.containers.getAll([options], [callback])
+netField.containers.getAll(page, limit, sortBy, sortOrder, includeDisabled, category, organisationName, purchased, [callback])
 ```
 
 ### get
@@ -54,7 +59,23 @@ netField.containers.get(containerId, [callback])
 
 ```javascript
 /**
- * @param {any} params
+ * @param {{organisationId: string,
+ * displayName : string,
+ * containerName : string,
+ * containerAccess: string,
+ * image: file,
+ * icon: string,
+ * type: string,
+ * restartPolicy: string,
+ * desiredStatus: string,
+ * registryType: string,
+ * credentials: object,
+ * category: string,
+ * settingsPageId: string,
+ * shortDescription: string,
+ * description: string,
+ * links: Array,
+ * versions: Array}} params
  * @param {any} options optional
  * @param {function} callback optional
 */
@@ -67,11 +88,27 @@ netField.containers.create(params, [options], [callback])
 
 ```javascript
 /**
- * @param {any} params
+ * @param {string} containerId
+ * @param {{organisationId: string,
+ * displayName : string,
+ * containerName : string,
+ * containerAccess: string,
+ * image: file,
+ * icon: string,
+ * type: string,
+ * restartPolicy: string,
+ * desiredStatus: string,
+ * registryType: string,
+ * credentials: object,
+ * category: string,
+ * settingsPageId: string,
+ * shortDescription: string,
+ * description: string,
+ * links: Array }} params
  * @param {any} options optional
  * @param {function} callback optional
 */
-netField.containers.update(params, [options], [callback])
+netField.containers.update(containerId, params, [options], [callback])
 ```
 
 ### delete
@@ -87,37 +124,26 @@ netField.containers.update(params, [options], [callback])
 netField.containers.delete(containerId, [deleteContainerReferences], [callback])
 ```
 
-### share
-
-    Share container with different organisations
+### disable
 
 ```javascript
 /**
  * @param {string} containerId
- * @param {Array<number>} organisationIds
- * @param {function} callback optional
-*/
-netField.containers.share(containerId, organisationIds, [callback])
-```
-
-### unshare
-
-    Unshare container with organisation
-
-```javascript
-/**
- * @param {string} containerId
- * @param {number} organisationId
- * @param {function} callback optional
-*/
-netField.containers.unshare(containerId, organisationId, [callback])
-```
-
-```javascript
-/**
- * @param {string} containerId
- * @param {object} params
+ * @param {{isDisabled: boolean}} params
  * @param {function} callback optional
 */
 netField.containers.disable(containerId, params, [callback])
+```
+
+### getAllEnv
+
+    Get all container environment variable suggestions
+
+```javascript
+/**
+ * @param {string} containerId
+ * @param {string} installedContainerId optional
+ * @param {function} callback optional
+*/
+netField.containers.envVariables.getAll(containerId, installedContainerId, [callback])
 ```

@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -11,7 +11,14 @@ var validate = require('../../utils/validate');
  * Create dashboard panel series
  * @param {string} dashboardId
  * @param {string} panelId
- * @param {object} params
+ * @param {{deviceId: string,
+ * topic: string,
+ * columns: string,
+ * rows: string,
+ * visualisation: object,
+ * customDataStructures: Array<{resource: string, resourcePathExpression: string, type: string}>,
+ * containerName: string
+ * }} params
  * @param {function} callback optional
  */
 module.exports = function (dashboardId, panelId, params, callback) {

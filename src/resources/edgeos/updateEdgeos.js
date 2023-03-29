@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -11,7 +11,7 @@ var checkers = require('../../utils/checkers');
 /**
  * Update a EdgeOS
  * @param {string} edgeosId
- * @param {object} formData
+ * @param {{version: string, name: string, platform: string, type: string, notes: string, links: Array<object>}} formData
  * @param {function} callback optional
  */
 module.exports = function (edgeosId, formData, options, callback) {

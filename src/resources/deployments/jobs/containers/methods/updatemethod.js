@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -12,7 +12,7 @@ var validate = require('../../../../../utils/validate');
  * @param {string} jobId
  * @param {string} containerId
  * @param {string} methodId
- * @param {object} params 
+* @param {{methodName: string, methodPayload: object}} params 
  * @param {function} callback optional
  */
 module.exports = function (jobId, containerId, methodId, params, callback) {

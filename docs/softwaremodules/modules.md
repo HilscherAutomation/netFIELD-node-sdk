@@ -10,6 +10,8 @@
 
 2. [netField.softwaremodules.modules.getmodule(softwareModuleId, [callback])](#getsoftwaremodule)
 
+3. [netField.softwaremodules.modules.delete(softwareModuleId, [callback])](#deletesoftwaremodule)
+
 ## Resource Usage
 
 ### createsoftwaremodule
@@ -18,7 +20,7 @@
 
 ``` javascript
 /**
- * @param {Array<object>} params
+ * @param {Array<{vendor: string, name: string, description: string, type: string, version: string}>} params
  * @param {function} callback optional
  */
 netField.softwaremodules.modules.create(params, [callback])
@@ -31,8 +33,18 @@ netField.softwaremodules.modules.create(params, [callback])
 ``` javascript
 /**
  * @param {number} softwareModuleId
- * @param {number} artifactId
  * @param {function} callback optional
  */
-netField.softwaremodules.modules.getmodule(softwareModuleId, artifactId[callback])
+netField.softwaremodules.modules.getmodule(softwareModuleId, [callback])
+```
+### deletesoftwaremodule
+
+    Delete a single software module by id
+
+``` javascript
+/**
+ * @param {number} softwareModuleId
+ * @param {function} callback optional
+ */
+netField.softwaremodules.modules.delete(softwareModuleId, [callback])
 ```

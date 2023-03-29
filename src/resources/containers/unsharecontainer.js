@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -8,16 +8,14 @@ const client = require('../../client');
 const validate = require('../../utils/validate');
 
 /**
- * Unshare container from organisation
- * @param {string} containerId
- * @param {number} organisationId
+ * Unshare container from organisation 
+ * @param {number} sharingId
  * @param {function} callback optional
  */
-module.exports = function (containerId, organisationId, callback) {
+module.exports = function (sharingId, callback) {
     try {
-        validate.validateString(containerId);
-        validate.validateNumber(organisationId);
-        const path = '/containers/' + containerId + '/share/' + organisationId ;
+        validate.validateNumber(sharingId);
+        const path = '/containers/share/' + sharingId;
         return client.delete('auth', path, {}, callback);
     } catch (e) {
         if (callback) {

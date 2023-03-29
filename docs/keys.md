@@ -9,15 +9,19 @@
 
 2. [netField.keys.delete(keyId, [callback])](#deletekey)
 
-3. [netField.keys.getkeys(organisationId, page, limit, sortBy, sortOrder, [callback])](#getkeys)
+3. [netField.keys.getAll(organisationId, [page], [limit], [sortBy], [sortOrder], [callback])](#getkeys)
 
-4. [netField.keys.getkey(keyId, [callback])](#getkey)
+4. [netField.keys.get(keyId, [callback])](#getkey)
 
-5. [netField.keys.updatekey(keyId, params, [callback])](#updatekey)
+5. [netField.keys.update(keyId, params, [callback])](#updatekey)
 
-6. [netField.keys.getkeypermissions([callback])](#getkeypermissions)
+6. [netField.keys.getpermissions([callback])](#getkeypermissions)
 
-7. [netField.keys.createsensoredgekey([callback])](#createsensoredgekey)
+7. [netField.keys.createsensoredgekey(params, [callback])](#createsensoredgekey)
+
+8. [netField.keys.getConnectionInfo([callback])](#getKeyConnectionInfo)
+
+9. [netField.keys.getConnectionDevices([page], [limit], [sortBy], [sortOrder], [deviceIds], [callback])](#getKeyConnectionDevices)
 
 ## Resource Usage
 
@@ -27,7 +31,11 @@
 
 ```javascript
 /**
- * @param {object} params
+ * @param {{organisationId: number,
+ * name: string,
+ * type: string,
+ * resources: Array<{resource: string, permissions: Array<string>}>,
+ * expiresAt: string}} params
  * @param {function} callback optional
 */
 netField.keys.create(params, [callback])
@@ -51,14 +59,14 @@ netField.keys.delete(keyId, [callback])
 
 ```javascript
 /**
- * @param {organisationId} number
- * @param {number} page
- * @param {number} limit
- * @param {string} sortBy
- * @param {string} sortOrder
+ * @param {number} organisationId
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
  * @param {function} callback optional
 */
-netField.keys.getkeys(organisationId, page, limit, sortBy, sortOrder, [callback])
+netField.keys.getAll(organisationId, page, limit, sortBy, sortOrder, [callback])
 ```
 
 ### getkey
@@ -70,7 +78,7 @@ netField.keys.getkeys(organisationId, page, limit, sortBy, sortOrder, [callback]
  * @param {keyId} string
  * @param {function} callback optional
 */
-netField.keys.getkey(keyId, [callback])
+netField.keys.get(keyId, [callback])
 ```
 
 ### updatekey
@@ -79,11 +87,14 @@ netField.keys.getkey(keyId, [callback])
 
 ```javascript
 /**
- * @param {keyId} string
- * @param {object} params
+ * @param {sting} keyId
+ * @param {{organisationId: number,
+ * name: string,
+ * type: string,
+ * resources: Array<{resource: string, permissions: Array<string>}> }} params
  * @param {function} callback optional
 */
-netField.keys.updatekey(keyId, params, [callback])
+netField.keys.update(keyId, params, [callback])
 ```
 
 ### getkeypermissions
@@ -94,7 +105,7 @@ netField.keys.updatekey(keyId, params, [callback])
 /**
  * @param {function} callback optional
 */
-netField.keys.getkeypermissions([callback])
+netField.keys.getpermissions([callback])
 ```
 
 ### createsensoredgekey
@@ -103,8 +114,37 @@ netField.keys.getkeypermissions([callback])
 
 ```javascript
 /**
- * @param {object} params
+ * @param {{organisationId: number, name: string}} params
  * @param {function} callback optional
 */
-netField.keys.createsensoredgekey(params, [callback])
+netField.keys.createSensorEdgeKey(params, [callback])
+```
+
+### getKeyConnectionInfo
+
+    Get connection information for Data Service using API key.
+    authStrategy: 'key'
+
+```javascript
+/**
+ * @param {function} callback optional
+*/
+netField.keys.getConnectionInfo([callback])
+```
+
+### getKeyConnectionDevices
+
+    Get devices in Data Service that are accessible using API key.
+    authStrategy: 'key'
+
+```javascript
+/**
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
+ * @param {Array<string>} deviceIds optional
+ * @param {function} callback optional
+*/
+netField.keys.getConnectionDevices([page], [limit], [sortBy], [sortOrder], [deviceIds], [callback])
 ```

@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -10,7 +10,7 @@ var validate = require('../../utils/validate');
 /**
  * Update Devices/Containers Group by organisationId
  * @param {number} groupId
- * @param {object} params
+ * @param {{name: string, parentId: number}} params
  * @param {function} callback optional
  */
 module.exports = function (groupId, params, callback) {

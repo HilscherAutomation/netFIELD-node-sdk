@@ -12,7 +12,7 @@
 
 3. [netField.tenants.get(tenantId, [callback])](#getTenant)
 
-4. [netField.tenants.getAll(page, limit, sortBy, sortOrder, [callback])](#getTenants)
+4. [netField.tenants.getAll([page], [limit], [sortBy], [sortOrder], [callback])](#getTenants)
 
 5. [netField.tenants.delete(tenantId, [callback])](#deleteTenant)
 
@@ -22,7 +22,25 @@
 
  ```javascript
 /**
- * @param {object} params
+ * @param {name: string,
+ * admin: object,
+ * phoneNumber: string,
+ * street: string,
+ * houseNumber: string,
+ * addressSupplement: string,
+ * zipCode: string,
+ * city: string,
+ * state: string,
+ * country: string,
+ * notes: string,
+ * persistStreamingData: boolean,
+ * childOrganisationsLimit: number,
+ * usersLimit: number,
+ * devicesLimit: number,
+ * keysLimit: number, 
+ * keysRequestMonthlyLimit: number,
+ * dataStorageLimit: number, 
+ * wsConnectionLimit: number} params
  * @param {function} callback optional
 */
 netField.tenants.create(params, [callback])
@@ -35,7 +53,14 @@ netField.tenants.create(params, [callback])
 ```javascript
 /**
  * @param {number} tenantId
- * @param {object} params
+ * @param {status: string,
+ * childOrganisationsLimit: number,
+ * usersLimit: number,
+ * devicesLimit: number,
+ * keysLimit: number, 
+ * keysRequestMonthlyLimit: number,
+ * dataStorageLimit: number, 
+ * wsConnectionLimit: number} params
  * @param {function} callback optional
 */
 netField.tenants.update(tenantId, params, [callback])
@@ -59,10 +84,13 @@ netField.tenants.get(tenantId, [callback])
 
 ```javascript
 /**
- * @param {any} options optional
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional (asc, desc)
  * @param {function} callback optional
 */
-netField.tenants.getAll([options], [callback])
+netField.tenants.getAll(page, limit, sortBy, sortOrder, [callback])
 ```
 
 ### deleteTenant

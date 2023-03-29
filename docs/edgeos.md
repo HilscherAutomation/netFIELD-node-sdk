@@ -5,7 +5,7 @@
 
 ## Available Resources
 
-1. [netField.edgeos.getEdgeos(page, limit, sortBy, sortOrder, [callback])](#getEdgeos)
+1. [netField.edgeos.getEdgeos([page], [limit], [sortBy], [sortOrder], [platform], [platformKey], [name], [version], [callback])](#getEdgeos)
 
 2. [netField.edgeos.get(edgeosId, [callback])](#getSingleEdgeos)
 
@@ -15,6 +15,8 @@
 
 5. [netField.edgeos.updategetEdgeos(edgeosId, formData, [callback])](#updateEdgeos)
 
+6. [netField.edgeos.getPlatforms([callback])](#getAvailablePlatforms)
+
 ## Resource Usage
 
 ### getEdgeos
@@ -23,11 +25,17 @@
 
 ```javascript
 /**
- * @param {any} params 
- * @param {any} options optional
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional (asc, desc)
+ * @param {string} platform optional
+ * @param {number} platformKey optional
+ * @param {string} name optional
+ * @param {string} version optional
  * @param {function} callback optional
 */
-netField.edgeos.getAll(params, [options], [callback])
+netField.edgeos.getAll(page, limit, sortBy, sortOrder, platform, platformKey, name, version, [callback])
 ```
 
 ### getSingleEdgeos
@@ -71,7 +79,7 @@ netField.edgeos.delete(edgeosId, [callback])
 
 ```javascript
 /**
- * @param {object} formData
+ * @param {{version: string, name: string, platform: string, type: string, file: file, notes: string, links: Array<object>}} formData
  * @param {function} callback optional
 */
 netField.edgeos.create(formData, [callback])
@@ -84,7 +92,7 @@ netField.edgeos.create(formData, [callback])
 ```javascript
 /**
  * @param {string} edgeosId
- * @param {object} formData
+ * @param {{version: string, name: string, platform: string, type: string, notes: string, links: Array<object>}} formData
  * @param {function} callback optional
 */
 netField.edgeos.update(edgeosId, formData, [callback]);

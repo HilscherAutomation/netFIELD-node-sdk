@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -10,7 +10,7 @@ var validate = require('../../utils/validate');
 /**
  * Create Device custom fields
  * @param {string} deviceId
- * @param {object} params
+ * @param {{fieldId: string, fieldValue: boolean}} params
  * @param {function} callback optional
  */
 module.exports = function (deviceId, params, callback) {

@@ -8,7 +8,7 @@
 
 1. [netField.deployments.filters.create(params, [callback])](#createfilter)
 
-2. [netField.deployments.filters.getAll(organisationId, page, limit, sortBy, sortOrder, [callback])](#getfilters)
+2. [netField.deployments.filters.getAll(organisationId, [page], [limit], [sortBy], [sortOrder], [callback])](#getfilters)
 
 3. [netField.deployments.filters.update(filterId, params, [callback])](#updatefilter)
 
@@ -16,7 +16,7 @@
 
 5. [netField.deployments.filters.get(filterId, [callback])](#getfilterbyId)
 
-6. [netField.deployments.filters.execute(params, page, limit, sortBy, sortOrder, [callback])](#execute)
+6. [netField.deployments.filters.execute(params, [page], [limit], [sortBy], [sortOrder], [searchValue], [callback])](#execute)
 
 ## Resource Usage
 
@@ -26,7 +26,7 @@
 
 ``` javascript
 /** 
- * @param {object} params
+ * @param {{organisationId: number, name: string, description: string, filterCondition: object}} params
  * @param {function} callback optional
  */
 netField.deployments.filters.create(params, [callback])
@@ -39,10 +39,10 @@ netField.deployments.filters.create(params, [callback])
 ``` javascript
 /**
  * @param {number} organisationId
- * @param {number} page
- * @param {number} limit
- * @param {string} sortBy
- * @param {string} sortOrder
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
  * @param {function} callback optional
  */
 netField.deployments.filters.getAll(organisationId, page, limit, sortBy, sortOrder, [callback])
@@ -55,7 +55,7 @@ netField.deployments.filters.getAll(organisationId, page, limit, sortBy, sortOrd
 ``` javascript
 /**
  * @param {string} filterId
- * @param {object} params
+ * @param {{ name: string, description: string, filterCondition: object}} params
  * @param {function} callback optional
  */
 netField.deployments.filters.update(filterId, params, [callback])
@@ -90,13 +90,14 @@ netField.deployments.filters.get(filterId, [callback])
     Execute deployment filter by filterId or filter condition 
 
 ``` javascript
-/** 
- * @param {object} params
- * @param {number} page
- * @param {number} limit
- * @param {string} sortBy
- * @param {string} sortOrder asc, desc
+/**
+ * @param {{type: string, filterId: string, filterCondition: object}} params
+ * @param {number} page optional
+ * @param {number} limit optional
+ * @param {string} sortBy optional
+ * @param {string} sortOrder optional
+ * @param {string} searchValue optional
  * @param {function} callback optional
  */
-netField.deployments.filters.execute(params, page, limit, sortBy, sortOrder, callback)
+netField.deployments.filters.execute(params, page, limit, sortBy, sortOrder, searchValue, callback)
 ```

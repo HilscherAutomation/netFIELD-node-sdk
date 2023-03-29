@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
@@ -9,8 +9,8 @@ var validate = require('../../utils/validate');
 
 /**
  * Create Key for SensorEdge tenant
+ * @param {{organisationId: number, name: string}} params
  * @param {function} callback optional
- * @param {object} params
  */
 
 module.exports = function (params, callback) {

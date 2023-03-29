@@ -1,10 +1,10 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
  **********************************************************************/
 "use strict";
 
-var querystring = require("querystring");
+var querystring = require("query-string");
 var client = require("../../../client");
 var validate = require("../../../utils/validate");
 var checkers = require("../../../utils/checkers");
@@ -16,9 +16,12 @@ var checkers = require("../../../utils/checkers");
  * @param {number} limit
  * @param {string} sortBy
  * @param {string} sortOrder
+ * @param {string} settingsPageId optional
+ * @param {Array<string>} category optional
+ * @param {Array<string>} status optional
  * @param {function} callback optional
  */
-module.exports = function(deviceId, page, limit, sortBy, sortOrder, settingsPageId, callback) {
+module.exports = function(deviceId, page, limit, sortBy, sortOrder, settingsPageId, category, status, callback) {
   for (let i = 0; i < arguments.length; i++) {
     if (checkers.isFunction(arguments[i])) {
       callback = arguments[i];
@@ -49,7 +52,28 @@ module.exports = function(deviceId, page, limit, sortBy, sortOrder, settingsPage
       query.settingsPageId = settingsPageId;
       validate.validateString(settingsPageId);
     }
-
+    if (category !== undefined && category != null) {
+      if (Array.isArray(category)) {
+        validate.validateArray(category);
+        for (let i = 0; i < category.length; i += 1) {
+          validate.validateString(category[i]);
+        }
+      } else {
+        validate.validateString(category);
+      }
+      query.category = category;
+    }
+    if (status !== undefined && status != null) {
+      if (Array.isArray(status)) {
+        validate.validateArray(status);
+        for (let i = 0; i < status.length; i += 1) {
+          validate.validateString(status[i]);
+        }
+      } else {
+        validate.validateString(status);
+      }
+      query.status = status;
+    }
     validate.validateString(deviceId);
     var path = "/devices/" + deviceId + "/containers/installed?" + querystring.stringify(query);
     return client.get("auth", path, callback);

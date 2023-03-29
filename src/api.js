@@ -1,7 +1,7 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
-**********************************************************************/
+ **********************************************************************/
 'use strict';
 
 var jwt = require('jsonwebtoken');
@@ -10,6 +10,7 @@ var utils = require('./utils/utils');
 var errors = require('./utils/errors');
 var client = require('./client');
 var validate = require('./utils/validate');
+var querystring = require('query-string');
 
 /************************
  *   Setter and Getter  *
@@ -21,17 +22,36 @@ var validate = require('./utils/validate');
  */
 var setUserToken = exports.setUserToken = function setUserToken(token) {
     try {
-      validate.validateString(token);
-      var decodedToken = jwt.decode(token);
-      setTokenExpiresAt(new Date(decodedToken.exp * 1000));
-      configuration.default_options.userToken = token;
-    } catch(e) {
-      var onSetUserTokenError = configuration.default_options.onSetUserTokenError;
-      if (onSetUserTokenError) {
-        onSetUserTokenError(e);
-      } else {
-        throw e;
-      }
+        validate.validateString(token);
+        var decodedToken = jwt.decode(token);
+        setTokenExpiresAt(new Date(decodedToken.exp * 1000));
+        configuration.default_options.userToken = token;
+    } catch (e) {
+        var onSetUserTokenError = configuration.default_options.onSetUserTokenError;
+        if (onSetUserTokenError) {
+            onSetUserTokenError(e);
+        } else {
+            throw e;
+        }
+    }
+}
+
+/**
+ * Sets the workspace token which is sent in the 'Authorization' header for public resources.
+ */
+var setUserWorkspaceToken = exports.setUserWorkspaceToken = function setUserWorkspaceToken(token) {
+    try {
+        validate.validateString(token);
+        var decodedToken = jwt.decode(token);
+        setWorkspaceTokenExpiresAt(new Date(decodedToken.exp * 1000));
+        configuration.default_options.userWorkspaceToken = token;
+    } catch (e) {
+        var onSetUserTokenError = configuration.default_options.userWorkspaceToken;
+        if (onSetUserTokenError) {
+            onSetUserTokenError(e);
+        } else {
+            throw e;
+        }
     }
 }
 
@@ -66,6 +86,14 @@ var removeUserRefreshToken = exports.removeUserRefreshToken = function removeUse
  */
 var setTokenExpiresAt = exports.setTokenExpiresAt = function setTokenExpiresAt(expiresAt) {
     configuration.default_options.tokenExpiresAt = expiresAt;
+}
+
+/**
+ * Sets the workspace tokenExpiresAt value
+ * @param {Date} expiresAt
+ */
+var setWorkspaceTokenExpiresAt = exports.setWorkspaceTokenExpiresAt = function setWorkspaceTokenExpiresAt(expiresAt) {
+    configuration.default_options.workspaceTokenExpiresAt = expiresAt;
 }
 
 /**
@@ -135,7 +163,7 @@ var isAuthenticated = exports.isAuthenticated = function isAuthenticated() {
 /**
  * Wrapper function for generateToken
  */
-var generateUserToken = exports.generateUserToken = function generateUserToken(email, password, stayLoggedIn, callback) {
+var generateUserToken = exports.generateUserToken = function generateUserToken(email, password, stayLoggedIn, language, callback) {
     validate.validateString(email);
     validate.validateString(password);
     var stayLoggedInVerified;
@@ -144,10 +172,57 @@ var generateUserToken = exports.generateUserToken = function generateUserToken(e
     } else {
         stayLoggedInVerified = stayLoggedIn;
     }
-    var params = { grantType: "password", email: email, password: password, stayLoggedIn: stayLoggedInVerified };
+    var params = { grantType: "password", email: email, password: password, stayLoggedIn: stayLoggedInVerified, language };
     if (callback) {
         generateToken(params, callback);
     } else return generateToken(params);
+}
+
+/**
+ * Wrapper function for generateWorkspaceUserToken
+ */
+var generateWorkspaceUserToken = exports.generateWorkspaceUserToken = function generateWorkspaceUserToken(workspaceToken, workspaceId, stayLoggedIn, language, callback) {
+    validate.validateNumber(workspaceId);
+    validate.validateString(workspaceToken);
+    var stayLoggedInVerified;
+    if (stayLoggedIn === undefined || stayLoggedIn === null) {
+        stayLoggedInVerified = undefined;
+    } else {
+        stayLoggedInVerified = stayLoggedIn;
+    }
+    var params = { grantType: "workspace", workspaceToken: workspaceToken, workspaceId: workspaceId, stayLoggedIn: stayLoggedInVerified, language };
+    if (callback) {
+        generateToken(params, callback);
+    } else return generateToken(params);
+}
+
+/**
+ * Wrapper function for generateWorkspaceUserToken by accessToken
+ */
+var generateWorkspaceTokenWithAccessToken = exports.generateWorkspaceTokenWithAccessToken = function generateWorkspaceTokenWithAccessToken(accessToken, language, callback) {
+    validate.validateString(accessToken);
+    if (language) {
+        validate.validateString(language);
+    }
+    var params = { grantType: "accessToken", accessToken: accessToken };
+    if (callback) {
+        generateWorkspaceToken(params, language, callback);
+    } else return generateWorkspaceToken(params, language);
+}
+
+/**
+ * Wrapper function for generateWorkspaceUserToken by email and password
+ */
+var generateWorkspaceTokenWithPassword = exports.generateWorkspaceTokenWithPassword = function generateWorkspaceTokenWithPassword(email, password, language, callback) {
+    validate.validateString(email);
+    validate.validateString(password);
+    if (language) {
+        validate.validateString(language);
+    }
+    var params = { grantType: "password", email: email, password: password };
+    if (callback) {
+        generateWorkspaceToken(params, language, callback);
+    } else return generateWorkspaceToken(params, language);
 }
 
 /**
@@ -179,7 +254,7 @@ var revokeUserToken = exports.revokeUserToken = function revokeUserToken(callbac
         }
         var path = '/auth/revoke';
         if (callback) {
-            client.post('auth', path, {}, function (error, data) {
+            client.post('auth', path, {}, function(error, data) {
                 removeUserToken();
                 removeUserRefreshToken();
                 removeTokenExpiresAt();
@@ -188,7 +263,7 @@ var revokeUserToken = exports.revokeUserToken = function revokeUserToken(callbac
         } else {
             return client
                 .post('auth', path, {})
-                .then(function (data) {
+                .then(function(data) {
                     removeUserToken();
                     removeUserRefreshToken();
                     removeTokenExpiresAt();
@@ -213,7 +288,7 @@ var generateToken = exports.generateToken = function generateToken(params, callb
         var onTokenRefresh = getConfiguration().onTokenRefresh;
 
         if (callback) {
-            client.post('public', path, params, function (error, data) {
+            client.post('public', path, params, function(error, data) {
                 if (!error) {
                     // The name "accessToken" is used ambiguously.
                     // The "accessToken" returned by the API is the token
@@ -231,7 +306,7 @@ var generateToken = exports.generateToken = function generateToken(params, callb
         } else {
             return client
                 .post('public', path, params)
-                .then(function (data) {
+                .then(function(data) {
                     setUserToken(data.accessToken);
                     setUserRefreshToken(data.refreshToken);
 
@@ -239,6 +314,42 @@ var generateToken = exports.generateToken = function generateToken(params, callb
                     if (onTokenRefresh) {
                         onTokenRefresh(data);
                     }
+                    return data;
+                });
+        }
+    } catch (e) {
+        if (callback) {
+            return callback(e, null);
+        }
+        return Promise.reject(e);
+    }
+}
+
+/**
+ * Calls the API to get a workspace token which is then saved in the config
+ * Uses provided user credentials
+ */
+var generateWorkspaceToken = exports.generateWorkspaceToken = function generateWorkspaceToken(params, language, callback) {
+    try {
+        const query = {};
+        if (language) {
+            query.language = language;
+        }
+        validate.validateObject(params);
+        var path = '/auth/workspaces?' + querystring.stringify(query);
+
+        if (callback) {
+            client.post('public', path, params, function(error, data) {
+                if (!error) {
+                    setUserWorkspaceToken(data.workspaceToken);
+                }
+                callback(error, data)
+            });
+        } else {
+            return client
+                .post('public', path, params)
+                .then(function(data) {
+                    setUserToken(data.workspaceToken);
                     return data;
                 });
         }
@@ -275,5 +386,3 @@ var refreshToken = exports.refreshToken = function refreshToken(callback) {
         return Promise.reject(e);
     }
 }
-
-

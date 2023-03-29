@@ -1,10 +1,10 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
 **********************************************************************/
 'use strict';
 
-var querystring = require('querystring');
+var querystring = require('query-string');
 var client = require('../../client');
 var validate = require('../../utils/validate');
 var checkers = require('../../utils/checkers');
@@ -17,9 +17,13 @@ var checkers = require('../../utils/checkers');
  * @param {number} limit
  * @param {string} sortBy
  * @param {string} sortOrder asc, desc
+ * @param {string} deviceType optional
+ * @param {Array<string>} firmwareVersion optional
+ * @param {Array<string>} statusColor optional
+ * @param {Array<string>} nestedStatus optional
  * @param {function} callback optional
  */
-module.exports = function (organisationId, page, limit, sortBy, sortOrder, deviceType, callback) {
+module.exports = function (organisationId, page, limit, sortBy, sortOrder, deviceType, firmwareVersion, statusColor, nestedStatus, callback) {
     if (checkers.isFunction(page)) {
         callback = page;
         page = null;
@@ -39,6 +43,18 @@ module.exports = function (organisationId, page, limit, sortBy, sortOrder, devic
     if (checkers.isFunction(deviceType)) {
         callback = deviceType;
         deviceType = null;
+    }
+    if (checkers.isFunction(firmwareVersion)) {
+        callback = firmwareVersion;
+        firmwareVersion = null;
+    }
+    if (checkers.isFunction(statusColor)) {
+        callback = statusColor;
+        statusColor = null;
+    }
+    if (checkers.isFunction(nestedStatus)) {
+        callback = nestedStatus;
+        nestedStatus = null;
     }
     try {
         const query = {};
@@ -61,6 +77,39 @@ module.exports = function (organisationId, page, limit, sortBy, sortOrder, devic
         if (deviceType) {
             query.deviceType = deviceType;
             validate.validateString(deviceType)
+        }
+        if (firmwareVersion !== undefined && firmwareVersion != null) {
+            if (Array.isArray(firmwareVersion)) {
+              validate.validateArray(firmwareVersion);
+              for (let i = 0; i < firmwareVersion.length; i += 1) {
+                validate.validateString(firmwareVersion[i]);
+              }
+            } else {
+              validate.validateString(firmwareVersion);
+            }
+            query.firmwareVersion = firmwareVersion;
+        }
+        if (statusColor !== undefined && statusColor != null) {
+            if (Array.isArray(statusColor)) {
+              validate.validateArray(statusColor);
+              for (let i = 0; i < statusColor.length; i += 1) {
+                validate.validateString(statusColor[i]);
+              }
+            } else {
+              validate.validateString(statusColor);
+            }
+            query.statusColor = statusColor;
+        }
+        if (nestedStatus !== undefined && nestedStatus != null) {
+            if (Array.isArray(nestedStatus)) {
+                validate.validateArray(nestedStatus);
+                for (let i = 0; i < nestedStatus.length; i += 1) {
+                    validate.validateString(nestedStatus[i]);
+                }
+            } else {
+                validate.validateString(nestedStatus);
+            }
+            query.nestedStatus = nestedStatus;
         }
         validate.validateNumber(organisationId);
         query.organisationId = organisationId;

@@ -1,7 +1,7 @@
 /**********************************************************************
- * Copyright (c) 2021 Hilscher Gesellschaft fuer Systemautomation mbH
+ * Copyright (c) 2022 Hilscher Gesellschaft fuer Systemautomation mbH
  * See LICENSE file
-**********************************************************************/
+ **********************************************************************/
 'use strict';
 
 var client = require('../../client');
@@ -11,12 +11,12 @@ var checkers = require('../../utils/checkers');
 /**
  * Disable/enable container
  * @param {string} containerId
- * @param {object} params
+ * @param {{isDisabled: boolean}} params
  * @param {function} callback optional
  */
-module.exports = function (containerId, params, options, callback) {
+module.exports = function(containerId, params, options, callback) {
     try {
-        if (checkers.isFunction(options)){
+        if (checkers.isFunction(options)) {
             callback = options;
             options = {};
         }
